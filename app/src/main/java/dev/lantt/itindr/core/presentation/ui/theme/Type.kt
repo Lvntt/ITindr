@@ -1,4 +1,4 @@
-package dev.lantt.itindr.presentation.ui.theme
+package dev.lantt.itindr.core.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

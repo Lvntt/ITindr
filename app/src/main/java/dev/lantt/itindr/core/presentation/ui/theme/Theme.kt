@@ -1,4 +1,4 @@
-package dev.lantt.itindr.presentation.ui.theme
+package dev.lantt.itindr.core.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

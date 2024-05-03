@@ -1,4 +1,4 @@
-package dev.lantt.itindr.presentation.ui.theme
+package dev.lantt.itindr.core.presentation.ui.theme
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
