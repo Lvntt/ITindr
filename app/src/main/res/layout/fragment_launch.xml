@@ -11,6 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:importantForAccessibility="no"
-        android:src="@drawable/app_logo_text" />
+        android:src="@drawable/app_logo_text_white" />
 
 </FrameLayout>

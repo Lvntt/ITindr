@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">ITindr</string>
+    <string name="appName">ITindr</string>
+
+    // Start Screen
+    <string name="startText">Ты найдешь того, кто\nпоревьюит твой код</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="logIn">Войти</string>
 </resources>
