@@ -12,4 +12,7 @@
     <string name="password">Пароль</string>
     <string name="repeatPassword">Повторите пароль</string>
     <string name="back">Назад</string>
+    
+    // Login Screen
+    <string name="authorization">Авторизация</string>
 </resources>

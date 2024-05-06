@@ -18,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/registrationTextView"
+        android:id="@+id/authorizationTextView"
         style="@style/type_b24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/padding_medium"
         android:layout_marginTop="40dp"
-        android:text="@string/registration"
+        android:text="@string/authorization"
         android:textColor="@color/primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appLogoImage" />
@@ -41,7 +41,7 @@
         app:cursorColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrationTextView">
+        app:layout_constraintTop_toBottomOf="@+id/authorizationTextView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -71,29 +71,8 @@
             style="@style/regular_text_input_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/repeatPasswordTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_medium"
-        android:background="@drawable/regular_text_field_background"
-        app:hintEnabled="false"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:cursorColor="@color/primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextInput">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/repeatPassword"
-            style="@style/regular_text_input_edit_text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/registerButton"
+        android:id="@+id/loginButton"
         style="@style/default_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
@@ -101,7 +80,7 @@
         android:layout_marginTop="@dimen/padding_xlarge"
         android:layout_marginBottom="@dimen/padding_medium"
         android:background="@drawable/primary_button_background"
-        android:text="@string/register"
+        android:text="@string/logIn"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
