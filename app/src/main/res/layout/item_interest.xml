@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/interestTitleTextView"
+        android:background="@drawable/interest_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:paddingHorizontal="@dimen/padding_small"
+        android:paddingVertical="3.5dp"
+        style="@style/type_b14"
+        android:text="Kotlin" />
+
+</FrameLayout>

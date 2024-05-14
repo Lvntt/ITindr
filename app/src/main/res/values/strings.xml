@@ -12,7 +12,15 @@
     <string name="password">Пароль</string>
     <string name="repeatPassword">Повторите пароль</string>
     <string name="back">Назад</string>
-    
+
     // Login Screen
     <string name="authorization">Авторизация</string>
+
+    // About Yourself Screen
+    <string name="tellAboutYourself">Расскажи о себе</string>
+    <string name="choosePhoto">Выбрать фото</string>
+    <string name="name">Имя</string>
+    <string name="aboutYourself">О себе</string>
+    <string name="specifyInterests">Укажи интересы</string>
+    <string name="save">Сохранить</string>
 </resources>
