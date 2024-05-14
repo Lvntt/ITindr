@@ -120,7 +120,7 @@
         android:layout_marginTop="@dimen/padding_medium"
         android:clipToPadding="false"
         android:paddingHorizontal="@dimen/padding_medium"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
         android:orientation="horizontal"
         tools:listitem="@layout/item_interest"
         app:layout_constraintEnd_toEndOf="parent"

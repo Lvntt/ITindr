@@ -21,9 +21,6 @@ class AboutYourselfFragment : Fragment() {
         val interestsRecyclerView = binding.interestsRecyclerView
         val interestsAdapter = InterestsAdapter(interests = TestInterests.values)
 
-//        layoutManager.flexDirection = FlexDirection.ROW
-//        layoutManager.justifyContent = JustifyContent.FLEX_START
-
         interestsRecyclerView.adapter = interestsAdapter
 
         return binding.root
