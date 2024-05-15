@@ -6,6 +6,12 @@
     <string name="register">Зарегистрироваться</string>
     <string name="logIn">Войти</string>
 
+    // Auth Errors
+    <string name="emptyField">Поле должно быть заполнено</string>
+    <string name="invalidEmail">Неверный формат E-mail</string>
+    <string name="passwordTooShort">Пароль должен быть не менее 8 символов</string>
+    <string name="passwordsMismatch">Пароли не совпадают</string>
+
     // Register Screen
     <string name="registration">Регистрация</string>
     <string name="email">E-mail</string>
