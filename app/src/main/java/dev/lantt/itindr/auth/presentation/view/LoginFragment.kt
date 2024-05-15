@@ -1,4 +1,4 @@
-package dev.lantt.itindr.login.presentation
+package dev.lantt.itindr.auth.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

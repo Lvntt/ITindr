@@ -50,6 +50,10 @@ dependencies {
     implementation(libs.cicerone)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.squareup.retrofit)
+    implementation(libs.gson)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
