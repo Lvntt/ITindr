@@ -2,6 +2,10 @@ package dev.lantt.itindr
 
 import android.app.Application
 import dev.lantt.itindr.di.coreModule
+import dev.lantt.itindr.di.dataModule
+import dev.lantt.itindr.di.domainModule
+import dev.lantt.itindr.di.networkModule
+import dev.lantt.itindr.di.presentationModule
 import org.koin.core.context.startKoin
 
 class ITindrApplication : Application() {
@@ -10,7 +14,11 @@ class ITindrApplication : Application() {
         super.onCreate()
         startKoin {
             modules(
-                coreModule()
+                coreModule(),
+                networkModule(),
+                dataModule(),
+                domainModule(),
+                presentationModule()
             )
         }
     }
