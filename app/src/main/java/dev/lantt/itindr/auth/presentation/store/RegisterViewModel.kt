@@ -45,10 +45,10 @@ class RegisterViewModel(
     }
 
     fun dispatch(intent: RegisterMviIntent) {
+        stateFlow.update {
+            registerReducer.reduce(stateFlow.value, intent)
+        }
         viewModelScope.launch(defaultDispatcher + exceptionHandler) {
-            stateFlow.update {
-                registerReducer.reduce(stateFlow.value, intent)
-            }
             registerMiddleware.resolve(stateFlow.value, intent)?.let {
                 dispatch(it)
             }

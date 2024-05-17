@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
 class RegisterReducer {
-    private val effectsFlow = MutableSharedFlow<RegisterMviEffect>()
+    private val effectsFlow = MutableSharedFlow<RegisterMviEffect>(extraBufferCapacity = 1)
     val effects = effectsFlow.asSharedFlow()
 
-    suspend fun reduce(state: RegisterMviState, intent: RegisterMviIntent): RegisterMviState {
+    fun reduce(state: RegisterMviState, intent: RegisterMviIntent): RegisterMviState {
         return when (intent) {
             is RegisterMviIntent.EmailChanged -> state.copy(email = intent.email)
             is RegisterMviIntent.PasswordChanged -> state.copy(password = intent.password)
@@ -37,7 +37,7 @@ class RegisterReducer {
         }
     }
 
-    private suspend fun sendEffect(effect: RegisterMviEffect) {
-        effectsFlow.emit(effect)
+    private fun sendEffect(effect: RegisterMviEffect) {
+        effectsFlow.tryEmit(effect)
     }
 }
