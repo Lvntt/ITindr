@@ -3,14 +3,15 @@ package dev.lantt.itindr.auth.presentation.store
 import dev.lantt.itindr.auth.presentation.state.RegisterMviEffect
 import dev.lantt.itindr.auth.presentation.state.RegisterMviIntent
 import dev.lantt.itindr.auth.presentation.state.RegisterMviState
+import dev.lantt.itindr.core.presentation.mvi.Reducer
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
-class RegisterReducer {
+class RegisterReducer : Reducer<RegisterMviState, RegisterMviIntent, RegisterMviEffect> {
     private val effectsFlow = MutableSharedFlow<RegisterMviEffect>(extraBufferCapacity = 1)
-    val effects = effectsFlow.asSharedFlow()
+    override val effects = effectsFlow.asSharedFlow()
 
-    fun reduce(state: RegisterMviState, intent: RegisterMviIntent): RegisterMviState {
+    override fun reduce(state: RegisterMviState, intent: RegisterMviIntent): RegisterMviState {
         return when (intent) {
             is RegisterMviIntent.EmailChanged -> state.copy(email = intent.email)
             is RegisterMviIntent.PasswordChanged -> state.copy(password = intent.password)

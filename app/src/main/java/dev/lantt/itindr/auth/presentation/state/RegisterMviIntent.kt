@@ -1,6 +1,8 @@
 package dev.lantt.itindr.auth.presentation.state
 
-sealed interface RegisterMviIntent {
+import dev.lantt.itindr.core.presentation.mvi.MviIntent
+
+sealed interface RegisterMviIntent : MviIntent {
 
     data class EmailChanged(val email: String) : RegisterMviIntent
     data class PasswordChanged(val password: String) : RegisterMviIntent

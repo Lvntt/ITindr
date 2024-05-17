@@ -1,5 +1,7 @@
 package dev.lantt.itindr.auth.presentation.state
 
+import dev.lantt.itindr.core.presentation.mvi.MviState
+
 data class RegisterMviState(
     val email: String = "",
     val emailErrorResId: Int? = null,
@@ -8,7 +10,7 @@ data class RegisterMviState(
     val repeatedPassword: String = "",
     val repeatedPasswordErrorResId: Int? = null,
     val registrationState: RegistrationState = RegistrationState.IDLE
-) {
+) : MviState {
     // TODO make another color for disabled button
     val isRegistrationAllowed: Boolean =
         emailErrorResId == null &&

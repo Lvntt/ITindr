@@ -6,28 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.github.terrakok.cicerone.Router
 import dev.lantt.itindr.auth.presentation.state.RegisterMviEffect
 import dev.lantt.itindr.auth.presentation.state.RegisterMviIntent
 import dev.lantt.itindr.auth.presentation.state.RegisterMviState
 import dev.lantt.itindr.auth.presentation.store.RegisterViewModel
+import dev.lantt.itindr.core.presentation.mvi.MviFragment
 import dev.lantt.itindr.core.presentation.navigation.Screens.AboutYourself
 import dev.lantt.itindr.databinding.FragmentRegisterBinding
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : MviFragment<RegisterMviState, RegisterMviIntent, RegisterMviEffect>() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: RegisterViewModel by viewModel()
     private val router: Router by inject()
+    override val store: RegisterViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,31 +31,21 @@ class RegisterFragment : Fragment() {
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
-        viewModel.state
-            .flowWithLifecycle(lifecycle)
-            .onEach(::render)
-            .launchIn(lifecycleScope)
-
-        viewModel.effects
-            .flowWithLifecycle(lifecycle)
-            .onEach(::handleEffect)
-            .launchIn(lifecycleScope)
-
         binding.emailTextInput.editText?.doOnTextChanged { text, _, _, _ ->
-            viewModel.dispatch(RegisterMviIntent.EmailChanged(text.toString()))
+            store.dispatch(RegisterMviIntent.EmailChanged(text.toString()))
         }
         binding.passwordTextInput.editText?.doOnTextChanged { text, _, _, _ ->
-            viewModel.dispatch(RegisterMviIntent.PasswordChanged(text.toString()))
+            store.dispatch(RegisterMviIntent.PasswordChanged(text.toString()))
         }
         binding.repeatPasswordTextInput.editText?.doOnTextChanged { text, _, _, _ ->
-            viewModel.dispatch(RegisterMviIntent.RepeatedPasswordChanged(text.toString()))
+            store.dispatch(RegisterMviIntent.RepeatedPasswordChanged(text.toString()))
         }
 
         binding.registerButton.setOnClickListener {
-            viewModel.dispatch(RegisterMviIntent.RegisterRequested)
+            store.dispatch(RegisterMviIntent.RegisterRequested)
         }
         binding.backButton.setOnClickListener {
-            viewModel.dispatch(RegisterMviIntent.Back)
+            store.dispatch(RegisterMviIntent.Back)
         }
 
         return binding.root
@@ -70,7 +56,7 @@ class RegisterFragment : Fragment() {
         _binding = null
     }
 
-    private fun render(state: RegisterMviState) {
+    override fun render(state: RegisterMviState) {
         binding.registerButton.isEnabled = state.isRegistrationAllowed
 
         if (state.registrationState == RegisterMviState.RegistrationState.LOADING) {
@@ -101,7 +87,7 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun handleEffect(effect: RegisterMviEffect) {
+    override fun handleEffect(effect: RegisterMviEffect) {
         when (effect) {
             RegisterMviEffect.GoToAboutYourselfScreen -> router.newRootScreen(AboutYourself())
             RegisterMviEffect.GoToPreviousScreen -> router.exit()

@@ -1,6 +1,8 @@
 package dev.lantt.itindr.auth.presentation.state
 
-sealed interface RegisterMviEffect {
+import dev.lantt.itindr.core.presentation.mvi.MviEffect
+
+sealed interface RegisterMviEffect : MviEffect {
     data object ShowError : RegisterMviEffect
     data object GoToAboutYourselfScreen : RegisterMviEffect
     data object GoToPreviousScreen : RegisterMviEffect

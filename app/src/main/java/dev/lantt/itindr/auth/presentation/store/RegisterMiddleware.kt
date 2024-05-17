@@ -9,14 +9,15 @@ import dev.lantt.itindr.auth.domain.usecase.ValidateRepeatedPasswordUseCase
 import dev.lantt.itindr.auth.presentation.mapper.ValidationErrorToStringRes
 import dev.lantt.itindr.auth.presentation.state.RegisterMviIntent
 import dev.lantt.itindr.auth.presentation.state.RegisterMviState
+import dev.lantt.itindr.core.presentation.mvi.Middleware
 
 class RegisterMiddleware(
     private val registerUseCase: RegisterUseCase,
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
     private val validateRepeatedPasswordUseCase: ValidateRepeatedPasswordUseCase,
-) {
-    suspend fun resolve(state: RegisterMviState, intent: RegisterMviIntent): RegisterMviIntent? {
+) : Middleware<RegisterMviState, RegisterMviIntent> {
+    override suspend fun resolve(state: RegisterMviState, intent: RegisterMviIntent): RegisterMviIntent? {
         return when (intent) {
             is RegisterMviIntent.EmailChanged -> {
                 val validationError = validateEmailUseCase(intent.email)
