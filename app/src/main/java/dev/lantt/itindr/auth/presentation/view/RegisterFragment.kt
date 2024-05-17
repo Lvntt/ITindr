@@ -56,7 +56,7 @@ class RegisterFragment : Fragment() {
         }
 
         binding.registerButton.setOnClickListener {
-            viewModel.dispatch(RegisterMviIntent.Register)
+            viewModel.dispatch(RegisterMviIntent.RegisterRequested)
         }
         binding.backButton.setOnClickListener {
             viewModel.dispatch(RegisterMviIntent.Back)
