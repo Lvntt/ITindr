@@ -1,4 +1,4 @@
-package dev.lantt.itindr.auth.presentation.view
+package dev.lantt.itindr.auth.register.presentation.view
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import com.github.terrakok.cicerone.Router
-import dev.lantt.itindr.auth.presentation.state.RegisterMviEffect
-import dev.lantt.itindr.auth.presentation.state.RegisterMviIntent
-import dev.lantt.itindr.auth.presentation.state.RegisterMviState
-import dev.lantt.itindr.auth.presentation.store.RegisterViewModel
+import dev.lantt.itindr.auth.register.presentation.state.RegisterMviEffect
+import dev.lantt.itindr.auth.register.presentation.state.RegisterMviIntent
+import dev.lantt.itindr.auth.register.presentation.state.RegisterMviState
+import dev.lantt.itindr.auth.register.presentation.store.RegisterViewModel
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
 import dev.lantt.itindr.core.presentation.navigation.Screens.AboutYourself
 import dev.lantt.itindr.databinding.FragmentRegisterBinding

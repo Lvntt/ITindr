@@ -1,4 +1,4 @@
-package dev.lantt.itindr.auth.domain.entity
+package dev.lantt.itindr.auth.common.domain.entity
 
 enum class ValidationError {
     EMPTY_FIELD,

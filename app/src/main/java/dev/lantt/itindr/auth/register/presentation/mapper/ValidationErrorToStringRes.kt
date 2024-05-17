@@ -1,7 +1,7 @@
-package dev.lantt.itindr.auth.presentation.mapper
+package dev.lantt.itindr.auth.register.presentation.mapper
 
 import dev.lantt.itindr.R
-import dev.lantt.itindr.auth.domain.entity.ValidationError
+import dev.lantt.itindr.auth.common.domain.entity.ValidationError
 
 object ValidationErrorToStringRes {
     val stringResources = mapOf(

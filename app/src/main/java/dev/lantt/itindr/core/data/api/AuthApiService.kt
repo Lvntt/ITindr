@@ -1,7 +1,7 @@
 package dev.lantt.itindr.core.data.api
 
 import dev.lantt.itindr.core.data.model.RefreshTokenBody
-import dev.lantt.itindr.auth.domain.entity.RegisterBody
+import dev.lantt.itindr.auth.register.domain.entity.RegisterBody
 import dev.lantt.itindr.core.data.model.TokenResponse
 import retrofit2.http.Body
 import retrofit2.http.POST

@@ -1,4 +1,4 @@
-package dev.lantt.itindr.auth.presentation.state
+package dev.lantt.itindr.auth.register.presentation.state
 
 import dev.lantt.itindr.core.presentation.mvi.MviIntent
 

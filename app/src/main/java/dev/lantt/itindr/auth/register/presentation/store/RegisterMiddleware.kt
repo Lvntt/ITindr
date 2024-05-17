@@ -1,14 +1,14 @@
-package dev.lantt.itindr.auth.presentation.store
+package dev.lantt.itindr.auth.register.presentation.store
 
-import dev.lantt.itindr.auth.domain.entity.RegisterBody
-import dev.lantt.itindr.auth.domain.entity.ValidationError
-import dev.lantt.itindr.auth.domain.usecase.RegisterUseCase
-import dev.lantt.itindr.auth.domain.usecase.ValidateEmailUseCase
-import dev.lantt.itindr.auth.domain.usecase.ValidatePasswordUseCase
-import dev.lantt.itindr.auth.domain.usecase.ValidateRepeatedPasswordUseCase
-import dev.lantt.itindr.auth.presentation.mapper.ValidationErrorToStringRes
-import dev.lantt.itindr.auth.presentation.state.RegisterMviIntent
-import dev.lantt.itindr.auth.presentation.state.RegisterMviState
+import dev.lantt.itindr.auth.register.domain.entity.RegisterBody
+import dev.lantt.itindr.auth.common.domain.entity.ValidationError
+import dev.lantt.itindr.auth.register.domain.usecase.RegisterUseCase
+import dev.lantt.itindr.auth.common.domain.usecase.ValidateEmailUseCase
+import dev.lantt.itindr.auth.common.domain.usecase.ValidatePasswordUseCase
+import dev.lantt.itindr.auth.register.domain.usecase.ValidateRepeatedPasswordUseCase
+import dev.lantt.itindr.auth.register.presentation.mapper.ValidationErrorToStringRes
+import dev.lantt.itindr.auth.register.presentation.state.RegisterMviIntent
+import dev.lantt.itindr.auth.register.presentation.state.RegisterMviState
 import dev.lantt.itindr.core.presentation.mvi.Middleware
 
 class RegisterMiddleware(

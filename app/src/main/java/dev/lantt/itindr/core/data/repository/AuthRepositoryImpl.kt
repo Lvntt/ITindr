@@ -3,8 +3,8 @@ package dev.lantt.itindr.core.data.repository
 import dev.lantt.itindr.core.data.api.AuthApiService
 import dev.lantt.itindr.core.data.datasource.SessionManager
 import dev.lantt.itindr.core.data.model.RefreshTokenBody
-import dev.lantt.itindr.auth.domain.entity.RegisterBody
-import dev.lantt.itindr.auth.domain.repository.AuthRepository
+import dev.lantt.itindr.auth.register.domain.entity.RegisterBody
+import dev.lantt.itindr.auth.common.domain.repository.AuthRepository
 
 class AuthRepositoryImpl(
     private val authApiService: AuthApiService,

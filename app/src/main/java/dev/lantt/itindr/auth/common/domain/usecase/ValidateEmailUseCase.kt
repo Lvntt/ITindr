@@ -1,6 +1,6 @@
-package dev.lantt.itindr.auth.domain.usecase
+package dev.lantt.itindr.auth.common.domain.usecase
 
-import dev.lantt.itindr.auth.domain.entity.ValidationError
+import dev.lantt.itindr.auth.common.domain.entity.ValidationError
 
 class ValidateEmailUseCase {
 

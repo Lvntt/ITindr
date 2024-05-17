@@ -1,4 +1,4 @@
-package dev.lantt.itindr.auth.domain.entity
+package dev.lantt.itindr.auth.register.domain.entity
 
 data class RegisterBody(
     val email: String,
