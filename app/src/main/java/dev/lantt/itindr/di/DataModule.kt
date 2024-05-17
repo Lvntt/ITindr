@@ -1,6 +1,6 @@
 package dev.lantt.itindr.di
 
-import dev.lantt.itindr.auth.data.repository.AuthRepositoryImpl
+import dev.lantt.itindr.core.data.repository.AuthRepositoryImpl
 import dev.lantt.itindr.auth.domain.repository.AuthRepository
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
