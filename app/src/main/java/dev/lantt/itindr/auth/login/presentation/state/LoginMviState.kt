@@ -9,7 +9,6 @@ data class LoginMviState(
     val passwordErrorResId: Int? = null,
     val loginState: LoginState = LoginState.IDLE
 ) : MviState {
-    // TODO make another color for disabled button
     val isLoginAllowed: Boolean =
         emailErrorResId == null &&
         passwordErrorResId == null &&

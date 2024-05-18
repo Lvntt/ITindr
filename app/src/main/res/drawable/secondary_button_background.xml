@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="?android:attr/colorControlHighlight">
-    <item>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+        <ripple android:color="?android:attr/colorControlHighlight">
+            <item>
+                <shape
+                    android:shape="rectangle">
+                    <solid android:color="@color/secondary" />
+                    <corners android:radius="28dp"/>
+                </shape>
+            </item>
+        </ripple>
+    </item>
+    <item android:state_enabled="false">
         <shape
             android:shape="rectangle">
-            <solid android:color="@color/white" />
+            <solid android:color="@color/secondaryDisabled" />
             <corners android:radius="28dp"/>
         </shape>
     </item>
-</ripple>
+</selector>

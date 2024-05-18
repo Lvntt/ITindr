@@ -155,7 +155,7 @@
         android:layout_marginBottom="@dimen/padding_medium"
         android:background="@drawable/primary_button_background"
         android:text="@string/register"
-        android:textColor="@color/white"
+        android:textColor="@color/on_primary_color"
         app:layout_constraintBottom_toTopOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -168,7 +168,7 @@
         android:layout_margin="@dimen/padding_medium"
         android:background="@drawable/secondary_button_background"
         android:text="@string/back"
-        android:textColor="@color/primary"
+        android:textColor="@color/on_secondary_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

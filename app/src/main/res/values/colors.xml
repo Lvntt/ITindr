@@ -9,7 +9,15 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary">#FFFA13AB</color>
+    <color name="primaryDisabled">#FFCA57A2</color>
+    <color name="onPrimary">#FFFFFFFF</color>
+    <color name="onPrimaryDisabled">#FFF3DDF4</color>
     <color name="magenta">#FFE813FA</color>
+    <color name="magentaDisabled">#FFC157CA</color>
+    <color name="secondary">#FFFFFFFF</color>
+    <color name="secondaryDisabled">#FFEBEBEB</color>
+    <color name="onSecondary">@color/primary</color>
+    <color name="onSecondaryDisabled">#FFF27FCB</color>
     <color name="gray">#FFF3F3F3</color>
     <color name="darkGray">#FFA59EA3</color>
     <color name="galleryGray">#FFF0ECEF</color>

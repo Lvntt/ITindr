@@ -11,7 +11,6 @@ data class RegisterMviState(
     val repeatedPasswordErrorResId: Int? = null,
     val registrationState: RegistrationState = RegistrationState.IDLE
 ) : MviState {
-    // TODO make another color for disabled button
     val isRegistrationAllowed: Boolean =
         emailErrorResId == null &&
         passwordErrorResId == null &&
