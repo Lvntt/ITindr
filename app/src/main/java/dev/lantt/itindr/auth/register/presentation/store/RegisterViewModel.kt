@@ -7,11 +7,11 @@ import dev.lantt.itindr.core.presentation.mvi.MviStore
 import kotlinx.coroutines.CoroutineDispatcher
 
 class RegisterViewModel(
-    registerMiddleware: RegisterMiddleware,
-    registerReducer: RegisterReducer,
+    middleware: RegisterMiddleware,
+    reducer: RegisterReducer,
     defaultDispatcher: CoroutineDispatcher
 ) : MviStore<RegisterMviState, RegisterMviIntent, RegisterMviEffect>(
-    registerMiddleware, registerReducer, defaultDispatcher
+    middleware, reducer, defaultDispatcher
 ) {
     override fun initialStateProvider(): RegisterMviState = RegisterMviState()
 }

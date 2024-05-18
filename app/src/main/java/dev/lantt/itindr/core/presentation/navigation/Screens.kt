@@ -8,9 +8,11 @@ import dev.lantt.itindr.auth.register.presentation.view.RegisterFragment
 import dev.lantt.itindr.start.presentation.StartFragment
 
 object Screens {
-    fun Launch() = FragmentScreen { LaunchFragment() }
     fun Start() = FragmentScreen { StartFragment() }
     fun Register() = FragmentScreen { RegisterFragment() }
     fun Login() = FragmentScreen { LoginFragment() }
     fun AboutYourself() = FragmentScreen { AboutYourselfFragment() }
+
+    // TODO change to FeedFragment
+    fun Feed() = FragmentScreen { AboutYourselfFragment() }
 }

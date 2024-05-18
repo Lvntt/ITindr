@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
 class RegisterReducer : Reducer<RegisterMviState, RegisterMviIntent, RegisterMviEffect> {
+
     private val effectsFlow = MutableSharedFlow<RegisterMviEffect>(extraBufferCapacity = 1)
     override val effects = effectsFlow.asSharedFlow()
 

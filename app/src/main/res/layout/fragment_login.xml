@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -50,6 +51,19 @@
             style="@style/regular_text_input_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/emailError"
+        style="@style/type_m14"
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginStart="@dimen/padding_small"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/emailTextInput"
+        app:layout_constraintTop_toBottomOf="@+id/emailTextInput"
+        tools:text="emailError" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordTextInput"
         android:layout_width="match_parent"
@@ -62,14 +76,39 @@
         app:cursorColor="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextInput">
+        app:layout_constraintTop_toBottomOf="@+id/emailError">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/password"
             style="@style/regular_text_input_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/passwordError"
+        style="@style/type_m14"
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginStart="@dimen/padding_small"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/emailError"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextInput"
+        tools:text="passwordError" />
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/padding_large"
+        android:indeterminateTint="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextInput"
+        android:visibility="gone"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"

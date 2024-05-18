@@ -1,7 +1,7 @@
 package dev.lantt.itindr.auth.register.domain.usecase
 
 import dev.lantt.itindr.auth.register.domain.entity.RegisterBody
-import dev.lantt.itindr.auth.common.domain.repository.AuthRepository
+import dev.lantt.itindr.core.domain.repository.AuthRepository
 
 class RegisterUseCase(
     private val authRepository: AuthRepository

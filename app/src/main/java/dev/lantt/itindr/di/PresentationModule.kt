@@ -1,5 +1,8 @@
 package dev.lantt.itindr.di
 
+import dev.lantt.itindr.auth.login.presentation.store.LoginMiddleware
+import dev.lantt.itindr.auth.login.presentation.store.LoginReducer
+import dev.lantt.itindr.auth.login.presentation.store.LoginViewModel
 import dev.lantt.itindr.auth.register.presentation.store.RegisterMiddleware
 import dev.lantt.itindr.auth.register.presentation.store.RegisterReducer
 import dev.lantt.itindr.auth.register.presentation.store.RegisterViewModel
@@ -14,5 +17,11 @@ fun presentationModule(): Module = module {
     factoryOf(::RegisterReducer)
     viewModel {
         RegisterViewModel(get(), get(), Dispatchers.IO)
+    }
+
+    factoryOf(::LoginMiddleware)
+    factoryOf(::LoginReducer)
+    viewModel {
+        LoginViewModel(get(), get(), Dispatchers.IO)
     }
 }
