@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import com.github.terrakok.cicerone.Router
+import dev.lantt.itindr.R
 import dev.lantt.itindr.auth.login.presentation.state.LoginMviEffect
 import dev.lantt.itindr.auth.login.presentation.state.LoginMviIntent
 import dev.lantt.itindr.auth.login.presentation.state.LoginMviState
@@ -87,11 +88,10 @@ class LoginFragment : MviFragment<LoginMviState, LoginMviIntent, LoginMviEffect>
     }
 
     private fun showErrorDialog() {
-        // TODO
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("title")
-        builder.setMessage("message")
-        builder.setPositiveButton("OK") { dialog, _ ->
+        builder.setTitle(context?.getString(R.string.error))
+        builder.setMessage(context?.getString(R.string.loginError))
+        builder.setPositiveButton(context?.getString(R.string.ok)) { dialog, _ ->
             dialog.dismiss()
         }
 
