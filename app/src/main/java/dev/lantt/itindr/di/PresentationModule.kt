@@ -6,13 +6,22 @@ import dev.lantt.itindr.auth.login.presentation.store.LoginViewModel
 import dev.lantt.itindr.auth.register.presentation.store.RegisterMiddleware
 import dev.lantt.itindr.auth.register.presentation.store.RegisterReducer
 import dev.lantt.itindr.auth.register.presentation.store.RegisterViewModel
+import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
+import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
+import dev.lantt.itindr.profile.presentation.store.ProfileMiddleware
+import dev.lantt.itindr.profile.presentation.store.ProfileReducer
+import dev.lantt.itindr.profile.presentation.store.ProfileViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 fun presentationModule(): Module = module {
+    singleOf(::ProfileMapper)
+    singleOf(::TopicMapper)
+
     factoryOf(::RegisterMiddleware)
     factoryOf(::RegisterReducer)
     viewModel {
@@ -23,5 +32,11 @@ fun presentationModule(): Module = module {
     factoryOf(::LoginReducer)
     viewModel {
         LoginViewModel(get(), get(), Dispatchers.IO)
+    }
+
+    factoryOf(::ProfileMiddleware)
+    factoryOf(::ProfileReducer)
+    viewModel {
+        ProfileViewModel(get(), get(), Dispatchers.IO)
     }
 }

@@ -12,8 +12,9 @@
     <string name="passwordTooShort">Пароль должен быть не менее 8 символов</string>
     <string name="passwordsMismatch">Пароли не совпадают</string>
 
-    // Auth Error Dialogs
+    // Dialogs
     <string name="error">Ошибка</string>
+    <string name="loading">Загрузка..</string>
     <string name="registerError">Произошла ошибка при регистрации. Попробуйте еще раз!</string>
     <string name="loginError">Неверный логин или пароль</string>
     <string name="ok">ОК</string>
@@ -31,6 +32,7 @@
     // About Yourself Screen
     <string name="tellAboutYourself">Расскажи о себе</string>
     <string name="choosePhoto">Выбрать фото</string>
+    <string name="removePhoto">Удалить фото</string>
     <string name="name">Имя</string>
     <string name="aboutYourself">О себе</string>
     <string name="specifyInterests">Укажи интересы</string>

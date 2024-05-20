@@ -37,7 +37,6 @@
         android:layout_marginTop="@dimen/padding_medium"
         android:background="@drawable/photo_placeholder"
         android:importantForAccessibility="no"
-        android:padding="22dp"
         android:src="@drawable/ic_user"
         app:layout_constraintStart_toStartOf="@+id/tellAboutYourselfTextView"
         app:layout_constraintTop_toBottomOf="@+id/tellAboutYourselfTextView" />
@@ -77,6 +76,19 @@
             android:hint="@string/name" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/nameError"
+        style="@style/type_m14"
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginStart="@dimen/padding_small"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/nameTextInput"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextInput"
+        android:text="@string/emptyField" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/aboutYourselfTextInput"
         android:layout_width="match_parent"
@@ -89,7 +101,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextInput">
+        app:layout_constraintTop_toBottomOf="@+id/nameError">
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/regular_text_input_edit_text"
@@ -113,8 +125,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutYourselfTextInput" />
 
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:indeterminateTint="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specifyInterestsTextView"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/interestsRecyclerView"
+        android:id="@+id/topicsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/padding_medium"
@@ -122,7 +145,7 @@
         android:paddingHorizontal="@dimen/padding_medium"
         app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
         android:orientation="horizontal"
-        tools:listitem="@layout/item_interest"
+        tools:listitem="@layout/item_topic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/specifyInterestsTextView" />
