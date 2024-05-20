@@ -26,11 +26,21 @@ class ProfileRepositoryImpl(
 
         val multipartBody = MultipartBody.Part.createFormData(
             "avatar",
-            avatarUri.lastPathSegment,
+            getAvatarFileName(avatarUri),
             fileBytes.toRequestBody()
         )
 
         profileApiService.uploadAvatar(multipartBody)
         profileApiService.updateProfile(profileMapper.toRemoteProfile(profile))
+    }
+
+    private fun getAvatarFileName(avatarUri: Uri): String {
+        val fileType = contentResolver
+            .getType(avatarUri)
+            ?.split("/")
+            ?.last()
+            ?: throw IllegalArgumentException("could not get avatar filetype")
+
+        return "${avatarUri.lastPathSegment}.$fileType"
     }
 }

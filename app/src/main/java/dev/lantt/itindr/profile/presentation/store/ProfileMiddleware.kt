@@ -1,5 +1,6 @@
 package dev.lantt.itindr.profile.presentation.store
 
+import android.util.Log
 import dev.lantt.itindr.core.presentation.mvi.Middleware
 import dev.lantt.itindr.profile.domain.usecase.GetTopicsUseCase
 import dev.lantt.itindr.profile.domain.usecase.SaveProfileUseCase
@@ -8,6 +9,8 @@ import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
 import dev.lantt.itindr.profile.presentation.state.ProfileMviIntent
 import dev.lantt.itindr.profile.presentation.state.ProfileMviState
+
+private const val TAG = "ProfileMiddleware"
 
 class ProfileMiddleware(
     private val saveProfileUseCase: SaveProfileUseCase,
@@ -30,6 +33,7 @@ class ProfileMiddleware(
                         ProfileMviIntent.SaveSuccessful
                     },
                     onFailure = {
+                        Log.e(TAG, it.stackTraceToString())
                         ProfileMviIntent.SaveFailed
                     }
                 )

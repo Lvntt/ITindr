@@ -1,5 +1,7 @@
 package dev.lantt.itindr.core.data.interceptor
 
+import dev.lantt.itindr.core.constants.Constants.NO_CONTENT_CODE
+import dev.lantt.itindr.core.constants.Constants.SUCCESS_CODE
 import dev.lantt.itindr.core.data.datasource.SessionManager
 import dev.lantt.itindr.core.data.model.TokenType
 import dev.lantt.itindr.core.domain.repository.AuthRepository
@@ -38,6 +40,13 @@ class AuthInterceptor(
             .header("Authorization", "Bearer $accessToken")
             .build()
 
-        return chain.proceed(authorizedRequest)
+        val response = chain.proceed(authorizedRequest)
+        if (response.code == NO_CONTENT_CODE) {
+            return response
+                .newBuilder()
+                .code(SUCCESS_CODE)
+                .build()
+        }
+        return response
     }
 }
