@@ -18,6 +18,11 @@ class ProfileRepositoryImpl(
     private val contentResolver: ContentResolver
 ) : ProfileRepository {
     override suspend fun saveProfile(profile: UpdateProfileBody) = withContext(Dispatchers.IO) {
+        if (profile.avatarUri == null) {
+            profileApiService.updateProfile(profileMapper.toRemoteProfile(profile))
+            return@withContext
+        }
+
         val avatarUri = Uri.parse(profileMapper.toAvatarUri(profile))
 
         val fileStream = contentResolver.openInputStream(avatarUri)
@@ -31,7 +36,6 @@ class ProfileRepositoryImpl(
         )
 
         profileApiService.uploadAvatar(multipartBody)
-        profileApiService.updateProfile(profileMapper.toRemoteProfile(profile))
     }
 
     private fun getAvatarFileName(avatarUri: Uri): String {

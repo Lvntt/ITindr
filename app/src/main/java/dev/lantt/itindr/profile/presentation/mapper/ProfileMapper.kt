@@ -7,7 +7,7 @@ class ProfileMapper {
 
     fun toUpdateProfileBody(state: ProfileMviState) = with(state) {
         UpdateProfileBody(
-            avatarUri = avatarUri.toString(),
+            avatarUri = avatarUri?.toString(),
             name = name,
             aboutMyself = aboutMyself,
             chosenTopics = topics

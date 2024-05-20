@@ -5,7 +5,7 @@ import dev.lantt.itindr.core.presentation.mvi.MviState
 import dev.lantt.itindr.profile.presentation.model.Topic
 
 data class ProfileMviState(
-    val avatarUri: Uri = Uri.EMPTY,
+    val avatarUri: Uri? = null,
     val name: String = "",
     val isNameValid: Boolean = true,
     val aboutMyself: String = "",

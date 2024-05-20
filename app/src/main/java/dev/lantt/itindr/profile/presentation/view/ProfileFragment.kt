@@ -1,7 +1,6 @@
 package dev.lantt.itindr.profile.presentation.view
 
 import android.app.AlertDialog
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -75,7 +74,7 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
 
         binding.loadingProgressBar.isVisible = state.areTopicsLoading
 
-        if (state.avatarUri != Uri.EMPTY) {
+        if (state.avatarUri != null) {
             binding.profileImageView.clipToOutline = true
             binding.profileImageView.scaleType = ImageView.ScaleType.CENTER_CROP
             binding.profileImageView.setImageURI(state.avatarUri)
