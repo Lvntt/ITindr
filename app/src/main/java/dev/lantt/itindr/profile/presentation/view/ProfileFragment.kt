@@ -87,7 +87,7 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
             binding.profileImageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_user))
             binding.choosePhotoTextView.text = getString(R.string.choosePhoto)
             binding.choosePhotoTextView.setOnClickListener {
-                pickAvatarLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                pickAvatarLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType("image/jpeg")))
             }
         }
 

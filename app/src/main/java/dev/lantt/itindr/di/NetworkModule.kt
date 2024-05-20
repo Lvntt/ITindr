@@ -11,6 +11,7 @@ import dev.lantt.itindr.core.constants.Constants.WRITE_TIMEOUT_SEC
 import dev.lantt.itindr.core.data.api.AuthApiService
 import dev.lantt.itindr.core.data.datasource.SessionManager
 import dev.lantt.itindr.core.data.interceptor.AuthInterceptor
+import dev.lantt.itindr.core.domain.repository.AuthRepository
 import dev.lantt.itindr.di.Labels.AUTH_OKHTTP
 import dev.lantt.itindr.di.Labels.AUTH_RETROFIT
 import dev.lantt.itindr.di.Labels.REGULAR_OKHTTP
@@ -36,10 +37,10 @@ private fun provideLoggingInterceptor(): HttpLoggingInterceptor =
     }
 
 private fun provideAuthInterceptor(
-    authApiService: AuthApiService,
+    authRepository: AuthRepository,
     sessionManager: SessionManager
 ): AuthInterceptor =
-    AuthInterceptor(authApiService, sessionManager)
+    AuthInterceptor(authRepository, sessionManager)
 
 private fun provideGson(): Gson =
     GsonBuilder()

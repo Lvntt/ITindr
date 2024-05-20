@@ -1,168 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/appLogoImage"
-        android:layout_width="127dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="@dimen/padding_xlarge"
-        android:importantForAccessibility="no"
-        android:src="@drawable/app_logo_text_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tellAboutYourselfTextView"
-        style="@style/type_b24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginTop="40dp"
-        android:text="@string/tellAboutYourself"
-        android:textColor="@color/primary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appLogoImage" />
-
-    <ImageView
-        android:id="@+id/profileImageView"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:background="@drawable/photo_placeholder"
-        android:importantForAccessibility="no"
-        android:src="@drawable/ic_user"
-        app:layout_constraintStart_toStartOf="@+id/tellAboutYourselfTextView"
-        app:layout_constraintTop_toBottomOf="@+id/tellAboutYourselfTextView" />
-
-    <TextView
-        android:id="@+id/choosePhotoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_regular"
-        style="@style/type_b16"
-        android:textColor="@color/primary"
-        android:text="@string/choosePhoto"
-        app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
-        app:layout_constraintStart_toEndOf="@+id/profileImageView"
-        app:layout_constraintTop_toTopOf="@+id/profileImageView" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nameTextInput"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_medium"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/regular_text_field_background"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:cursorColor="@color/primary"
-        app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImageView">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/regular_text_input_edit_text"
-            android:inputType="text"
+        <ImageView
+            android:id="@+id/appLogoImage"
+            android:layout_width="127dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="@dimen/padding_xlarge"
+            android:importantForAccessibility="no"
+            android:src="@drawable/app_logo_text_gradient"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tellAboutYourselfTextView"
+            style="@style/type_b24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="40dp"
+            android:text="@string/tellAboutYourself"
+            android:textColor="@color/primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appLogoImage" />
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:background="@drawable/photo_placeholder"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_user"
+            app:layout_constraintStart_toStartOf="@+id/tellAboutYourselfTextView"
+            app:layout_constraintTop_toBottomOf="@+id/tellAboutYourselfTextView" />
+
+        <TextView
+            android:id="@+id/choosePhotoTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_regular"
+            style="@style/type_b16"
+            android:textColor="@color/primary"
+            android:text="@string/choosePhoto"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
+            app:layout_constraintStart_toEndOf="@+id/profileImageView"
+            app:layout_constraintTop_toTopOf="@+id/profileImageView" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_margin="@dimen/padding_medium"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/regular_text_field_background"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:cursorColor="@color/primary"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImageView">
 
-    <TextView
-        android:id="@+id/nameError"
-        style="@style/type_m14"
-        android:textColor="@color/primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
-        android:layout_marginStart="@dimen/padding_small"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/nameTextInput"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextInput"
-        android:text="@string/emptyField" />
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/regular_text_input_edit_text"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/aboutYourselfTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:layout_margin="@dimen/padding_medium"
-        android:background="@drawable/regular_text_field_background"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:cursorColor="@color/primary"
-        app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameError">
+        <TextView
+            android:id="@+id/nameError"
+            style="@style/type_m14"
+            android:textColor="@color/primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_small"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/nameTextInput"
+            app:layout_constraintTop_toBottomOf="@+id/nameTextInput"
+            android:text="@string/emptyField" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/regular_text_input_edit_text"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/aboutYourselfTextInput"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="top"
-            android:hint="@string/aboutYourself"
-            android:inputType="textMultiLine"
-            android:maxLines="10" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="128dp"
+            android:layout_margin="@dimen/padding_medium"
+            android:background="@drawable/regular_text_field_background"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:cursorColor="@color/primary"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameError">
 
-    <TextView
-        android:id="@+id/specifyInterestsTextView"
-        style="@style/type_b24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/padding_regular"
-        android:text="@string/specifyInterests"
-        android:textColor="@color/primary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aboutYourselfTextInput" />
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/regular_text_input_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:hint="@string/aboutYourself"
+                android:inputType="textMultiLine"
+                android:maxLines="10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <ProgressBar
-        android:id="@+id/loadingProgressBar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:indeterminateTint="@color/primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specifyInterestsTextView"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/specifyInterestsTextView"
+            style="@style/type_b24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_regular"
+            android:text="@string/specifyInterests"
+            android:textColor="@color/primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutYourselfTextInput" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/topicsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/padding_medium"
-        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
-        android:orientation="horizontal"
-        tools:listitem="@layout/item_topic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specifyInterestsTextView" />
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:indeterminateTint="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/specifyInterestsTextView"
+            android:visibility="gone"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/saveButton"
-        style="@style/default_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginHorizontal="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/padding_xlarge"
-        android:layout_marginBottom="@dimen/padding_medium"
-        android:background="@drawable/primary_button_background"
-        android:text="@string/save"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/topicsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/padding_medium"
+            android:paddingBottom="88dp"
+            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/specifyInterestsTextView"
+            tools:listitem="@layout/item_topic" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveButton"
+            style="@style/default_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginHorizontal="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_xlarge"
+            android:layout_marginBottom="@dimen/padding_medium"
+            android:background="@drawable/primary_button_background"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

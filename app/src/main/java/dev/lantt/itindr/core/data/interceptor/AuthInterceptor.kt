@@ -1,15 +1,14 @@
 package dev.lantt.itindr.core.data.interceptor
 
-import dev.lantt.itindr.core.data.api.AuthApiService
 import dev.lantt.itindr.core.data.datasource.SessionManager
-import dev.lantt.itindr.core.data.model.RefreshTokenBody
 import dev.lantt.itindr.core.data.model.TokenType
+import dev.lantt.itindr.core.domain.repository.AuthRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class AuthInterceptor(
-    private val authApiService: AuthApiService,
+    private val authRepository: AuthRepository,
     private val sessionManager: SessionManager
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -21,8 +20,7 @@ class AuthInterceptor(
             val refreshToken = sessionManager.fetchToken(TokenType.REFRESH)
             val newAccessToken = runBlocking {
                 refreshToken?.let {
-                    val newTokens = authApiService.refresh(RefreshTokenBody(it))
-                    sessionManager.saveTokens(newTokens)
+                    val newTokens = authRepository.refresh()
                     newTokens.accessToken
                 }
             }
