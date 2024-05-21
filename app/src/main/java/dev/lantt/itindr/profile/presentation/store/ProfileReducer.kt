@@ -31,7 +31,7 @@ class ProfileReducer
             }
 
             ProfileMviIntent.SaveFailed -> {
-                sendEffect(ProfileMviEffect.ShowError)
+                sendEffect(ProfileMviEffect.ShowSaveError)
                 state.copy(isLoading = false)
             }
 
@@ -45,7 +45,7 @@ class ProfileReducer
             )
 
             ProfileMviIntent.TopicsError -> {
-                sendEffect(ProfileMviEffect.ShowError)
+                sendEffect(ProfileMviEffect.ShowTopicsError)
                 state.copy(areTopicsLoading = false)
             }
             ProfileMviIntent.TopicsRequested -> state.copy(areTopicsLoading = true)

@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentHost"
-        android:name="dev.lantt.itindr.profile.presentation.view.ProfileFragment"
+        android:name="dev.lantt.itindr.launch.presentation.LaunchFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

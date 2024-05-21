@@ -6,6 +6,7 @@ import dev.lantt.itindr.auth.login.presentation.store.LoginViewModel
 import dev.lantt.itindr.auth.register.presentation.store.RegisterMiddleware
 import dev.lantt.itindr.auth.register.presentation.store.RegisterReducer
 import dev.lantt.itindr.auth.register.presentation.store.RegisterViewModel
+import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
 import dev.lantt.itindr.profile.presentation.store.ProfileMiddleware
@@ -19,6 +20,8 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 fun presentationModule(): Module = module {
+    singleOf(::ToastManager)
+
     singleOf(::ProfileMapper)
     singleOf(::TopicMapper)
 

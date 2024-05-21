@@ -1,6 +1,5 @@
 package dev.lantt.itindr.auth.register.presentation.view
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import dev.lantt.itindr.auth.register.presentation.state.RegisterMviState
 import dev.lantt.itindr.auth.register.presentation.store.RegisterViewModel
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
 import dev.lantt.itindr.core.presentation.navigation.Screens.AboutYourself
+import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.databinding.FragmentRegisterBinding
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,8 +23,9 @@ class RegisterFragment : MviFragment<RegisterMviState, RegisterMviIntent, Regist
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val router: Router by inject()
     override val store: RegisterViewModel by viewModel()
+    private val router: Router by inject()
+    private val toastManager: ToastManager by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,20 +93,8 @@ class RegisterFragment : MviFragment<RegisterMviState, RegisterMviIntent, Regist
         when (effect) {
             RegisterMviEffect.GoToAboutYourselfScreen -> router.newRootScreen(AboutYourself())
             RegisterMviEffect.GoToPreviousScreen -> router.exit()
-            RegisterMviEffect.ShowError -> showErrorDialog()
+            RegisterMviEffect.ShowError -> toastManager.showToast(context, R.string.registerError)
         }
-    }
-
-    private fun showErrorDialog() {
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(context?.getString(R.string.error))
-        builder.setMessage(context?.getString(R.string.registerError))
-        builder.setPositiveButton(context?.getString(R.string.ok)) { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        val dialog = builder.create()
-        dialog.show()
     }
 
 }

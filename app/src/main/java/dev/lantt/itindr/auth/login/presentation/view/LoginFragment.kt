@@ -14,6 +14,7 @@ import dev.lantt.itindr.auth.login.presentation.state.LoginMviState
 import dev.lantt.itindr.auth.login.presentation.store.LoginViewModel
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
 import dev.lantt.itindr.core.presentation.navigation.Screens.Feed
+import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.databinding.FragmentLoginBinding
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,8 +24,9 @@ class LoginFragment : MviFragment<LoginMviState, LoginMviIntent, LoginMviEffect>
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val router: Router by inject()
     override val store: LoginViewModel by viewModel()
+    private val router: Router by inject()
+    private val toastManager: ToastManager by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,20 +85,8 @@ class LoginFragment : MviFragment<LoginMviState, LoginMviIntent, LoginMviEffect>
         when (effect) {
             LoginMviEffect.GoToFeedScreen -> router.newRootScreen(Feed())
             LoginMviEffect.GoToPreviousScreen -> router.exit()
-            LoginMviEffect.ShowError -> showErrorDialog()
+            LoginMviEffect.ShowError -> toastManager.showToast(context, R.string.loginError)
         }
-    }
-
-    private fun showErrorDialog() {
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(context?.getString(R.string.error))
-        builder.setMessage(context?.getString(R.string.loginError))
-        builder.setPositiveButton(context?.getString(R.string.ok)) { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        val dialog = builder.create()
-        dialog.show()
     }
 
 }

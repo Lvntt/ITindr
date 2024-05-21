@@ -14,6 +14,8 @@
 
     // Dialogs
     <string name="error">Ошибка</string>
+    <string name="topicsError">Ошибка при загрузке списка интересов</string>
+    <string name="saveError">Ошибка при сохранении</string>
     <string name="loading">Загрузка..</string>
     <string name="registerError">Произошла ошибка при регистрации. Попробуйте еще раз!</string>
     <string name="loginError">Неверный логин или пароль</string>

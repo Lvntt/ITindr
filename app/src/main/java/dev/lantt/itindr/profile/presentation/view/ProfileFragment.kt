@@ -18,6 +18,7 @@ import dev.lantt.itindr.profile.presentation.state.ProfileMviEffect
 import dev.lantt.itindr.profile.presentation.state.ProfileMviIntent
 import dev.lantt.itindr.profile.presentation.state.ProfileMviState
 import dev.lantt.itindr.profile.presentation.store.ProfileViewModel
+import dev.lantt.itindr.core.presentation.utils.ToastManager
 import org.koin.android.ext.android.inject
 
 class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMviEffect>() {
@@ -26,6 +27,7 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
     private val binding get() = _binding!!
 
     override val store: ProfileViewModel by inject()
+    private val toastManager: ToastManager by inject()
 
     private var loadingDialog: AlertDialog? = null
     private val pickAvatarLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -65,7 +67,8 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
     override fun handleEffect(effect: ProfileMviEffect) {
         when (effect) {
             ProfileMviEffect.HandleSuccess -> TODO()
-            ProfileMviEffect.ShowError -> showErrorDialog()
+            ProfileMviEffect.ShowTopicsError -> toastManager.showToast(context, R.string.topicsError)
+            ProfileMviEffect.ShowSaveError -> toastManager.showToast(context, R.string.saveError)
         }
     }
 
@@ -105,6 +108,7 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
         val builder = AlertDialog.Builder(context)
         builder.setTitle(context?.getString(R.string.loading))
         builder.setView(layoutInflater.inflate(R.layout.loading_progress_bar, null))
+        builder.setCancelable(false)
 
         loadingDialog = builder.create()
         loadingDialog?.show()
@@ -112,19 +116,6 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
 
     private fun dismissLoadingDialog() {
         loadingDialog?.dismiss()
-    }
-
-    private fun showErrorDialog() {
-        // TODO запретить dismiss
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(context?.getString(R.string.error))
-        builder.setMessage("ну типа ошибка")
-        builder.setPositiveButton(context?.getString(R.string.ok)) { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        val dialog = builder.create()
-        dialog.show()
     }
 
 }
