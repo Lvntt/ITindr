@@ -13,10 +13,14 @@
     <string name="passwordsMismatch">Пароли не совпадают</string>
 
     // Dialogs
+    <string name="chooseAvatar">Выберите фото</string>
+    <string name="makePhoto">Сделать фото</string>
+    <string name="pickFromGallery">Выбрать из галереи</string>
+    <string name="loading">Загрузка..</string>
     <string name="error">Ошибка</string>
     <string name="topicsError">Ошибка при загрузке списка интересов</string>
     <string name="saveError">Ошибка при сохранении</string>
-    <string name="loading">Загрузка..</string>
+    <string name="savePhotoError">Ошибка при сохранении фото</string>
     <string name="registerError">Произошла ошибка при регистрации. Попробуйте еще раз!</string>
     <string name="loginError">Неверный логин или пароль</string>
     <string name="ok">ОК</string>

@@ -5,6 +5,7 @@ import dev.lantt.itindr.core.presentation.mvi.MviIntent
 import dev.lantt.itindr.profile.presentation.model.Topic
 
 sealed interface ProfileMviIntent : MviIntent {
+    data object AvatarChoiceRequested : ProfileMviIntent
     data class AvatarPicked(val avatarUri: Uri) : ProfileMviIntent
     data object AvatarRemoved : ProfileMviIntent
     data class NameChanged(val name: String) : ProfileMviIntent

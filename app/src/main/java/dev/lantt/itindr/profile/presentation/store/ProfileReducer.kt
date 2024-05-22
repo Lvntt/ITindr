@@ -53,6 +53,10 @@ class ProfileReducer
                 topics = intent.topics,
                 areTopicsLoading = false
             )
+            ProfileMviIntent.AvatarChoiceRequested -> {
+                sendEffect(ProfileMviEffect.ShowAvatarChoice)
+                state
+            }
         }
     }
 
