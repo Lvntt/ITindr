@@ -16,7 +16,7 @@
             android:id="@+id/appLogoImage"
             android:layout_width="127dp"
             android:layout_height="56dp"
-            android:layout_marginTop="@dimen/padding_xlarge"
+            android:layout_marginTop="@dimen/padding_medium"
             android:importantForAccessibility="no"
             android:src="@drawable/app_logo_text_gradient"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/appLogoImage" />
 
         <ImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/userAvatarImage"
             android:layout_width="88dp"
             android:layout_height="88dp"
             android:layout_marginTop="@dimen/padding_medium"
@@ -54,9 +54,9 @@
             style="@style/type_b16"
             android:textColor="@color/primary"
             android:text="@string/choosePhoto"
-            app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
-            app:layout_constraintStart_toEndOf="@+id/profileImageView"
-            app:layout_constraintTop_toTopOf="@+id/profileImageView" />
+            app:layout_constraintBottom_toBottomOf="@+id/userAvatarImage"
+            app:layout_constraintStart_toEndOf="@+id/userAvatarImage"
+            app:layout_constraintTop_toTopOf="@+id/userAvatarImage" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameTextInput"
@@ -71,7 +71,7 @@
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImageView">
+            app:layout_constraintTop_toBottomOf="@+id/userAvatarImage">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/regular_text_input_edit_text"

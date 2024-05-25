@@ -44,6 +44,10 @@
     <string name="specifyInterests">Укажи интересы</string>
     <string name="save">Сохранить</string>
 
+    // Feed Screen
+    <string name="like">Лайк</string>
+    <string name="dislike">Отказ</string>
+
     // Bottom Navigation
     <string name="feed">Поиск</string>
     <string name="people">Люди</string>

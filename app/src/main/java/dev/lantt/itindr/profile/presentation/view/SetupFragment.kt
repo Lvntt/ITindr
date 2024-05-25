@@ -110,15 +110,15 @@ class SetupFragment : MviFragment<SetupMviState, SetupMviIntent, SetupMviEffect>
         binding.loadingProgressBar.isVisible = state.areTopicsLoading
 
         if (state.avatarUri != null) {
-            binding.profileImageView.clipToOutline = true
-            binding.profileImageView.scaleType = ImageView.ScaleType.CENTER_CROP
-            binding.profileImageView.setImageURI(state.avatarUri)
+            binding.userAvatarImage.clipToOutline = true
+            binding.userAvatarImage.scaleType = ImageView.ScaleType.CENTER_CROP
+            binding.userAvatarImage.setImageURI(state.avatarUri)
             binding.choosePhotoTextView.text = getString(R.string.removePhoto)
             binding.choosePhotoTextView.setOnClickListener {
                 store.dispatch(SetupMviIntent.AvatarRemoved)
             }
         } else {
-            binding.profileImageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_user))
+            binding.userAvatarImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_user))
             binding.choosePhotoTextView.text = getString(R.string.choosePhoto)
             binding.choosePhotoTextView.setOnClickListener {
                 store.dispatch(SetupMviIntent.AvatarChoiceRequested)

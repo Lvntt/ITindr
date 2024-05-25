@@ -1,14 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".feed.presentation.view.FeedFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/feed" />
+    <ImageView
+        android:id="@+id/appLogoImage"
+        android:layout_width="127dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:importantForAccessibility="no"
+        android:src="@drawable/app_logo_text_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/userAvatarImage"
+        android:layout_width="206dp"
+        android:layout_height="206dp"
+        android:layout_marginTop="@dimen/padding_large"
+        android:background="@drawable/photo_placeholder"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appLogoImage" />
+
+    <TextView
+        android:id="@+id/userNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_large"
+        style="@style/type_b24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userAvatarImage"
+        tools:text="Андрей Иванов" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/interestsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_large"
+        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameText"
+        tools:listitem="@layout/item_topic" />
+
+    <TextView
+        android:id="@+id/aboutUserText"
+        style="@style/type_r16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_large"
+        android:paddingHorizontal="@dimen/padding_medium"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/interestsRecyclerView"
+        tools:text="Люблю программировать на питоне. Люблю изучать питон. Люблю всё, что угодно, связанное с питоном. А еще я люблю перл." />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dislikeButton"
+        style="@style/icon_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginStart="@dimen/padding_medium"
+        android:layout_marginBottom="@dimen/padding_regular"
+        app:icon="@drawable/ic_cross"
+        app:iconTint="@color/primary"
+        android:backgroundTint="@color/white"
+        android:text="@string/dislike"
+        android:textColor="@color/on_secondary_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/likeButton"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/likeButton"
+        style="@style/icon_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/padding_medium"
+        android:layout_marginBottom="@dimen/padding_regular"
+        app:icon="@drawable/ic_heart"
+        app:iconTint="@color/white"
+        app:backgroundTint="@null"
+        android:background="@drawable/primary_button_background"
+        android:text="@string/like"
+        android:textColor="@color/on_primary_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dislikeButton"
+        app:layout_constraintHorizontal_weight="1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
