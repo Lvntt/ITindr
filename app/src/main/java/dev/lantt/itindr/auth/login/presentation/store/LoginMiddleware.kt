@@ -27,7 +27,7 @@ class LoginMiddleware(
             is LoginMviIntent.PasswordChanged -> {
                 val validationError = validatePasswordUseCase(intent.password)
                 val passwordErrorResId = getErrorStringRes(validationError)
-                return LoginMviIntent.EmailValidated(passwordErrorResId)
+                return LoginMviIntent.PasswordValidated(passwordErrorResId)
             }
             LoginMviIntent.LoginRequested -> {
                 try {

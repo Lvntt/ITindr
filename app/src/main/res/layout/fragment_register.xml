@@ -1,176 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/appLogoImage"
-        android:layout_width="127dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="@dimen/padding_xlarge"
-        android:importantForAccessibility="no"
-        android:src="@drawable/app_logo_text_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/registrationTextView"
-        style="@style/type_b24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginTop="40dp"
-        android:text="@string/registration"
-        android:textColor="@color/primary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appLogoImage" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailTextInput"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_medium"
-        android:background="@drawable/regular_text_field_background"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:cursorColor="@color/primary"
-        app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrationTextView">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/regular_text_input_edit_text"
+        <ImageView
+            android:id="@+id/appLogoImage"
+            android:layout_width="127dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="@dimen/padding_xlarge"
+            android:importantForAccessibility="no"
+            android:src="@drawable/app_logo_text_gradient"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/registrationTextView"
+            style="@style/type_b24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="40dp"
+            android:text="@string/registration"
+            android:textColor="@color/primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appLogoImage" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_margin="@dimen/padding_medium"
+            android:background="@drawable/regular_text_field_background"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:cursorColor="@color/primary"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registrationTextView">
 
-    <TextView
-        android:id="@+id/emailError"
-        style="@style/type_m14"
-        android:textColor="@color/primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
-        android:layout_marginStart="@dimen/padding_small"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/emailTextInput"
-        app:layout_constraintTop_toBottomOf="@+id/emailTextInput"
-        tools:text="emailError" />
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/regular_text_input_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_medium"
-        android:background="@drawable/regular_text_field_background"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:cursorColor="@color/primary"
-        app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailError">
+        <TextView
+            android:id="@+id/emailError"
+            style="@style/type_m14"
+            android:textColor="@color/primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_small"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/emailTextInput"
+            app:layout_constraintTop_toBottomOf="@+id/emailTextInput"
+            tools:text="emailError" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/regular_text_input_edit_text"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/password" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_margin="@dimen/padding_medium"
+            android:background="@drawable/regular_text_field_background"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:cursorColor="@color/primary"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailError">
 
-    <TextView
-        android:id="@+id/passwordError"
-        style="@style/type_m14"
-        android:textColor="@color/primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
-        android:layout_marginStart="@dimen/padding_small"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/emailError"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextInput"
-        tools:text="passwordError" />
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/regular_text_input_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/password" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/repeatPasswordTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_medium"
-        android:background="@drawable/regular_text_field_background"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:cursorColor="@color/primary"
-        app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordError">
+        <TextView
+            android:id="@+id/passwordError"
+            style="@style/type_m14"
+            android:textColor="@color/primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_small"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/emailError"
+            app:layout_constraintTop_toBottomOf="@+id/passwordTextInput"
+            tools:text="passwordError" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/regular_text_input_edit_text"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/repeatPasswordTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/repeatPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_margin="@dimen/padding_medium"
+            android:background="@drawable/regular_text_field_background"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:cursorColor="@color/primary"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordError">
 
-    <TextView
-        android:id="@+id/repeatedPasswordError"
-        style="@style/type_m14"
-        android:textColor="@color/primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
-        android:layout_marginStart="@dimen/padding_small"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/passwordError"
-        app:layout_constraintTop_toBottomOf="@+id/repeatPasswordTextInput"
-        tools:text="repeatedPasswordError" />
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/regular_text_input_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/repeatPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <ProgressBar
-        android:id="@+id/loadingProgressBar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/padding_large"
-        android:indeterminateTint="@color/primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeatPasswordTextInput"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/repeatedPasswordError"
+            style="@style/type_m14"
+            android:textColor="@color/primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_small"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/passwordError"
+            app:layout_constraintTop_toBottomOf="@+id/repeatPasswordTextInput"
+            tools:text="repeatedPasswordError" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/registerButton"
-        style="@style/default_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginHorizontal="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/padding_xlarge"
-        android:layout_marginBottom="@dimen/padding_medium"
-        android:background="@drawable/primary_button_background"
-        android:text="@string/register"
-        android:textColor="@color/on_primary_color"
-        app:layout_constraintBottom_toTopOf="@+id/backButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="@dimen/padding_large"
+            android:indeterminateTint="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeatPasswordTextInput"
+            android:visibility="gone"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/backButton"
-        style="@style/default_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_margin="@dimen/padding_medium"
-        android:background="@drawable/secondary_button_background"
-        android:text="@string/back"
-        android:textColor="@color/on_secondary_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/registerButton"
+            style="@style/default_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginHorizontal="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_xlarge"
+            android:layout_marginBottom="@dimen/padding_medium"
+            android:background="@drawable/primary_button_background"
+            android:text="@string/register"
+            android:textColor="@color/on_primary_color"
+            app:layout_constraintBottom_toTopOf="@+id/backButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeatedPasswordError"
+            app:layout_constraintVertical_bias="1.0" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/backButton"
+            style="@style/default_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_margin="@dimen/padding_medium"
+            android:background="@drawable/secondary_button_background"
+            android:text="@string/back"
+            android:textColor="@color/on_secondary_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
