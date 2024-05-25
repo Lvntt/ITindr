@@ -24,6 +24,8 @@ class LaunchFragment : Fragment() {
         _binding = FragmentLaunchBinding.inflate(inflater, container, false)
 
         router.replaceScreen(Start())
+        // testing only
+//        router.replaceScreen(RootBottomNavigation())
 
         return binding.root
     }

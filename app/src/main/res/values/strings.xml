@@ -43,4 +43,10 @@
     <string name="aboutYourself">О себе</string>
     <string name="specifyInterests">Укажи интересы</string>
     <string name="save">Сохранить</string>
+
+    // Bottom Navigation
+    <string name="feed">Поиск</string>
+    <string name="people">Люди</string>
+    <string name="chats">Чаты</string>
+    <string name="profile">Профиль</string>
 </resources>
