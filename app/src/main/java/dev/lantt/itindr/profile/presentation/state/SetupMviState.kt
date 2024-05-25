@@ -4,7 +4,7 @@ import android.net.Uri
 import dev.lantt.itindr.core.presentation.mvi.MviState
 import dev.lantt.itindr.profile.presentation.model.Topic
 
-data class ProfileMviState(
+data class SetupMviState(
     val avatarUri: Uri? = null,
     val name: String = "",
     val isNameValid: Boolean = true,

@@ -7,51 +7,51 @@ import dev.lantt.itindr.profile.domain.usecase.SaveProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.ValidateNameUseCase
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
-import dev.lantt.itindr.profile.presentation.state.ProfileMviIntent
-import dev.lantt.itindr.profile.presentation.state.ProfileMviState
+import dev.lantt.itindr.profile.presentation.state.SetupMviIntent
+import dev.lantt.itindr.profile.presentation.state.SetupMviState
 
 private const val TAG = "ProfileMiddleware"
 
-class ProfileMiddleware(
+class SetupMiddleware(
     private val saveProfileUseCase: SaveProfileUseCase,
     private val getTopicsUseCase: GetTopicsUseCase,
     private val validateNameUseCase: ValidateNameUseCase,
     private val profileMapper: ProfileMapper,
     private val topicMapper: TopicMapper
-) : Middleware<ProfileMviState, ProfileMviIntent> {
+) : Middleware<SetupMviState, SetupMviIntent> {
     override suspend fun resolve(
-        state: ProfileMviState,
-        intent: ProfileMviIntent
-    ): ProfileMviIntent? {
+        state: SetupMviState,
+        intent: SetupMviIntent
+    ): SetupMviIntent? {
         return when (intent) {
-            ProfileMviIntent.SaveRequested -> {
+            SetupMviIntent.SaveRequested -> {
                 runCatching {
                     val profileBody = profileMapper.toUpdateProfileBody(state)
                     saveProfileUseCase(profileBody)
                 }.fold(
                     onSuccess = {
-                        ProfileMviIntent.SaveSuccessful
+                        SetupMviIntent.SaveSuccessful
                     },
                     onFailure = {
                         Log.e(TAG, it.stackTraceToString())
-                        ProfileMviIntent.SaveFailed
+                        SetupMviIntent.SaveFailed
                     }
                 )
             }
-            is ProfileMviIntent.NameChanged -> {
+            is SetupMviIntent.NameChanged -> {
                 val isValid = validateNameUseCase(intent.name)
-                ProfileMviIntent.NameValidated(isValid)
+                SetupMviIntent.NameValidated(isValid)
             }
-            ProfileMviIntent.TopicsRequested -> {
+            SetupMviIntent.TopicsRequested -> {
                 runCatching {
                     getTopicsUseCase()
                 }.fold(
                     onSuccess = {
                         val topics = topicMapper.toPresentation(it)
-                        ProfileMviIntent.TopicsRetrieved(topics)
+                        SetupMviIntent.TopicsRetrieved(topics)
                     },
                     onFailure = {
-                        ProfileMviIntent.TopicsError
+                        SetupMviIntent.TopicsError
                     }
                 )
             }

@@ -10,9 +10,9 @@ import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.launch.presentation.LaunchViewModel
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
-import dev.lantt.itindr.profile.presentation.store.ProfileMiddleware
-import dev.lantt.itindr.profile.presentation.store.ProfileReducer
-import dev.lantt.itindr.profile.presentation.store.ProfileViewModel
+import dev.lantt.itindr.profile.presentation.store.SetupMiddleware
+import dev.lantt.itindr.profile.presentation.store.SetupReducer
+import dev.lantt.itindr.profile.presentation.store.SetupViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -42,9 +42,9 @@ fun presentationModule(): Module = module {
         LoginViewModel(get(), get(), Dispatchers.IO)
     }
 
-    factoryOf(::ProfileMiddleware)
-    factoryOf(::ProfileReducer)
+    factoryOf(::SetupMiddleware)
+    factoryOf(::SetupReducer)
     viewModel {
-        ProfileViewModel(get(), get(), Dispatchers.IO)
+        SetupViewModel(get(), get(), Dispatchers.IO)
     }
 }

@@ -18,20 +18,20 @@ import dev.lantt.itindr.R
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
 import dev.lantt.itindr.core.presentation.navigation.Screens.RootBottomNavigation
 import dev.lantt.itindr.core.presentation.utils.ToastManager
-import dev.lantt.itindr.databinding.FragmentProfileBinding
-import dev.lantt.itindr.profile.presentation.state.ProfileMviEffect
-import dev.lantt.itindr.profile.presentation.state.ProfileMviIntent
-import dev.lantt.itindr.profile.presentation.state.ProfileMviState
-import dev.lantt.itindr.profile.presentation.store.ProfileViewModel
+import dev.lantt.itindr.databinding.FragmentSetupBinding
+import dev.lantt.itindr.profile.presentation.state.SetupMviEffect
+import dev.lantt.itindr.profile.presentation.state.SetupMviIntent
+import dev.lantt.itindr.profile.presentation.state.SetupMviState
+import dev.lantt.itindr.profile.presentation.store.SetupViewModel
 import org.koin.android.ext.android.inject
 import java.io.File
 
-class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMviEffect>() {
+class SetupFragment : MviFragment<SetupMviState, SetupMviIntent, SetupMviEffect>() {
 
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentSetupBinding? = null
     private val binding get() = _binding!!
 
-    override val store: ProfileViewModel by inject()
+    override val store: SetupViewModel by inject()
     private val toastManager: ToastManager by inject()
     private val router: Router by inject()
 
@@ -40,13 +40,13 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
     private var loadingDialog: AlertDialog? = null
     private val pickAvatarLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         uri?.let {
-            store.dispatch(ProfileMviIntent.AvatarPicked(it))
+            store.dispatch(SetupMviIntent.AvatarPicked(it))
         }
     }
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
         if (isSuccess) {
             takenPictureUri?.let {
-                store.dispatch(ProfileMviIntent.AvatarPicked(it))
+                store.dispatch(SetupMviIntent.AvatarPicked(it))
             }
         } else {
             takenPictureUri = null
@@ -59,12 +59,12 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentSetupBinding.inflate(inflater, container, false)
 
         val topicsRecyclerView = binding.topicsRecyclerView
         topicsListAdapter = TopicsListAdapter(
             onTopicClick = {
-                store.dispatch(ProfileMviIntent.TopicChosen(it))
+                store.dispatch(SetupMviIntent.TopicChosen(it))
             }
         )
         topicsListAdapter?.submitList(store.state.value.topics)
@@ -72,20 +72,20 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
         topicsRecyclerView.adapter = topicsListAdapter
 
         binding.nameTextInput.editText?.doOnTextChanged { text, _, _, _ ->
-            store.dispatch(ProfileMviIntent.NameChanged(text.toString()))
+            store.dispatch(SetupMviIntent.NameChanged(text.toString()))
         }
 
         binding.saveButton.setOnClickListener {
-            store.dispatch(ProfileMviIntent.SaveRequested)
+            store.dispatch(SetupMviIntent.SaveRequested)
         }
 
         return binding.root
     }
 
-    override fun handleEffect(effect: ProfileMviEffect) {
+    override fun handleEffect(effect: SetupMviEffect) {
         when (effect) {
-            ProfileMviEffect.HandleSuccess -> router.newRootScreen(RootBottomNavigation())
-            ProfileMviEffect.ShowAvatarChoice -> showAvatarChoiceDialog(
+            SetupMviEffect.HandleSuccess -> router.newRootScreen(RootBottomNavigation())
+            SetupMviEffect.ShowAvatarChoice -> showAvatarChoiceDialog(
                 onMakePhoto = {
                     val tempFile = File.createTempFile("temp", ".jpg", context?.applicationContext?.filesDir).apply {
                         createNewFile()
@@ -99,12 +99,12 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
                     pickAvatarLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType("image/jpeg")))
                 }
             )
-            ProfileMviEffect.ShowTopicsError -> toastManager.showToast(context, R.string.topicsError)
-            ProfileMviEffect.ShowSaveError -> toastManager.showToast(context, R.string.saveError)
+            SetupMviEffect.ShowTopicsError -> toastManager.showToast(context, R.string.topicsError)
+            SetupMviEffect.ShowSaveError -> toastManager.showToast(context, R.string.saveError)
         }
     }
 
-    override fun render(state: ProfileMviState) {
+    override fun render(state: SetupMviState) {
         topicsListAdapter?.submitList(store.state.value.topics)
 
         binding.loadingProgressBar.isVisible = state.areTopicsLoading
@@ -115,13 +115,13 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
             binding.profileImageView.setImageURI(state.avatarUri)
             binding.choosePhotoTextView.text = getString(R.string.removePhoto)
             binding.choosePhotoTextView.setOnClickListener {
-                store.dispatch(ProfileMviIntent.AvatarRemoved)
+                store.dispatch(SetupMviIntent.AvatarRemoved)
             }
         } else {
             binding.profileImageView.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_user))
             binding.choosePhotoTextView.text = getString(R.string.choosePhoto)
             binding.choosePhotoTextView.setOnClickListener {
-                store.dispatch(ProfileMviIntent.AvatarChoiceRequested)
+                store.dispatch(SetupMviIntent.AvatarChoiceRequested)
             }
         }
 

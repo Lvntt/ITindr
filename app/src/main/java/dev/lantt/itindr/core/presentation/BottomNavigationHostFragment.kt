@@ -14,7 +14,7 @@ import dev.lantt.itindr.core.presentation.navigation.ITindrNavigator
 import dev.lantt.itindr.core.presentation.navigation.Screens.Chats
 import dev.lantt.itindr.core.presentation.navigation.Screens.Feed
 import dev.lantt.itindr.core.presentation.navigation.Screens.People
-import dev.lantt.itindr.core.presentation.navigation.Screens.Profile
+import dev.lantt.itindr.core.presentation.navigation.Screens.Setup
 import dev.lantt.itindr.databinding.FragmentBottomNavigationHostBinding
 
 class BottomNavigationHostFragment : Fragment() {
@@ -57,7 +57,7 @@ class BottomNavigationHostFragment : Fragment() {
                     true
                 }
                 R.id.navProfile -> {
-                    router.navigateTo(Profile())
+                    router.navigateTo(Setup())
                     true
                 }
                 else -> false

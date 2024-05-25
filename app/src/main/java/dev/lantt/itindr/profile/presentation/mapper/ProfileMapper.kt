@@ -1,11 +1,11 @@
 package dev.lantt.itindr.profile.presentation.mapper
 
 import dev.lantt.itindr.profile.domain.entity.UpdateProfileBody
-import dev.lantt.itindr.profile.presentation.state.ProfileMviState
+import dev.lantt.itindr.profile.presentation.state.SetupMviState
 
 class ProfileMapper {
 
-    fun toUpdateProfileBody(state: ProfileMviState) = with(state) {
+    fun toUpdateProfileBody(state: SetupMviState) = with(state) {
         UpdateProfileBody(
             avatarUri = avatarUri?.toString(),
             name = name,

@@ -12,7 +12,7 @@ import dev.lantt.itindr.auth.login.presentation.state.LoginMviIntent
 import dev.lantt.itindr.auth.login.presentation.state.LoginMviState
 import dev.lantt.itindr.auth.login.presentation.store.LoginViewModel
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
-import dev.lantt.itindr.core.presentation.navigation.Screens.Profile
+import dev.lantt.itindr.core.presentation.navigation.Screens.Setup
 import dev.lantt.itindr.core.presentation.navigation.Screens.RootBottomNavigation
 import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.databinding.FragmentLoginBinding
@@ -83,7 +83,7 @@ class LoginFragment : MviFragment<LoginMviState, LoginMviIntent, LoginMviEffect>
 
     override fun handleEffect(effect: LoginMviEffect) {
         when (effect) {
-            LoginMviEffect.GoToSetupScreen -> router.newRootScreen(Profile())
+            LoginMviEffect.GoToSetupScreen -> router.newRootScreen(Setup())
             LoginMviEffect.GoToFeedScreen -> router.newRootScreen(RootBottomNavigation())
             LoginMviEffect.GoToPreviousScreen -> router.exit()
             LoginMviEffect.ShowError -> toastManager.showToast(context, R.string.loginError)

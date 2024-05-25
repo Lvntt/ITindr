@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.github.terrakok.cicerone.Router
-import dev.lantt.itindr.core.presentation.navigation.Screens.Profile
+import dev.lantt.itindr.core.presentation.navigation.Screens.Setup
 import dev.lantt.itindr.core.presentation.navigation.Screens.RootBottomNavigation
 import dev.lantt.itindr.core.presentation.navigation.Screens.Start
 import dev.lantt.itindr.databinding.FragmentLaunchBinding
@@ -46,7 +46,7 @@ class LaunchFragment : Fragment() {
     private fun handleEffect(effect: LaunchEffect) {
         val destinationScreen = when (effect) {
             LaunchEffect.RedirectToFeedRequired -> RootBottomNavigation()
-            LaunchEffect.RedirectToSetupRequired -> Profile()
+            LaunchEffect.RedirectToSetupRequired -> Setup()
             LaunchEffect.RedirectToStartRequired -> Start()
         }
         router.replaceScreen(destinationScreen)
