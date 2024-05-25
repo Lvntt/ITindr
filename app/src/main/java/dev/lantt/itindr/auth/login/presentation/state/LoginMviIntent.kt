@@ -12,5 +12,6 @@ sealed interface LoginMviIntent : MviIntent {
     data class EmailValidated(val errorStringResId: Int?) : LoginMviIntent
     data class PasswordValidated(val errorStringResId: Int?) : LoginMviIntent
     data object LoginSuccessful : LoginMviIntent
+    data object UserIsSetUp : LoginMviIntent
     data object LoginFailed : LoginMviIntent
 }

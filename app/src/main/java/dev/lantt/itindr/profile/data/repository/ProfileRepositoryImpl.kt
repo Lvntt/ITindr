@@ -4,6 +4,7 @@ import android.content.ContentResolver
 import android.net.Uri
 import dev.lantt.itindr.profile.data.api.ProfileApiService
 import dev.lantt.itindr.profile.data.mapper.ProfileMapper
+import dev.lantt.itindr.profile.domain.entity.Profile
 import dev.lantt.itindr.profile.domain.entity.UpdateProfileBody
 import dev.lantt.itindr.profile.domain.repository.ProfileRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +18,12 @@ class ProfileRepositoryImpl(
     private val profileMapper: ProfileMapper,
     private val contentResolver: ContentResolver
 ) : ProfileRepository {
+    override suspend fun getProfile(): Profile = profileApiService.getProfile()
+
     override suspend fun saveProfile(profile: UpdateProfileBody) = withContext(Dispatchers.IO) {
+        profileApiService.updateProfile(profileMapper.toRemoteProfile(profile))
+
         if (profile.avatarUri == null) {
-            profileApiService.updateProfile(profileMapper.toRemoteProfile(profile))
             return@withContext
         }
 

@@ -8,4 +8,8 @@ interface AuthRepository {
     suspend fun register(registerBody: RegisterBody)
     suspend fun login(loginBody: LoginBody)
     suspend fun refresh(): TokenResponse
+
+    fun saveIsSetUp()
+    fun isUserLoggedIn(): Boolean
+    fun isUserSetUp(): Boolean
 }

@@ -29,6 +29,10 @@ class LoginReducer : Reducer<LoginMviState, LoginMviIntent, LoginMviEffect> {
                 state.copy(loginState = LoginMviState.LoginState.IDLE)
             }
             LoginMviIntent.LoginSuccessful -> {
+                sendEffect(LoginMviEffect.GoToSetupScreen)
+                state.copy(loginState = LoginMviState.LoginState.IDLE)
+            }
+            LoginMviIntent.UserIsSetUp -> {
                 sendEffect(LoginMviEffect.GoToFeedScreen)
                 state.copy(loginState = LoginMviState.LoginState.IDLE)
             }

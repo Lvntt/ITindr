@@ -9,11 +9,13 @@ import dev.lantt.itindr.auth.login.presentation.state.LoginMviIntent
 import dev.lantt.itindr.auth.login.presentation.state.LoginMviState
 import dev.lantt.itindr.auth.register.presentation.mapper.ValidationErrorToStringRes
 import dev.lantt.itindr.core.presentation.mvi.Middleware
+import dev.lantt.itindr.launch.domain.usecase.IsUserSetUpUseCase
 
 class LoginMiddleware(
     private val loginUseCase: LoginUseCase,
     private val validateLoginUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
+    private val isUserSetUpUseCase: IsUserSetUpUseCase
 ) : Middleware<LoginMviState, LoginMviIntent> {
     override suspend fun resolve(state: LoginMviState, intent: LoginMviIntent): LoginMviIntent? {
         return when (intent) {
@@ -28,21 +30,22 @@ class LoginMiddleware(
                 return LoginMviIntent.EmailValidated(passwordErrorResId)
             }
             LoginMviIntent.LoginRequested -> {
-                runCatching {
+                try {
                     loginUseCase(
                         LoginBody(
                             email = state.email,
                             password = state.password
                         )
                     )
-                }.fold(
-                    onSuccess = {
+
+                    if (isUserSetUpUseCase()) {
+                        LoginMviIntent.UserIsSetUp
+                    } else {
                         LoginMviIntent.LoginSuccessful
-                    },
-                    onFailure = {
-                        LoginMviIntent.LoginFailed
                     }
-                )
+                } catch (e: Exception) {
+                    LoginMviIntent.LoginFailed
+                }
             }
             else -> null
         }

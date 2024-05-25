@@ -1,10 +1,13 @@
 package dev.lantt.itindr.di
 
-import dev.lantt.itindr.auth.register.domain.usecase.RegisterUseCase
 import dev.lantt.itindr.auth.common.domain.usecase.ValidateEmailUseCase
 import dev.lantt.itindr.auth.common.domain.usecase.ValidatePasswordUseCase
 import dev.lantt.itindr.auth.login.domain.usecase.LoginUseCase
+import dev.lantt.itindr.auth.register.domain.usecase.RegisterUseCase
 import dev.lantt.itindr.auth.register.domain.usecase.ValidateRepeatedPasswordUseCase
+import dev.lantt.itindr.launch.domain.usecase.IsUserLoggedInUseCase
+import dev.lantt.itindr.launch.domain.usecase.IsUserSetUpUseCase
+import dev.lantt.itindr.profile.domain.usecase.GetProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.GetTopicsUseCase
 import dev.lantt.itindr.profile.domain.usecase.SaveProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.ValidateNameUseCase
@@ -19,6 +22,9 @@ fun domainModule(): Module = module {
     factoryOf(::ValidatePasswordUseCase)
     factoryOf(::ValidateRepeatedPasswordUseCase)
     factoryOf(::GetTopicsUseCase)
+    factoryOf(::GetProfileUseCase)
     factoryOf(::SaveProfileUseCase)
     factoryOf(::ValidateNameUseCase)
+    factoryOf(::IsUserSetUpUseCase)
+    factoryOf(::IsUserLoggedInUseCase)
 }

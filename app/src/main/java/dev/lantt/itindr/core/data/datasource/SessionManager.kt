@@ -14,6 +14,7 @@ class SessionManager(context: Context) {
         const val ACCESS_TOKEN_EXPIRED_AT = "access_token_expired_at"
         const val REFRESH_TOKEN = "refresh_token"
         const val REFRESH_TOKEN_EXPIRED_AT = "refresh_token_expired_at"
+        const val IS_SET_UP = "is_set_up"
     }
 
     private val masterKeyAlias = MasterKey.Builder(context)
@@ -50,5 +51,15 @@ class SessionManager(context: Context) {
             TokenType.REFRESH -> sharedPreferences.getLong(REFRESH_TOKEN_EXPIRED_AT, 0L) < System.currentTimeMillis()
         }
     }
+
+    fun saveIsSetUp() {
+        sharedPreferences.edit()
+            .putBoolean(IS_SET_UP, true)
+            .apply()
+    }
+
+    fun hasToken(): Boolean = sharedPreferences.getString(ACCESS_TOKEN, null) != null
+
+    fun isSetUp(): Boolean = sharedPreferences.getBoolean(IS_SET_UP, false)
 
 }

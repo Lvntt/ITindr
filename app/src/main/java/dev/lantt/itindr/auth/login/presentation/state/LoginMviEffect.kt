@@ -4,6 +4,7 @@ import dev.lantt.itindr.core.presentation.mvi.MviEffect
 
 sealed interface LoginMviEffect : MviEffect {
     data object ShowError : LoginMviEffect
+    data object GoToSetupScreen : LoginMviEffect
     data object GoToFeedScreen : LoginMviEffect
     data object GoToPreviousScreen : LoginMviEffect
 }

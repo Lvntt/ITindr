@@ -38,4 +38,10 @@ class AuthRepositoryImpl(
 
         return tokenResponse
     }
+
+    override fun saveIsSetUp() = sessionManager.saveIsSetUp()
+
+    override fun isUserLoggedIn(): Boolean = sessionManager.hasToken()
+
+    override fun isUserSetUp(): Boolean = sessionManager.isSetUp()
 }

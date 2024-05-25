@@ -13,8 +13,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import com.github.terrakok.cicerone.Router
 import dev.lantt.itindr.R
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
+import dev.lantt.itindr.core.presentation.navigation.Screens.RootBottomNavigation
 import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.databinding.FragmentProfileBinding
 import dev.lantt.itindr.profile.presentation.state.ProfileMviEffect
@@ -31,6 +33,7 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
 
     override val store: ProfileViewModel by inject()
     private val toastManager: ToastManager by inject()
+    private val router: Router by inject()
 
     private var takenPictureUri: Uri? = null
 
@@ -81,7 +84,7 @@ class ProfileFragment : MviFragment<ProfileMviState, ProfileMviIntent, ProfileMv
 
     override fun handleEffect(effect: ProfileMviEffect) {
         when (effect) {
-            ProfileMviEffect.HandleSuccess -> TODO()
+            ProfileMviEffect.HandleSuccess -> router.newRootScreen(RootBottomNavigation())
             ProfileMviEffect.ShowAvatarChoice -> showAvatarChoiceDialog(
                 onMakePhoto = {
                     val tempFile = File.createTempFile("temp", ".jpg", context?.applicationContext?.filesDir).apply {
