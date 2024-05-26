@@ -24,7 +24,7 @@ class FeedReducer : Reducer<FeedMviState, FeedMviIntent, FeedMviEffect> {
                         id = userId,
                         name = name,
                         aboutMyself = aboutMyself ?: "",
-                        avatarUri = avatar,
+                        avatarUrl = avatar,
                         topics = topics,
                         isLoading = false
                     )
@@ -46,7 +46,7 @@ class FeedReducer : Reducer<FeedMviState, FeedMviIntent, FeedMviEffect> {
                         id = userId,
                         name = name,
                         aboutMyself = aboutMyself ?: "",
-                        avatarUri = avatar,
+                        avatarUrl = avatar,
                         topics = topics,
                         isLoading = false
                     )

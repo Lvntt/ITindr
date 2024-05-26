@@ -9,7 +9,7 @@ data class FeedMviState(
     val id: String = "",
     val name: String = "",
     val aboutMyself: String = "",
-    val avatarUri: String? = null,
+    val avatarUrl: String? = null,
     val topics: List<Topic> = emptyList(),
     val isLoading: Boolean = false,
     val isEmpty: Boolean = false

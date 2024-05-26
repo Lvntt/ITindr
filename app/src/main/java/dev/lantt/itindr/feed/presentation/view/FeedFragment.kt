@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
-import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import dev.lantt.itindr.R
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
 import dev.lantt.itindr.core.presentation.utils.ToastManager
+import dev.lantt.itindr.core.presentation.utils.Utils.loadImageWithShimmer
 import dev.lantt.itindr.databinding.FragmentFeedBinding
 import dev.lantt.itindr.feed.presentation.state.FeedMviEffect
 import dev.lantt.itindr.feed.presentation.state.FeedMviIntent
@@ -51,24 +51,22 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
             showLoadingDialog()
         } else {
             dismissLoadingDialog()
+
+            binding.placeholderImage.isVisible = state.isEmpty
+            binding.placeholderText.isVisible = state.isEmpty
+
+            binding.userAvatarImage.isVisible = !state.isEmpty
+            binding.userNameText.isVisible = !state.isEmpty
+            binding.interestsRecyclerView.isVisible = !state.isEmpty
+            binding.aboutUserText.isVisible = !state.isEmpty
+            binding.dislikeButton.isVisible = !state.isEmpty
+            binding.likeButton.isVisible = !state.isEmpty
         }
 
-        binding.placeholderImage.isVisible = state.isEmpty
-        binding.placeholderText.isVisible = state.isEmpty
-
-        binding.userAvatarImage.isVisible = !state.isEmpty
-        binding.userNameText.isVisible = !state.isEmpty
-        binding.interestsRecyclerView.isVisible = !state.isEmpty
-        binding.aboutUserText.isVisible = !state.isEmpty
-        binding.dislikeButton.isVisible = !state.isEmpty
-        binding.likeButton.isVisible = !state.isEmpty
-
-        state.avatarUri?.let {
+        state.avatarUrl?.let {
             binding.userAvatarImage.clipToOutline = true
             binding.userAvatarImage.scaleType = ImageView.ScaleType.CENTER_CROP
-            Glide.with(binding.userAvatarImage)
-                .load(state.avatarUri)
-                .into(binding.userAvatarImage)
+            binding.userAvatarImage.loadImageWithShimmer(state.avatarUrl)
         }
 
         binding.userNameText.text = state.name

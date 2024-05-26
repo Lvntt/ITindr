@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.flexbox)
     implementation(libs.github.glide)
+    implementation(libs.facebook.shimmer)
 
     implementation(libs.cicerone)
 
