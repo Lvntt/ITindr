@@ -37,7 +37,7 @@ class TopicsListAdapter(
 
         fun bind(topic: Topic) = with(binding) {
             topicTitleTextView.text = topic.title
-            binding.topicTitleTextView.isSelected = topic.isSelected
+            topicTitleTextView.isSelected = topic.isSelected
         }
     }
 

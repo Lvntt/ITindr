@@ -5,6 +5,9 @@ import dev.lantt.itindr.auth.common.domain.usecase.ValidatePasswordUseCase
 import dev.lantt.itindr.auth.login.domain.usecase.LoginUseCase
 import dev.lantt.itindr.auth.register.domain.usecase.RegisterUseCase
 import dev.lantt.itindr.auth.register.domain.usecase.ValidateRepeatedPasswordUseCase
+import dev.lantt.itindr.feed.domain.usecase.DislikeUserUseCase
+import dev.lantt.itindr.feed.domain.usecase.GetFeedUseCase
+import dev.lantt.itindr.feed.domain.usecase.LikeUserUseCase
 import dev.lantt.itindr.launch.domain.usecase.IsUserLoggedInUseCase
 import dev.lantt.itindr.launch.domain.usecase.IsUserSetUpUseCase
 import dev.lantt.itindr.profile.domain.usecase.GetProfileUseCase
@@ -27,4 +30,7 @@ fun domainModule(): Module = module {
     factoryOf(::ValidateNameUseCase)
     factoryOf(::IsUserSetUpUseCase)
     factoryOf(::IsUserLoggedInUseCase)
+    factoryOf(::GetFeedUseCase)
+    factoryOf(::LikeUserUseCase)
+    factoryOf(::DislikeUserUseCase)
 }

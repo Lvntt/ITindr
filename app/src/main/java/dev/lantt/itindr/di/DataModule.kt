@@ -3,6 +3,8 @@ package dev.lantt.itindr.di
 import android.content.ContentResolver
 import dev.lantt.itindr.core.data.repository.AuthRepositoryImpl
 import dev.lantt.itindr.core.domain.repository.AuthRepository
+import dev.lantt.itindr.feed.data.repository.UserRepositoryImpl
+import dev.lantt.itindr.feed.domain.repository.UserRepository
 import dev.lantt.itindr.profile.data.api.ProfileApiService
 import dev.lantt.itindr.profile.data.mapper.ProfileMapper
 import dev.lantt.itindr.profile.data.repository.ProfileRepositoryImpl
@@ -31,4 +33,5 @@ fun dataModule(): Module = module {
         provideProfileRepository(get(), get(), androidContext().contentResolver)
     }
     singleOf(::TopicRepositoryImpl) bind TopicRepository::class
+    singleOf(::UserRepositoryImpl) bind UserRepository::class
 }

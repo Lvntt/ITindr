@@ -16,6 +16,7 @@ import dev.lantt.itindr.di.Labels.AUTH_OKHTTP
 import dev.lantt.itindr.di.Labels.AUTH_RETROFIT
 import dev.lantt.itindr.di.Labels.REGULAR_OKHTTP
 import dev.lantt.itindr.di.Labels.REGULAR_RETROFIT
+import dev.lantt.itindr.feed.data.api.UserApiService
 import dev.lantt.itindr.profile.data.api.ProfileApiService
 import dev.lantt.itindr.profile.data.api.TopicApiService
 import okhttp3.OkHttpClient
@@ -105,6 +106,11 @@ private fun provideTopicApiService(
 ): TopicApiService =
     retrofit.create(TopicApiService::class.java)
 
+private fun provideUserApiService(
+    retrofit: Retrofit
+): UserApiService =
+    retrofit.create(UserApiService::class.java)
+
 fun networkModule(): Module = module {
     singleOf(::provideLoggingInterceptor)
     singleOf(::provideAuthInterceptor)
@@ -134,5 +140,8 @@ fun networkModule(): Module = module {
     }
     single {
         provideTopicApiService(get(named(AUTH_RETROFIT)))
+    }
+    single {
+        provideUserApiService(get(named(AUTH_RETROFIT)))
     }
 }

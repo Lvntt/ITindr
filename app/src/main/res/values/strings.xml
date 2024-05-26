@@ -18,6 +18,7 @@
     <string name="pickFromGallery">Выбрать из галереи</string>
     <string name="loading">Загрузка..</string>
     <string name="error">Ошибка</string>
+    <string name="networkError">Ошибка сети</string>
     <string name="topicsError">Ошибка при загрузке списка интересов</string>
     <string name="saveError">Ошибка при сохранении</string>
     <string name="savePhotoError">Ошибка при сохранении фото</string>
@@ -47,6 +48,7 @@
     // Feed Screen
     <string name="like">Лайк</string>
     <string name="dislike">Отказ</string>
+    <string name="emptyFeed">Кажется, сейчас нет анкет, которые мы могли бы тебе порекомендовать. Попробуй посмотреть позже!</string>
 
     // Bottom Navigation
     <string name="feed">Поиск</string>
