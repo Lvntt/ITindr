@@ -36,7 +36,7 @@ class FeedReducer : Reducer<FeedMviState, FeedMviIntent, FeedMviEffect> {
             }
             FeedMviIntent.MutualLike -> {
                 sendEffect(FeedMviEffect.Match)
-                state
+                state.copy(isLoading = false)
             }
             is FeedMviIntent.ShowNextUser -> {
                 val user = intent.updatedFeed.first()
@@ -60,9 +60,9 @@ class FeedReducer : Reducer<FeedMviState, FeedMviIntent, FeedMviEffect> {
                 sendEffect(FeedMviEffect.ShowError)
                 state.copy(isLoading = false)
             }
-            FeedMviIntent.NextUserRequested -> state
-            is FeedMviIntent.UserLiked -> state
-            is FeedMviIntent.UserDisliked -> state
+            FeedMviIntent.NextUserRequested -> state.copy(isLoading = false)
+            is FeedMviIntent.UserLiked -> state.copy(isLoading = true)
+            is FeedMviIntent.UserDisliked -> state.copy(isLoading = true)
         }
     }
 
