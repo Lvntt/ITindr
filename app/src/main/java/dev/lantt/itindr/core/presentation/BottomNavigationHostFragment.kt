@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.Router
 import dev.lantt.itindr.R
-import dev.lantt.itindr.core.presentation.navigation.ITindrNavigator
+import dev.lantt.itindr.core.presentation.navigation.BottomNavRouter
+import dev.lantt.itindr.core.presentation.navigation.BottomNavigator
 import dev.lantt.itindr.core.presentation.navigation.Screens.Chats
 import dev.lantt.itindr.core.presentation.navigation.Screens.Feed
 import dev.lantt.itindr.core.presentation.navigation.Screens.People
@@ -22,16 +22,16 @@ class BottomNavigationHostFragment : Fragment() {
     private var _binding: FragmentBottomNavigationHostBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var router: Router
+    private lateinit var router: BottomNavRouter
     private lateinit var navigatorHolder: NavigatorHolder
     private lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val cicerone = Cicerone.create()
+        val cicerone = Cicerone.create(BottomNavRouter())
         router = cicerone.router
-        navigator = ITindrNavigator(requireActivity(), R.id.bottomNavigationFragmentHost)
+        navigator = BottomNavigator(requireActivity(), R.id.bottomNavigationFragmentHost, childFragmentManager)
         navigatorHolder = cicerone.getNavigatorHolder()
     }
 
@@ -44,24 +44,17 @@ class BottomNavigationHostFragment : Fragment() {
         val bottomNavigationBar = binding.bottomNavigationBar
         bottomNavigationBar.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navFeed -> {
-                    router.navigateTo(Feed())
-                    true
-                }
-                R.id.navPeople -> {
-                    router.navigateTo(People())
-                    true
-                }
-                R.id.navChats -> {
-                    router.navigateTo(Chats())
-                    true
-                }
-                R.id.navProfile -> {
-                    router.navigateTo(Setup())
-                    true
-                }
-                else -> false
+                R.id.navFeed -> router.changeTab(Feed())
+                R.id.navPeople -> router.changeTab(People())
+                R.id.navChats -> router.changeTab(Chats())
+                R.id.navProfile -> router.changeTab(Setup())
+                else -> return@setOnItemSelectedListener false
             }
+            return@setOnItemSelectedListener true
+        }
+
+        if (childFragmentManager.fragments.isEmpty()) {
+            router.changeTab(Feed())
         }
 
         bottomNavigationBar.setOnApplyWindowInsetsListener(null)
