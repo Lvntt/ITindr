@@ -74,6 +74,9 @@ class SetupFragment : MviFragment<SetupMviState, SetupMviIntent, SetupMviEffect>
         binding.nameTextInput.editText?.doOnTextChanged { text, _, _, _ ->
             store.dispatch(SetupMviIntent.NameChanged(text.toString()))
         }
+        binding.aboutMyselfTextInput.editText?.doOnTextChanged { text, _, _, _ ->
+            store.dispatch(SetupMviIntent.AboutMyselfChanged(text.toString()))
+        }
 
         binding.saveButton.setOnClickListener {
             store.dispatch(SetupMviIntent.SaveRequested)

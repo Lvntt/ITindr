@@ -9,6 +9,7 @@ sealed interface SetupMviIntent : MviIntent {
     data class AvatarPicked(val avatarUri: Uri) : SetupMviIntent
     data object AvatarRemoved : SetupMviIntent
     data class NameChanged(val name: String) : SetupMviIntent
+    data class AboutMyselfChanged(val aboutMyself: String) : SetupMviIntent
     data class TopicChosen(val topic: Topic) : SetupMviIntent
     data object SaveRequested : SetupMviIntent
 

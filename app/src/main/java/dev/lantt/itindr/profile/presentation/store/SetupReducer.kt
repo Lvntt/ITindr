@@ -24,6 +24,7 @@ class SetupReducer
             SetupMviIntent.AvatarRemoved -> state.copy(avatarUri = Uri.EMPTY)
             is SetupMviIntent.NameChanged -> state.copy(name = intent.name)
             is SetupMviIntent.NameValidated -> state.copy(isNameValid = intent.isValid)
+            is SetupMviIntent.AboutMyselfChanged -> state.copy(aboutMyself = intent.aboutMyself)
             SetupMviIntent.SaveRequested -> state.copy(isLoading = true)
             SetupMviIntent.SaveSuccessful -> {
                 sendEffect(SetupMviEffect.HandleSuccess)

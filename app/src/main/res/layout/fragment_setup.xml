@@ -95,7 +95,7 @@
             android:text="@string/emptyField" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/aboutYourselfTextInput"
+            android:id="@+id/aboutMyselfTextInput"
             android:layout_width="match_parent"
             android:layout_height="128dp"
             android:layout_margin="@dimen/padding_medium"
@@ -128,7 +128,7 @@
             android:text="@string/specifyInterests"
             android:textColor="@color/primary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/aboutYourselfTextInput" />
+            app:layout_constraintTop_toBottomOf="@+id/aboutMyselfTextInput" />
 
         <ProgressBar
             android:id="@+id/loadingProgressBar"

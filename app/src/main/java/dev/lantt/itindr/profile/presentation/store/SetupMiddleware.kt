@@ -10,7 +10,7 @@ import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
 import dev.lantt.itindr.profile.presentation.state.SetupMviIntent
 import dev.lantt.itindr.profile.presentation.state.SetupMviState
 
-private const val TAG = "ProfileMiddleware"
+private const val TAG = "SetupMiddleware"
 
 class SetupMiddleware(
     private val saveProfileUseCase: SaveProfileUseCase,
