@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
+import com.facebook.shimmer.Shimmer
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import dev.lantt.itindr.R
@@ -29,12 +30,19 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
     private val toastManager: ToastManager by inject()
 
     private var loadingDialog: AlertDialog? = null
+    private lateinit var shimmer: Shimmer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
+
+        shimmer = Shimmer.AlphaHighlightBuilder()
+            .setDuration(1000L)
+            .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+            .setAutoStart(true)
+            .build()
 
         return binding.root
     }
@@ -48,21 +56,32 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
 
     override fun render(state: FeedMviState) {
         if (state.isLoading) {
-            showLoadingDialog()
+            binding.shimmerLayout.apply {
+                isVisible = true
+                setShimmer(shimmer)
+                startShimmer()
+            }
         } else {
-            dismissLoadingDialog()
-
-            binding.placeholderImage.isVisible = state.isEmpty
-            binding.placeholderText.isVisible = state.isEmpty
-
-            binding.userAvatarImage.isVisible = !state.isEmpty
-            binding.userNameText.isVisible = !state.isEmpty
-            binding.interestsRecyclerView.isVisible = !state.isEmpty
-            binding.aboutUserText.isVisible = !state.isEmpty
-            binding.dislikeButton.isVisible = !state.isEmpty
-            binding.likeButton.isVisible = !state.isEmpty
+            binding.shimmerLayout.apply {
+                isVisible = false
+                stopShimmer()
+            }
         }
 
+        val shouldShowContent = !state.isEmpty && !state.isLoading
+
+        binding.placeholderImage.isVisible = state.isEmpty
+        binding.placeholderText.isVisible = state.isEmpty
+
+        binding.userAvatarImage.isVisible = shouldShowContent
+        binding.userNameText.isVisible = shouldShowContent
+        binding.interestsRecyclerView.isVisible = shouldShowContent
+        binding.aboutUserText.isVisible = shouldShowContent
+        binding.dislikeButton.isVisible = shouldShowContent
+        binding.likeButton.isVisible = shouldShowContent
+
+        // TODO different shimmer (image) + color
+        // TODO about myself not working on register?
         state.avatarUrl?.let {
             binding.userAvatarImage.clipToOutline = true
             binding.userAvatarImage.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -90,19 +109,4 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
             store.dispatch(FeedMviIntent.UserLiked(state.id))
         }
     }
-
-    private fun showLoadingDialog() {
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(context?.getString(R.string.loading))
-        builder.setView(layoutInflater.inflate(R.layout.loading_progress_bar, null))
-        builder.setCancelable(false)
-
-        loadingDialog = builder.create()
-        loadingDialog?.show()
-    }
-
-    private fun dismissLoadingDialog() {
-        loadingDialog?.dismiss()
-    }
-
 }

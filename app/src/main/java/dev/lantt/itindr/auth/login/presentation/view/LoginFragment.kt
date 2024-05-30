@@ -81,6 +81,7 @@ class LoginFragment : MviFragment<LoginMviState, LoginMviIntent, LoginMviEffect>
 
     }
 
+    // TODO separate connection error from invalid credentials
     override fun handleEffect(effect: LoginMviEffect) {
         when (effect) {
             LoginMviEffect.GoToSetupScreen -> router.newRootScreen(Setup())

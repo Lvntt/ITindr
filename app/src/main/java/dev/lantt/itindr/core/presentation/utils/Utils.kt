@@ -8,9 +8,7 @@ import com.facebook.shimmer.ShimmerDrawable
 object Utils {
 
     private val shimmer = Shimmer.AlphaHighlightBuilder()
-        .setDuration(750L)
-        .setBaseAlpha(0.7f)
-        .setHighlightAlpha(0.6f)
+        .setDuration(1000L)
         .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
         .setAutoStart(true)
         .build()

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/topicTitleTextView"
+        android:background="@drawable/interest_shimmer_background"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/topic_text_color"
+        android:paddingHorizontal="@dimen/padding_small"
+        android:paddingVertical="3.5dp"
+        style="@style/type_b14"
+        android:layout_marginEnd="@dimen/padding_small" />
+
+</FrameLayout>
