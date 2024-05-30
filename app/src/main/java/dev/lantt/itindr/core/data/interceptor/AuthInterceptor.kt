@@ -20,6 +20,12 @@ class AuthInterceptor(
 
         if (accessToken != null && isAccessTokenExpired) {
             val refreshToken = sessionManager.fetchToken(TokenType.REFRESH)
+            val isRefreshTokenExpired = sessionManager.isTokenExpired(TokenType.REFRESH)
+
+            if (isRefreshTokenExpired) {
+                return chain.proceed(originalRequest)
+            }
+
             val newAccessToken = runBlocking {
                 refreshToken?.let {
                     val newTokens = authRepository.refresh()
