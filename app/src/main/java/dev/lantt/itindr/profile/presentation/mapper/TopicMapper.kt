@@ -8,10 +8,10 @@ class TopicMapper {
         return topics.map { toPresentation(it) }
     }
 
-    private fun toPresentation(topic: dev.lantt.itindr.profile.domain.entity.Topic): Topic {
-        return Topic(
-            id = topic.id,
-            title = topic.title
+    private fun toPresentation(topic: dev.lantt.itindr.profile.domain.entity.Topic): Topic = with(topic) {
+        Topic(
+            id = id,
+            title = title
         )
     }
 

@@ -1,6 +1,5 @@
 package dev.lantt.itindr.feed.presentation.view
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import com.facebook.shimmer.Shimmer
+import com.github.terrakok.cicerone.Router
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import dev.lantt.itindr.R
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
+import dev.lantt.itindr.core.presentation.navigation.Screens.AboutUser
 import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.core.presentation.utils.Utils.loadImageWithShimmer
 import dev.lantt.itindr.databinding.FragmentFeedBinding
@@ -28,8 +29,8 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
 
     override val store: FeedViewModel by inject()
     private val toastManager: ToastManager by inject()
+    private val router: Router by inject()
 
-    private var loadingDialog: AlertDialog? = null
     private lateinit var shimmer: Shimmer
 
     override fun onCreateView(
@@ -51,6 +52,7 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
         when (effect) {
             FeedMviEffect.Match -> TODO()
             FeedMviEffect.ShowError -> toastManager.showToast(context, R.string.networkError)
+            is FeedMviEffect.GoToAboutUser -> router.navigateTo(AboutUser(effect.profile))
         }
     }
 
@@ -82,13 +84,13 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
 
         // TODO different shimmer (image) + color
         // TODO about myself not working on register?
-        state.avatarUrl?.let {
+        state.currentProfile.avatarUrl?.let {
             binding.userAvatarImage.clipToOutline = true
             binding.userAvatarImage.scaleType = ImageView.ScaleType.CENTER_CROP
-            binding.userAvatarImage.loadImageWithShimmer(state.avatarUrl)
+            binding.userAvatarImage.loadImageWithShimmer(state.currentProfile.avatarUrl)
         }
 
-        binding.userNameText.text = state.name
+        binding.userNameText.text = state.currentProfile.name
 
         val layoutManager = FlexboxLayoutManager(context)
         layoutManager.apply {
@@ -96,17 +98,20 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
         }
 
         binding.interestsRecyclerView.apply {
-            adapter = InterestsAdapter(state.topics)
+            adapter = InterestsAdapter(state.currentProfile.topics)
             setLayoutManager(layoutManager)
         }
 
-        binding.aboutUserText.text = state.aboutMyself
+        binding.aboutUserText.text = state.currentProfile.aboutMyself
 
+        binding.userAvatarImage.setOnClickListener {
+            store.dispatch(FeedMviIntent.UserAvatarClicked(state.currentProfile))
+        }
         binding.dislikeButton.setOnClickListener {
-            store.dispatch(FeedMviIntent.UserDisliked(state.id))
+            store.dispatch(FeedMviIntent.UserDisliked(state.currentProfile.id))
         }
         binding.likeButton.setOnClickListener {
-            store.dispatch(FeedMviIntent.UserLiked(state.id))
+            store.dispatch(FeedMviIntent.UserLiked(state.currentProfile.id))
         }
     }
 }

@@ -21,4 +21,7 @@
     <color name="gray">#FFF3F3F3</color>
     <color name="darkGray">#FFA59EA3</color>
     <color name="galleryGray">#FFF0ECEF</color>
+
+    <color name="gradientStart">#995D5D5D</color>
+    <color name="gradientEnd">#00E5E5E5</color>
 </resources>

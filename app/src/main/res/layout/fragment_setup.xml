@@ -149,7 +149,7 @@
             android:clipToPadding="false"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/padding_medium"
-            android:paddingBottom="88dp"
+            android:paddingBottom="@dimen/above_button_padding"
             app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

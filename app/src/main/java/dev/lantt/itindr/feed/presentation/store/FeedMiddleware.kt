@@ -6,8 +6,10 @@ import dev.lantt.itindr.feed.domain.usecase.GetFeedUseCase
 import dev.lantt.itindr.feed.domain.usecase.LikeUserUseCase
 import dev.lantt.itindr.feed.presentation.state.FeedMviIntent
 import dev.lantt.itindr.feed.presentation.state.FeedMviState
+import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 
 class FeedMiddleware(
+    private val profileMapper: ProfileMapper,
     private val getFeedUseCase: GetFeedUseCase,
     private val likeUserUseCase: LikeUserUseCase,
     private val dislikeUserUseCase: DislikeUserUseCase,
@@ -18,9 +20,10 @@ class FeedMiddleware(
                 runCatching {
                     getFeedUseCase()
                 }.fold(
-                    onSuccess = {
-                        if (it.isNotEmpty()) {
-                            FeedMviIntent.FeedLoadSuccess(it)
+                    onSuccess = { remoteFeed ->
+                        if (remoteFeed.isNotEmpty()) {
+                            val feed = remoteFeed.map { profileMapper.toUiProfile(it) }
+                            FeedMviIntent.FeedLoadSuccess(feed)
                         } else {
                             FeedMviIntent.FeedEmpty
                         }

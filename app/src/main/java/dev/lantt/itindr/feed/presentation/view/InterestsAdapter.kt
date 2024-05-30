@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.lantt.itindr.R
 import dev.lantt.itindr.databinding.ItemTopicBinding
-import dev.lantt.itindr.profile.domain.entity.Topic
+import dev.lantt.itindr.feed.presentation.state.UiTopic
 
 class InterestsAdapter(
-    private val interests: List<Topic>
+    private val interests: List<UiTopic>
 ) : RecyclerView.Adapter<InterestsAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemTopicBinding.bind(view)
 
-        fun bind(topic: Topic) = with (binding) {
+        fun bind(topic: UiTopic) = with (binding) {
             topicTitleTextView.text = topic.title
             topicTitleTextView.isSelected = true
         }

@@ -1,7 +1,6 @@
 package dev.lantt.itindr.core.presentation.mvi
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,8 +11,8 @@ abstract class MviFragment<State : MviState, Intent : MviIntent, Effect : MviEff
 
     abstract val store: MviStore<State, Intent, Effect>
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         store.state
             .flowWithLifecycle(lifecycle)

@@ -18,17 +18,11 @@ class FeedReducer : Reducer<FeedMviState, FeedMviIntent, FeedMviEffect> {
             FeedMviIntent.FeedRequested -> state.copy(isLoading = true)
             is FeedMviIntent.FeedLoadSuccess -> {
                 val user = intent.feed.first()
-                with (user) {
-                    state.copy(
-                        feed = intent.feed,
-                        id = userId,
-                        name = name,
-                        aboutMyself = aboutMyself ?: "",
-                        avatarUrl = avatar,
-                        topics = topics,
-                        isLoading = false
-                    )
-                }
+                state.copy(
+                    feed = intent.feed,
+                    currentProfile = user,
+                    isLoading = false
+                )
             }
             FeedMviIntent.FeedLoadError -> {
                 sendEffect(FeedMviEffect.ShowError)
@@ -40,17 +34,11 @@ class FeedReducer : Reducer<FeedMviState, FeedMviIntent, FeedMviEffect> {
             }
             is FeedMviIntent.ShowNextUser -> {
                 val user = intent.updatedFeed.first()
-                with (user) {
-                    state.copy(
-                        feed = intent.updatedFeed,
-                        id = userId,
-                        name = name,
-                        aboutMyself = aboutMyself ?: "",
-                        avatarUrl = avatar,
-                        topics = topics,
-                        isLoading = false
-                    )
-                }
+                state.copy(
+                    feed = intent.updatedFeed,
+                    currentProfile = user,
+                    isLoading = false
+                )
             }
             FeedMviIntent.FeedEmpty -> state.copy(
                 isEmpty = true,
@@ -63,6 +51,10 @@ class FeedReducer : Reducer<FeedMviState, FeedMviIntent, FeedMviEffect> {
             FeedMviIntent.NextUserRequested -> state.copy(isLoading = false)
             is FeedMviIntent.UserLiked -> state.copy(isLoading = true)
             is FeedMviIntent.UserDisliked -> state.copy(isLoading = true)
+            is FeedMviIntent.UserAvatarClicked -> {
+                sendEffect(FeedMviEffect.GoToAboutUser(intent.profile))
+                state
+            }
         }
     }
 
