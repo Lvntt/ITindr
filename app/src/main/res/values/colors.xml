@@ -22,6 +22,6 @@
     <color name="darkGray">#FFA59EA3</color>
     <color name="galleryGray">#FFF0ECEF</color>
 
-    <color name="gradientStart">#995D5D5D</color>
-    <color name="gradientEnd">#00E5E5E5</color>
+    <color name="gradientStart">#99000000</color>
+    <color name="gradientEnd">#00000000</color>
 </resources>

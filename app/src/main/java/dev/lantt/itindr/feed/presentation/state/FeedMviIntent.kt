@@ -12,7 +12,7 @@ sealed interface FeedMviIntent : MviIntent {
     data class FeedLoadSuccess(val feed: List<UiProfile>) : FeedMviIntent
     data object FeedLoadError : FeedMviIntent
     data object FeedEmpty : FeedMviIntent
-    data object MutualLike : FeedMviIntent
+    data class MutualLike(val userId: String) : FeedMviIntent
     data object NextUserRequested : FeedMviIntent
     data class ShowNextUser(val updatedFeed: List<UiProfile>) : FeedMviIntent
 

@@ -39,7 +39,7 @@ class FeedMiddleware(
                 }.fold(
                     onSuccess = {
                         if (it.isMutual) {
-                            FeedMviIntent.MutualLike
+                            FeedMviIntent.MutualLike(intent.id)
                         } else {
                             FeedMviIntent.NextUserRequested
                         }

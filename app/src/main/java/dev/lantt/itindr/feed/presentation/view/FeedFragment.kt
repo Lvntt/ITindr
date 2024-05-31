@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import com.facebook.shimmer.Shimmer
-import com.github.terrakok.cicerone.Router
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import dev.lantt.itindr.R
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
+import dev.lantt.itindr.core.presentation.navigation.RootRouter
 import dev.lantt.itindr.core.presentation.navigation.Screens.AboutUser
+import dev.lantt.itindr.core.presentation.navigation.Screens.MatchScreen
 import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.core.presentation.utils.Utils.loadImageWithShimmer
 import dev.lantt.itindr.databinding.FragmentFeedBinding
@@ -29,7 +30,7 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
 
     override val store: FeedViewModel by inject()
     private val toastManager: ToastManager by inject()
-    private val router: Router by inject()
+    private val router: RootRouter by inject()
 
     private lateinit var shimmer: Shimmer
 
@@ -50,8 +51,8 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
 
     override fun handleEffect(effect: FeedMviEffect) {
         when (effect) {
-            FeedMviEffect.Match -> TODO()
             FeedMviEffect.ShowError -> toastManager.showToast(context, R.string.networkError)
+            is FeedMviEffect.Match -> router.forwardAbove(MatchScreen(effect.userId))
             is FeedMviEffect.GoToAboutUser -> router.navigateTo(AboutUser(effect.profile))
         }
     }

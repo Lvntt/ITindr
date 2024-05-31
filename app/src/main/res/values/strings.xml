@@ -55,4 +55,9 @@
     <string name="people">Люди</string>
     <string name="chats">Чаты</string>
     <string name="profile">Профиль</string>
+
+    // Match Screen
+    <string name="yourInterfacesMatched">Ваши интерфейсы подошли друг к другу</string>
+    <string name="writeMessage">Написать сообщение</string>
+    <string name="itsMatch">Мэтч!</string>
 </resources>

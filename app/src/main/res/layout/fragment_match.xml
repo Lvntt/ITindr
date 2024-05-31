@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/gradientStart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".match.MatchFragment">
+
+    <ImageView
+        android:id="@+id/matchImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="144dp"
+        android:src="@drawable/img_its_a_match"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/itsMatch"/>
+
+    <TextView
+        android:id="@+id/matchText"
+        style="@style/type_b16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginHorizontal="56dp"
+        android:text="@string/yourInterfacesMatched"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matchImage" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/writeMessageButton"
+        style="@style/default_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/padding_medium"
+        android:layout_marginTop="@dimen/padding_xlarge"
+        android:layout_marginBottom="@dimen/padding_medium"
+        android:background="@drawable/primary_button_background"
+        android:text="@string/writeMessage"
+        android:textColor="@color/on_primary_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

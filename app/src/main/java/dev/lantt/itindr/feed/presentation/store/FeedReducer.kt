@@ -28,8 +28,8 @@ class FeedReducer : Reducer<FeedMviState, FeedMviIntent, FeedMviEffect> {
                 sendEffect(FeedMviEffect.ShowError)
                 state.copy(isLoading = false)
             }
-            FeedMviIntent.MutualLike -> {
-                sendEffect(FeedMviEffect.Match)
+            is FeedMviIntent.MutualLike -> {
+                sendEffect(FeedMviEffect.Match(intent.userId))
                 state.copy(isLoading = false)
             }
             is FeedMviIntent.ShowNextUser -> {
