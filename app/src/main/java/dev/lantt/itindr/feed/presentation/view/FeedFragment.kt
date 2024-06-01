@@ -83,8 +83,6 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
         binding.dislikeButton.isVisible = shouldShowContent
         binding.likeButton.isVisible = shouldShowContent
 
-        // TODO different shimmer (image) + color
-        // TODO about myself not working on register?
         state.currentProfile.avatarUrl?.let {
             binding.userAvatarImage.clipToOutline = true
             binding.userAvatarImage.scaleType = ImageView.ScaleType.CENTER_CROP

@@ -10,6 +10,7 @@ import dev.lantt.itindr.feed.domain.usecase.GetFeedUseCase
 import dev.lantt.itindr.feed.domain.usecase.LikeUserUseCase
 import dev.lantt.itindr.launch.domain.usecase.IsUserLoggedInUseCase
 import dev.lantt.itindr.launch.domain.usecase.IsUserSetUpUseCase
+import dev.lantt.itindr.people.presentation.domain.usecase.GetUserListUseCase
 import dev.lantt.itindr.profile.domain.usecase.GetProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.GetTopicsUseCase
 import dev.lantt.itindr.profile.domain.usecase.SaveProfileUseCase
@@ -33,4 +34,5 @@ fun domainModule(): Module = module {
     factoryOf(::GetFeedUseCase)
     factoryOf(::LikeUserUseCase)
     factoryOf(::DislikeUserUseCase)
+    factoryOf(::GetUserListUseCase)
 }

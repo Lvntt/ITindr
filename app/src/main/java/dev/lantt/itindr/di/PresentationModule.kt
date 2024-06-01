@@ -11,6 +11,9 @@ import dev.lantt.itindr.feed.presentation.store.FeedMiddleware
 import dev.lantt.itindr.feed.presentation.store.FeedReducer
 import dev.lantt.itindr.feed.presentation.store.FeedViewModel
 import dev.lantt.itindr.launch.presentation.LaunchViewModel
+import dev.lantt.itindr.people.presentation.store.PeopleMiddleware
+import dev.lantt.itindr.people.presentation.store.PeopleReducer
+import dev.lantt.itindr.people.presentation.store.PeopleViewModel
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
 import dev.lantt.itindr.profile.presentation.store.SetupMiddleware
@@ -55,5 +58,11 @@ fun presentationModule(): Module = module {
     factoryOf(::FeedReducer)
     viewModel {
         FeedViewModel(get(), get(), Dispatchers.IO)
+    }
+
+    factoryOf(::PeopleMiddleware)
+    factoryOf(::PeopleReducer)
+    viewModel {
+        PeopleViewModel(get(), get(), Dispatchers.IO)
     }
 }
