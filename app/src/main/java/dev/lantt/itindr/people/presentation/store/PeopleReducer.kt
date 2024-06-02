@@ -15,6 +15,8 @@ class PeopleReducer : Reducer<PeopleMviState, PeopleMviIntent, PeopleMviEffect> 
 
     override fun reduce(state: PeopleMviState, intent: PeopleMviIntent): PeopleMviState {
         return when (intent) {
+            PeopleMviIntent.LoadInitialPeople -> state.copy(isLoading = true)
+            is PeopleMviIntent.ReplacePeople -> state.copy(people = intent.people, isLoading = false)
             PeopleMviIntent.LoadMorePeople -> state.copy(isLoading = true)
             is PeopleMviIntent.PeoplePageRetrieved -> state.copy(people = state.people + intent.peoplePage, isLoading = false, currentPage = state.currentPage + 1)
             PeopleMviIntent.PeopleEmptyPageRetrieved -> state.copy(currentPage = state.currentPage + 1)

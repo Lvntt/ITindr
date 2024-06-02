@@ -8,6 +8,8 @@ sealed interface PeopleMviIntent : MviIntent {
     data object PeopleEmptyPageRetrieved : PeopleMviIntent
     data object PeopleError : PeopleMviIntent
 
+    data object LoadInitialPeople : PeopleMviIntent
+    data class ReplacePeople(val people: List<Profile>) : PeopleMviIntent
     data object LoadMorePeople : PeopleMviIntent
     data object PeopleEnded : PeopleMviIntent
 }

@@ -8,8 +8,4 @@ data class PeopleMviState(
     val isLoading: Boolean = false,
     val currentPage: Int = 0,
     val isEnded: Boolean = false
-) : MviState {
-    companion object {
-        const val PEOPLE_PAGE_LIMIT = 20
-    }
-}
+) : MviState

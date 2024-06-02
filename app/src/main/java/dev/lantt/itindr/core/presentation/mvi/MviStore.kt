@@ -39,11 +39,10 @@ abstract class MviStore<State : MviState, Intent : MviIntent, Effect : MviEffect
         stateFlow.update {
             reducer.reduce(stateFlow.value, intent)
         }
-        viewModelScope.launch(defaultDispatcher) {
-            middleware.resolve(stateFlow.value, intent)?.let {
-                dispatch(it)
-            }
-        }
+        middleware
+            .resolve(stateFlow.value, intent)
+            ?.onEach(::dispatch)
+            ?.launchIn(viewModelScope)
     }
 
     private fun sendEffect(effect: Effect) {

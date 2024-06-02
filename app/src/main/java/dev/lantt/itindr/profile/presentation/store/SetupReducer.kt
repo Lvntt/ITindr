@@ -1,6 +1,5 @@
 package dev.lantt.itindr.profile.presentation.store
 
-import android.net.Uri
 import dev.lantt.itindr.core.presentation.mvi.Reducer
 import dev.lantt.itindr.profile.presentation.state.SetupMviEffect
 import dev.lantt.itindr.profile.presentation.state.SetupMviIntent
@@ -21,7 +20,7 @@ class SetupReducer
     ): SetupMviState {
         return when (intent) {
             is SetupMviIntent.AvatarPicked -> state.copy(avatarUri = intent.avatarUri)
-            SetupMviIntent.AvatarRemoved -> state.copy(avatarUri = Uri.EMPTY)
+            SetupMviIntent.AvatarRemoved -> state.copy(avatarUri = null)
             is SetupMviIntent.NameChanged -> state.copy(name = intent.name)
             is SetupMviIntent.NameValidated -> state.copy(isNameValid = intent.isValid)
             is SetupMviIntent.AboutMyselfChanged -> state.copy(aboutMyself = intent.aboutMyself)

@@ -7,6 +7,8 @@ import dev.lantt.itindr.feed.domain.usecase.LikeUserUseCase
 import dev.lantt.itindr.feed.presentation.state.FeedMviIntent
 import dev.lantt.itindr.feed.presentation.state.FeedMviState
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class FeedMiddleware(
     private val profileMapper: ProfileMapper,
@@ -14,60 +16,60 @@ class FeedMiddleware(
     private val likeUserUseCase: LikeUserUseCase,
     private val dislikeUserUseCase: DislikeUserUseCase,
 ) : Middleware<FeedMviState, FeedMviIntent> {
-    override suspend fun resolve(state: FeedMviState, intent: FeedMviIntent): FeedMviIntent? {
+    override fun resolve(state: FeedMviState, intent: FeedMviIntent): Flow<FeedMviIntent>? {
         return when (intent) {
-            FeedMviIntent.FeedRequested -> {
+            FeedMviIntent.FeedRequested -> flow {
                 runCatching {
                     getFeedUseCase()
                 }.fold(
                     onSuccess = { remoteFeed ->
                         if (remoteFeed.isNotEmpty()) {
                             val feed = remoteFeed.map { profileMapper.toUiProfile(it) }
-                            FeedMviIntent.FeedLoadSuccess(feed)
+                            emit(FeedMviIntent.FeedLoadSuccess(feed))
                         } else {
-                            FeedMviIntent.FeedEmpty
+                            emit(FeedMviIntent.FeedEmpty)
                         }
                     },
                     onFailure = {
-                        FeedMviIntent.FeedLoadError
+                        emit(FeedMviIntent.FeedLoadError)
                     }
                 )
             }
-            is FeedMviIntent.UserLiked -> {
+            is FeedMviIntent.UserLiked -> flow {
                 runCatching {
                     likeUserUseCase(intent.id)
                 }.fold(
                     onSuccess = {
                         if (it.isMutual) {
-                            FeedMviIntent.MutualLike(intent.id)
+                            emit(FeedMviIntent.MutualLike(intent.id))
                         } else {
-                            FeedMviIntent.NextUserRequested
+                            emit(FeedMviIntent.NextUserRequested)
                         }
                     },
                     onFailure = {
-                        FeedMviIntent.NetworkError
+                        emit(FeedMviIntent.NetworkError)
                     }
                 )
             }
-            is FeedMviIntent.UserDisliked -> {
+            is FeedMviIntent.UserDisliked -> flow {
                 runCatching {
                     dislikeUserUseCase(intent.id)
                 }.fold(
                     onSuccess = {
-                        FeedMviIntent.NextUserRequested
+                        emit(FeedMviIntent.NextUserRequested)
                     },
                     onFailure = {
-                        FeedMviIntent.NetworkError
+                        emit(FeedMviIntent.NetworkError)
                     }
                 )
             }
-            FeedMviIntent.NextUserRequested -> {
+            FeedMviIntent.NextUserRequested -> flow {
                 // TODO efficiency?
                 val updatedFeed = state.feed.drop(1)
                 if (updatedFeed.isEmpty()) {
-                    FeedMviIntent.FeedEmpty
+                    emit(FeedMviIntent.FeedEmpty)
                 } else {
-                    FeedMviIntent.ShowNextUser(updatedFeed)
+                    emit(FeedMviIntent.ShowNextUser(updatedFeed))
                 }
             }
             else -> null

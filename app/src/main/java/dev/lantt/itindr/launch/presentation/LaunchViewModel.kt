@@ -27,6 +27,7 @@ class LaunchViewModel(
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.i(TAG, "could not get initial info about user")
         effectsFlow.tryEmit(LaunchEffect.RedirectToStartRequired)
+//         TODO effectsFlow.tryEmit(LaunchEffect.RedirectToStartRequired) on Unauthorized
     }
 
     init {

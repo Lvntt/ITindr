@@ -10,6 +10,8 @@ import dev.lantt.itindr.auth.login.presentation.state.LoginMviState
 import dev.lantt.itindr.auth.register.presentation.mapper.ValidationErrorToStringRes
 import dev.lantt.itindr.core.presentation.mvi.Middleware
 import dev.lantt.itindr.launch.domain.usecase.IsUserSetUpUseCase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class LoginMiddleware(
     private val loginUseCase: LoginUseCase,
@@ -17,19 +19,19 @@ class LoginMiddleware(
     private val validatePasswordUseCase: ValidatePasswordUseCase,
     private val isUserSetUpUseCase: IsUserSetUpUseCase
 ) : Middleware<LoginMviState, LoginMviIntent> {
-    override suspend fun resolve(state: LoginMviState, intent: LoginMviIntent): LoginMviIntent? {
+    override fun resolve(state: LoginMviState, intent: LoginMviIntent): Flow<LoginMviIntent>? {
         return when (intent) {
-            is LoginMviIntent.EmailChanged -> {
+            is LoginMviIntent.EmailChanged -> flow {
                 val validationError = validateLoginUseCase(intent.email)
                 val emailErrorResId = getErrorStringRes(validationError)
-                return LoginMviIntent.EmailValidated(emailErrorResId)
+                emit(LoginMviIntent.EmailValidated(emailErrorResId))
             }
-            is LoginMviIntent.PasswordChanged -> {
+            is LoginMviIntent.PasswordChanged -> flow {
                 val validationError = validatePasswordUseCase(intent.password)
                 val passwordErrorResId = getErrorStringRes(validationError)
-                return LoginMviIntent.PasswordValidated(passwordErrorResId)
+                emit(LoginMviIntent.PasswordValidated(passwordErrorResId))
             }
-            LoginMviIntent.LoginRequested -> {
+            LoginMviIntent.LoginRequested -> flow {
                 try {
                     loginUseCase(
                         LoginBody(
@@ -39,12 +41,12 @@ class LoginMiddleware(
                     )
 
                     if (isUserSetUpUseCase()) {
-                        LoginMviIntent.UserIsSetUp
+                        emit(LoginMviIntent.UserIsSetUp)
                     } else {
-                        LoginMviIntent.LoginSuccessful
+                        emit(LoginMviIntent.LoginSuccessful)
                     }
                 } catch (e: Exception) {
-                    LoginMviIntent.LoginFailed
+                    emit(LoginMviIntent.LoginFailed)
                 }
             }
             else -> null

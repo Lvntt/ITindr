@@ -2,25 +2,30 @@
 agp = "8.3.2"
 cicerone = "7.1"
 flexbox = "3.0.0"
-glideVersion = "4.12.0"
+glideVersion = "4.16.0"
 gson = "2.10.1"
 koinCore = "3.4.2"
 kotlin = "1.9.0"
+ksp = "1.9.0-1.0.13"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
 loggingInterceptor = "4.11.0"
 material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
+roomRuntime = "2.6.1"
 securityCrypto = "1.1.0-alpha06"
 shimmerVersion = "0.5.0"
 squareupRetrofit = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 cicerone = { module = "com.github.terrakok:cicerone", version.ref = "cicerone" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "squareupRetrofit" }
@@ -43,4 +48,5 @@ squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+devtoolsKsp = { id = "com.google.devtools.ksp", version.ref="ksp" }
 

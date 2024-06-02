@@ -14,6 +14,6 @@ class PeopleViewModel(
     override fun initialStateProvider(): PeopleMviState = PeopleMviState()
 
     init {
-        dispatch(PeopleMviIntent.LoadMorePeople)
+        dispatch(PeopleMviIntent.LoadInitialPeople)
     }
 }

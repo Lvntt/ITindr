@@ -9,6 +9,8 @@ import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
 import dev.lantt.itindr.profile.presentation.state.SetupMviIntent
 import dev.lantt.itindr.profile.presentation.state.SetupMviState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 private const val TAG = "SetupMiddleware"
 
@@ -19,39 +21,39 @@ class SetupMiddleware(
     private val profileMapper: ProfileMapper,
     private val topicMapper: TopicMapper
 ) : Middleware<SetupMviState, SetupMviIntent> {
-    override suspend fun resolve(
+    override fun resolve(
         state: SetupMviState,
         intent: SetupMviIntent
-    ): SetupMviIntent? {
+    ): Flow<SetupMviIntent>? {
         return when (intent) {
-            SetupMviIntent.SaveRequested -> {
+            SetupMviIntent.SaveRequested -> flow {
                 runCatching {
                     val profileBody = profileMapper.toUpdateProfileBody(state)
                     saveProfileUseCase(profileBody)
                 }.fold(
                     onSuccess = {
-                        SetupMviIntent.SaveSuccessful
+                        emit(SetupMviIntent.SaveSuccessful)
                     },
                     onFailure = {
                         Log.e(TAG, it.stackTraceToString())
-                        SetupMviIntent.SaveFailed
+                        emit(SetupMviIntent.SaveFailed)
                     }
                 )
             }
-            is SetupMviIntent.NameChanged -> {
+            is SetupMviIntent.NameChanged -> flow {
                 val isValid = validateNameUseCase(intent.name)
-                SetupMviIntent.NameValidated(isValid)
+                emit(SetupMviIntent.NameValidated(isValid))
             }
-            SetupMviIntent.TopicsRequested -> {
+            SetupMviIntent.TopicsRequested -> flow {
                 runCatching {
                     getTopicsUseCase()
                 }.fold(
                     onSuccess = {
                         val topics = topicMapper.toPresentation(it)
-                        SetupMviIntent.TopicsRetrieved(topics)
+                        emit(SetupMviIntent.TopicsRetrieved(topics))
                     },
                     onFailure = {
-                        SetupMviIntent.TopicsError
+                        emit(SetupMviIntent.TopicsError)
                     }
                 )
             }
