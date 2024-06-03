@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dev.lantt.itindr.R
-import dev.lantt.itindr.profile.presentation.model.Topic
 import dev.lantt.itindr.databinding.ItemTopicBinding
+import dev.lantt.itindr.profile.presentation.model.Topic
 
 class TopicsListAdapter(
     private val onTopicClick: (Topic) -> Unit

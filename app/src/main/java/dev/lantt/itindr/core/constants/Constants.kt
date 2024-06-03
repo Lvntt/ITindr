@@ -9,6 +9,7 @@ object Constants {
 
     const val NO_CONTENT_CODE = 204
     const val SUCCESS_CODE = 200
+    const val UNAUTHORIZED_CODE = 401
 
     const val PEOPLE_PAGE_LIMIT = 20
     const val INITIAL_PAGE_SIZE = 80

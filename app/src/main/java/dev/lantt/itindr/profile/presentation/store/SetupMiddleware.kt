@@ -3,6 +3,7 @@ package dev.lantt.itindr.profile.presentation.store
 import android.util.Log
 import dev.lantt.itindr.core.presentation.mvi.Middleware
 import dev.lantt.itindr.profile.domain.usecase.GetTopicsUseCase
+import dev.lantt.itindr.profile.domain.usecase.SaveIsSetUpUseCase
 import dev.lantt.itindr.profile.domain.usecase.SaveProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.ValidateNameUseCase
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
@@ -18,6 +19,7 @@ class SetupMiddleware(
     private val saveProfileUseCase: SaveProfileUseCase,
     private val getTopicsUseCase: GetTopicsUseCase,
     private val validateNameUseCase: ValidateNameUseCase,
+    private val saveIsSetUpUseCase: SaveIsSetUpUseCase,
     private val profileMapper: ProfileMapper,
     private val topicMapper: TopicMapper
 ) : Middleware<SetupMviState, SetupMviIntent> {
@@ -30,6 +32,7 @@ class SetupMiddleware(
                 runCatching {
                     val profileBody = profileMapper.toUpdateProfileBody(state)
                     saveProfileUseCase(profileBody)
+                    saveIsSetUpUseCase()
                 }.fold(
                     onSuccess = {
                         emit(SetupMviIntent.SaveSuccessful)

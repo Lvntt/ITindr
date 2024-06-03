@@ -10,6 +10,7 @@ import dev.lantt.itindr.auth.login.presentation.state.LoginMviState
 import dev.lantt.itindr.auth.register.presentation.mapper.ValidationErrorToStringRes
 import dev.lantt.itindr.core.presentation.mvi.Middleware
 import dev.lantt.itindr.launch.domain.usecase.IsUserSetUpUseCase
+import dev.lantt.itindr.profile.domain.usecase.SaveIsSetUpUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -17,7 +18,8 @@ class LoginMiddleware(
     private val loginUseCase: LoginUseCase,
     private val validateLoginUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
-    private val isUserSetUpUseCase: IsUserSetUpUseCase
+    private val isUserSetUpUseCase: IsUserSetUpUseCase,
+    private val saveIsSetUpUseCase: SaveIsSetUpUseCase
 ) : Middleware<LoginMviState, LoginMviIntent> {
     override fun resolve(state: LoginMviState, intent: LoginMviIntent): Flow<LoginMviIntent>? {
         return when (intent) {
@@ -41,6 +43,7 @@ class LoginMiddleware(
                     )
 
                     if (isUserSetUpUseCase()) {
+                        saveIsSetUpUseCase()
                         emit(LoginMviIntent.UserIsSetUp)
                     } else {
                         emit(LoginMviIntent.LoginSuccessful)

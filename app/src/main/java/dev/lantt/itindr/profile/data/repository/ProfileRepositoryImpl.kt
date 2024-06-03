@@ -2,6 +2,8 @@ package dev.lantt.itindr.profile.data.repository
 
 import android.content.ContentResolver
 import android.net.Uri
+import dev.lantt.itindr.core.constants.Constants.UNAUTHORIZED_CODE
+import dev.lantt.itindr.core.domain.exception.UnauthorizedException
 import dev.lantt.itindr.profile.data.api.ProfileApiService
 import dev.lantt.itindr.profile.data.mapper.ProfileMapper
 import dev.lantt.itindr.profile.domain.entity.Profile
@@ -11,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.HttpException
 import java.io.IOException
 
 class ProfileRepositoryImpl(
@@ -18,7 +21,19 @@ class ProfileRepositoryImpl(
     private val profileMapper: ProfileMapper,
     private val contentResolver: ContentResolver
 ) : ProfileRepository {
-    override suspend fun getProfile(): Profile = profileApiService.getProfile()
+    override suspend fun getProfile(): Profile {
+        return try {
+            profileApiService.getProfile()
+        } catch (e: HttpException) {
+            if (e.code() == UNAUTHORIZED_CODE) {
+                throw UnauthorizedException()
+            } else {
+                throw e
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
 
     override suspend fun saveProfile(profile: UpdateProfileBody) = withContext(Dispatchers.IO) {
         profileApiService.updateProfile(profileMapper.toRemoteProfile(profile))

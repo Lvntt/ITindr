@@ -3,6 +3,7 @@ package dev.lantt.itindr.launch.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.lantt.itindr.core.domain.exception.UnauthorizedException
 import dev.lantt.itindr.launch.domain.usecase.IsUserLoggedInUseCase
 import dev.lantt.itindr.launch.domain.usecase.IsUserSetUpUseCase
 import kotlinx.coroutines.CoroutineDispatcher
@@ -26,7 +27,9 @@ class LaunchViewModel(
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.i(TAG, "could not get initial info about user")
-        effectsFlow.tryEmit(LaunchEffect.RedirectToStartRequired)
+        when (throwable) {
+            is UnauthorizedException -> effectsFlow.tryEmit(LaunchEffect.RedirectToStartRequired)
+        }
 //         TODO effectsFlow.tryEmit(LaunchEffect.RedirectToStartRequired) on Unauthorized
     }
 

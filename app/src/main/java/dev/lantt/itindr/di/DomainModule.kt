@@ -14,6 +14,7 @@ import dev.lantt.itindr.people.presentation.domain.usecase.GetInitialUsersUseCas
 import dev.lantt.itindr.people.presentation.domain.usecase.GetUserListUseCase
 import dev.lantt.itindr.profile.domain.usecase.GetProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.GetTopicsUseCase
+import dev.lantt.itindr.profile.domain.usecase.SaveIsSetUpUseCase
 import dev.lantt.itindr.profile.domain.usecase.SaveProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.ValidateNameUseCase
 import org.koin.core.module.Module
@@ -31,6 +32,7 @@ fun domainModule(): Module = module {
     factoryOf(::SaveProfileUseCase)
     factoryOf(::ValidateNameUseCase)
     factoryOf(::IsUserSetUpUseCase)
+    factoryOf(::SaveIsSetUpUseCase)
     factoryOf(::IsUserLoggedInUseCase)
     factoryOf(::GetFeedUseCase)
     factoryOf(::LikeUserUseCase)
