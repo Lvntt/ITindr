@@ -19,10 +19,10 @@ import dev.lantt.itindr.core.presentation.mvi.MviFragment
 import dev.lantt.itindr.core.presentation.navigation.Screens.RootBottomNavigation
 import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.databinding.FragmentSetupBinding
-import dev.lantt.itindr.profile.presentation.state.SetupMviEffect
-import dev.lantt.itindr.profile.presentation.state.SetupMviIntent
-import dev.lantt.itindr.profile.presentation.state.SetupMviState
-import dev.lantt.itindr.profile.presentation.store.SetupViewModel
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviEffect
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviIntent
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviState
+import dev.lantt.itindr.profile.presentation.store.setup.SetupViewModel
 import org.koin.android.ext.android.inject
 import java.io.File
 

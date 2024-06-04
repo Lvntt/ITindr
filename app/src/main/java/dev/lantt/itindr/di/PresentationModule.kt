@@ -16,9 +16,12 @@ import dev.lantt.itindr.people.presentation.store.PeopleReducer
 import dev.lantt.itindr.people.presentation.store.PeopleViewModel
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
-import dev.lantt.itindr.profile.presentation.store.SetupMiddleware
-import dev.lantt.itindr.profile.presentation.store.SetupReducer
-import dev.lantt.itindr.profile.presentation.store.SetupViewModel
+import dev.lantt.itindr.profile.presentation.store.otherprofile.OtherProfileMiddleware
+import dev.lantt.itindr.profile.presentation.store.otherprofile.OtherProfileReducer
+import dev.lantt.itindr.profile.presentation.store.otherprofile.OtherProfileViewModel
+import dev.lantt.itindr.profile.presentation.store.setup.SetupMiddleware
+import dev.lantt.itindr.profile.presentation.store.setup.SetupReducer
+import dev.lantt.itindr.profile.presentation.store.setup.SetupViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -64,5 +67,11 @@ fun presentationModule(): Module = module {
     factoryOf(::PeopleReducer)
     viewModel {
         PeopleViewModel(get(), get(), Dispatchers.IO)
+    }
+
+    factoryOf(::OtherProfileMiddleware)
+    factoryOf(::OtherProfileReducer)
+    viewModel {
+        OtherProfileViewModel(get(), get(), Dispatchers.IO)
     }
 }

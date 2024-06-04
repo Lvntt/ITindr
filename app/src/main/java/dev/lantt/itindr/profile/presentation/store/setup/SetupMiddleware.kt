@@ -1,4 +1,4 @@
-package dev.lantt.itindr.profile.presentation.store
+package dev.lantt.itindr.profile.presentation.store.setup
 
 import android.util.Log
 import dev.lantt.itindr.core.presentation.mvi.Middleware
@@ -8,8 +8,8 @@ import dev.lantt.itindr.profile.domain.usecase.SaveProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.ValidateNameUseCase
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
-import dev.lantt.itindr.profile.presentation.state.SetupMviIntent
-import dev.lantt.itindr.profile.presentation.state.SetupMviState
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviIntent
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

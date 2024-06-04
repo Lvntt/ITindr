@@ -10,6 +10,7 @@ import dev.lantt.itindr.feed.presentation.state.UiProfile
 import dev.lantt.itindr.feed.presentation.view.FeedFragment
 import dev.lantt.itindr.match.MatchFragment
 import dev.lantt.itindr.people.presentation.view.PeopleFragment
+import dev.lantt.itindr.profile.presentation.view.OtherProfileFragment
 import dev.lantt.itindr.profile.presentation.view.SetupFragment
 import dev.lantt.itindr.start.presentation.StartFragment
 
@@ -20,6 +21,7 @@ object Screens {
     fun AboutYourself() = FragmentScreen { SetupFragment() }
     fun AboutUser(uiProfile: UiProfile) = FragmentScreen { AboutUserFragment.newInstance(uiProfile) }
     fun MatchScreen(userId: String) = FragmentScreen { MatchFragment.newInstance(userId) }
+    fun OtherProfile(uiProfile: UiProfile) = FragmentScreen { OtherProfileFragment.newInstance(uiProfile) }
 
     // Bottom Navigation
     fun RootBottomNavigation() = FragmentScreen { BottomNavigationHostFragment() }

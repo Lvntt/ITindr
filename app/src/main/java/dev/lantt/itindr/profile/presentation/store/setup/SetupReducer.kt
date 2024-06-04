@@ -1,9 +1,9 @@
-package dev.lantt.itindr.profile.presentation.store
+package dev.lantt.itindr.profile.presentation.store.setup
 
 import dev.lantt.itindr.core.presentation.mvi.Reducer
-import dev.lantt.itindr.profile.presentation.state.SetupMviEffect
-import dev.lantt.itindr.profile.presentation.state.SetupMviIntent
-import dev.lantt.itindr.profile.presentation.state.SetupMviState
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviEffect
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviIntent
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

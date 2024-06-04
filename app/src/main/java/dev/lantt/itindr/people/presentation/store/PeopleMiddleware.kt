@@ -8,6 +8,7 @@ import dev.lantt.itindr.people.presentation.domain.usecase.GetUserListUseCase
 import dev.lantt.itindr.people.presentation.state.PeopleMviIntent
 import dev.lantt.itindr.people.presentation.state.PeopleMviState
 import dev.lantt.itindr.profile.domain.entity.Profile
+import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.map
 class PeopleMiddleware(
     private val getUserListUseCase: GetUserListUseCase,
     private val getInitialUsersUseCase: GetInitialUsersUseCase,
+    private val profileMapper: ProfileMapper
 ) : Middleware<PeopleMviState, PeopleMviIntent> {
     override fun resolve(state: PeopleMviState, intent: PeopleMviIntent): Flow<PeopleMviIntent>? {
         return when (intent) {
@@ -30,7 +32,9 @@ class PeopleMiddleware(
                         if (remotePeople.isEmpty()) {
                             emit(PeopleMviIntent.PeopleEnded)
                         } else {
-                            val peoplePage = remotePeople.filter { it.name.isNotBlank() }
+                            val peoplePage = remotePeople
+                                .filter { it.name.isNotBlank() }
+                                .map { profileMapper.toUiProfile(it) }
                             if (peoplePage.isEmpty()) {
                                 emit(PeopleMviIntent.PeopleEmptyPageRetrieved)
                             } else {
@@ -51,10 +55,17 @@ class PeopleMiddleware(
             PeopleMviIntent.LoadInitialPeople ->
                     getInitialUsersUseCase()
                         .map<List<Profile>, PeopleMviIntent> { initialUsers ->
-                            val users = initialUsers.filter { it.name.isNotBlank() }
+                            val users = initialUsers
+                                .filter { it.name.isNotBlank() }
+                                .map { profileMapper.toUiProfile(it) }
                             PeopleMviIntent.ReplacePeople(users)
                         }
                         .catch { emit(PeopleMviIntent.PeopleError) }
+
+            is PeopleMviIntent.RemovePersonFromList -> flow {
+                val updatedUsers = state.people.filter { it.id != intent.userIdToRemove }
+                emit(PeopleMviIntent.ReplacePeople(updatedUsers))
+            }
 
             else -> null
         }

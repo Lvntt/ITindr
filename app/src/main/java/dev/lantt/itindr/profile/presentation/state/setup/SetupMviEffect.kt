@@ -1,4 +1,4 @@
-package dev.lantt.itindr.profile.presentation.state
+package dev.lantt.itindr.profile.presentation.state.setup
 
 import dev.lantt.itindr.core.presentation.mvi.MviEffect
 

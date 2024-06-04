@@ -5,7 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.github.terrakok.cicerone.Router
+import dev.lantt.itindr.R
+import dev.lantt.itindr.core.constants.Constants.ARG_PROFILE_ID
+import dev.lantt.itindr.core.constants.Constants.PERSON_REQUEST_KEY
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
+import dev.lantt.itindr.core.presentation.navigation.Screens.OtherProfile
+import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.databinding.FragmentPeopleBinding
 import dev.lantt.itindr.people.presentation.state.PeopleMviEffect
 import dev.lantt.itindr.people.presentation.state.PeopleMviIntent
@@ -19,6 +25,8 @@ class PeopleFragment : MviFragment<PeopleMviState, PeopleMviIntent, PeopleMviEff
     private val binding get() = _binding!!
 
     override val store: PeopleViewModel by inject()
+    private val router: Router by inject()
+    private val toastManager: ToastManager by inject()
 
     private var peopleListAdapter: PeopleListAdapter? = null
 
@@ -28,10 +36,21 @@ class PeopleFragment : MviFragment<PeopleMviState, PeopleMviIntent, PeopleMviEff
     ): View {
         _binding = FragmentPeopleBinding.inflate(inflater, container, false)
 
+        parentFragment?.parentFragmentManager?.setFragmentResultListener(PERSON_REQUEST_KEY, viewLifecycleOwner) { _, bundle ->
+            val profileIdToRemove = bundle.getString(ARG_PROFILE_ID)
+            profileIdToRemove?.let {
+                store.dispatch(PeopleMviIntent.RemovePersonFromList(it))
+            }
+        }
+
         val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         binding.peopleRecyclerView.apply {
             this.layoutManager = layoutManager
-            peopleListAdapter = PeopleListAdapter()
+            peopleListAdapter = PeopleListAdapter(
+                onPersonClick = {
+                    router.navigateTo(OtherProfile(it))
+                }
+            )
             peopleListAdapter?.submitList(store.state.value.people)
 
             adapter = peopleListAdapter
@@ -55,7 +74,7 @@ class PeopleFragment : MviFragment<PeopleMviState, PeopleMviIntent, PeopleMviEff
 
     override fun handleEffect(effect: PeopleMviEffect) {
         when (effect) {
-            PeopleMviEffect.ShowError -> TODO()
+            PeopleMviEffect.ShowError -> toastManager.showToast(context, R.string.networkError)
         }
     }
 

@@ -52,7 +52,11 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
     override fun handleEffect(effect: FeedMviEffect) {
         when (effect) {
             FeedMviEffect.ShowError -> toastManager.showToast(context, R.string.networkError)
-            is FeedMviEffect.Match -> router.forwardAbove(MatchScreen(effect.userId))
+            is FeedMviEffect.Match -> {
+                // TODO test
+                router.exit()
+                router.forwardAbove(MatchScreen(effect.userId))
+            }
             is FeedMviEffect.GoToAboutUser -> router.navigateTo(AboutUser(effect.profile))
         }
     }

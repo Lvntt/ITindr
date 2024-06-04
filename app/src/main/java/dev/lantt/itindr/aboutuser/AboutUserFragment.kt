@@ -9,13 +9,12 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.Router
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import dev.lantt.itindr.core.constants.Constants.ARG_PROFILE
 import dev.lantt.itindr.core.presentation.utils.Utils.loadImageWithShimmer
 import dev.lantt.itindr.databinding.FragmentAboutUserBinding
 import dev.lantt.itindr.feed.presentation.state.UiProfile
 import dev.lantt.itindr.feed.presentation.view.InterestsAdapter
 import org.koin.android.ext.android.inject
-
-private const val ARG_PROFILE = "profile"
 
 class AboutUserFragment : Fragment() {
     private var _binding: FragmentAboutUserBinding? = null

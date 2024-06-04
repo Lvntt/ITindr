@@ -5,7 +5,7 @@ import dev.lantt.itindr.feed.presentation.state.UiTopic
 import dev.lantt.itindr.profile.domain.entity.Profile
 import dev.lantt.itindr.profile.domain.entity.Topic
 import dev.lantt.itindr.profile.domain.entity.UpdateProfileBody
-import dev.lantt.itindr.profile.presentation.state.SetupMviState
+import dev.lantt.itindr.profile.presentation.state.setup.SetupMviState
 
 class ProfileMapper {
 

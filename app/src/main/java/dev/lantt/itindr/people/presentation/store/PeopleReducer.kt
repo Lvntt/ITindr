@@ -20,8 +20,16 @@ class PeopleReducer : Reducer<PeopleMviState, PeopleMviIntent, PeopleMviEffect> 
             PeopleMviIntent.LoadMorePeople -> state.copy(isLoading = true)
             is PeopleMviIntent.PeoplePageRetrieved -> state.copy(people = state.people + intent.peoplePage, isLoading = false, currentPage = state.currentPage + 1)
             PeopleMviIntent.PeopleEmptyPageRetrieved -> state.copy(currentPage = state.currentPage + 1)
-            PeopleMviIntent.PeopleError -> state.copy(isLoading = false)
+            PeopleMviIntent.PeopleError -> {
+                sendEffect(PeopleMviEffect.ShowError)
+                state.copy(isLoading = false)
+            }
             PeopleMviIntent.PeopleEnded -> state.copy(isLoading = false, isEnded = true)
+            is PeopleMviIntent.RemovePersonFromList -> state
         }
+    }
+
+    private fun sendEffect(effect: PeopleMviEffect) {
+        effectsFlow.tryEmit(effect)
     }
 }

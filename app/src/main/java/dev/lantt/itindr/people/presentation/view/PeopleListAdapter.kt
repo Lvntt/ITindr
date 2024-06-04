@@ -10,16 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.lantt.itindr.R
 import dev.lantt.itindr.core.presentation.utils.Utils.loadImageWithShimmer
 import dev.lantt.itindr.databinding.ItemPersonBinding
-import dev.lantt.itindr.profile.domain.entity.Profile
+import dev.lantt.itindr.feed.presentation.state.UiProfile
 
-class PeopleListAdapter : ListAdapter<Profile, PeopleListAdapter.ViewHolder>(DIFF) {
+class PeopleListAdapter(
+    private val onPersonClick: (UiProfile) -> Unit
+) : ListAdapter<UiProfile, PeopleListAdapter.ViewHolder>(DIFF) {
 
     private companion object {
-        val DIFF = object : DiffUtil.ItemCallback<Profile>() {
-            override fun areItemsTheSame(oldItem: Profile, newItem: Profile): Boolean =
-                oldItem.userId == newItem.userId
+        val DIFF = object : DiffUtil.ItemCallback<UiProfile>() {
+            override fun areItemsTheSame(oldItem: UiProfile, newItem: UiProfile): Boolean =
+                oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Profile, newItem: Profile): Boolean =
+            override fun areContentsTheSame(oldItem: UiProfile, newItem: UiProfile): Boolean =
                 oldItem == newItem
 
         }
@@ -30,15 +32,21 @@ class PeopleListAdapter : ListAdapter<Profile, PeopleListAdapter.ViewHolder>(DIF
 
         init {
             binding.personAvatarImage.clipToOutline = true
+
+            binding.root.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    onPersonClick(currentList[adapterPosition])
+                }
+            }
         }
 
-        fun bind(person: Profile) = with(person) {
-            binding.personName.text = name
+        fun bind(person: UiProfile) = with(binding) {
+            personName.text = person.name
 
-            if (avatar != null) {
-                binding.personAvatarImage.loadImageWithShimmer(avatar)
+            if (person.avatarUrl != null) {
+                personAvatarImage.loadImageWithShimmer(person.avatarUrl)
             } else {
-                binding.personAvatarImage.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_user))
+                personAvatarImage.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.ic_user))
             }
         }
     }
