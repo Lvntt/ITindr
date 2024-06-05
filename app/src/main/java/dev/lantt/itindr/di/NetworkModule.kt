@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
+import dev.lantt.itindr.chats.common.data.api.ChatApiService
 import dev.lantt.itindr.core.constants.Constants.BASE_URL
 import dev.lantt.itindr.core.constants.Constants.CONNECT_TIMEOUT_SEC
 import dev.lantt.itindr.core.constants.Constants.READ_TIMEOUT_SEC
@@ -111,6 +112,11 @@ private fun provideUserApiService(
 ): UserApiService =
     retrofit.create(UserApiService::class.java)
 
+private fun provideChatApiService(
+    retrofit: Retrofit
+): ChatApiService =
+    retrofit.create(ChatApiService::class.java)
+
 fun networkModule(): Module = module {
     singleOf(::provideLoggingInterceptor)
     singleOf(::provideAuthInterceptor)
@@ -143,5 +149,8 @@ fun networkModule(): Module = module {
     }
     single {
         provideUserApiService(get(named(AUTH_RETROFIT)))
+    }
+    single {
+        provideChatApiService(get(named(AUTH_RETROFIT)))
     }
 }

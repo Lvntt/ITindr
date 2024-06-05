@@ -5,6 +5,7 @@ import dev.lantt.itindr.auth.common.domain.usecase.ValidatePasswordUseCase
 import dev.lantt.itindr.auth.login.domain.usecase.LoginUseCase
 import dev.lantt.itindr.auth.register.domain.usecase.RegisterUseCase
 import dev.lantt.itindr.auth.register.domain.usecase.ValidateRepeatedPasswordUseCase
+import dev.lantt.itindr.chats.common.domain.usecase.GetChatPreviewsUseCase
 import dev.lantt.itindr.feed.domain.usecase.DislikeUserUseCase
 import dev.lantt.itindr.feed.domain.usecase.GetFeedUseCase
 import dev.lantt.itindr.feed.domain.usecase.LikeUserUseCase
@@ -39,4 +40,5 @@ fun domainModule(): Module = module {
     factoryOf(::DislikeUserUseCase)
     factoryOf(::GetUserListUseCase)
     factoryOf(::GetInitialUsersUseCase)
+    factoryOf(::GetChatPreviewsUseCase)
 }

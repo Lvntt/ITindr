@@ -60,4 +60,7 @@
     <string name="yourInterfacesMatched">Ваши интерфейсы подошли друг к другу</string>
     <string name="writeMessage">Написать сообщение</string>
     <string name="itsMatch">Мэтч!</string>
+
+    // Chat Previews Screen
+    <string name="emptyChatPlaceholder">Напишите первое сообщение!</string>
 </resources>

@@ -4,7 +4,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import dev.lantt.itindr.aboutuser.AboutUserFragment
 import dev.lantt.itindr.auth.login.presentation.view.LoginFragment
 import dev.lantt.itindr.auth.register.presentation.view.RegisterFragment
-import dev.lantt.itindr.chatslist.presentation.view.ChatsListFragment
+import dev.lantt.itindr.chats.chatspreview.presentation.view.ChatsPreviewFragment
 import dev.lantt.itindr.core.presentation.BottomNavigationHostFragment
 import dev.lantt.itindr.feed.presentation.state.UiProfile
 import dev.lantt.itindr.feed.presentation.view.FeedFragment
@@ -27,6 +27,6 @@ object Screens {
     fun RootBottomNavigation() = FragmentScreen { BottomNavigationHostFragment() }
     fun Feed() = FragmentScreen { FeedFragment() }
     fun People() = FragmentScreen { PeopleFragment() }
-    fun Chats() = FragmentScreen { ChatsListFragment() }
+    fun Chats() = FragmentScreen { ChatsPreviewFragment() }
     fun Setup() = FragmentScreen { SetupFragment() }
 }

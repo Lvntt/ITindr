@@ -3,6 +3,8 @@ package dev.lantt.itindr.di
 import android.content.ContentResolver
 import android.content.Context
 import androidx.room.Room
+import dev.lantt.itindr.chats.common.data.repository.ChatRepositoryImpl
+import dev.lantt.itindr.chats.common.domain.repository.ChatRepository
 import dev.lantt.itindr.core.data.repository.AuthRepositoryImpl
 import dev.lantt.itindr.core.domain.repository.AuthRepository
 import dev.lantt.itindr.feed.data.db.UserDatabase
@@ -52,4 +54,5 @@ fun dataModule(): Module = module {
     }
     singleOf(::TopicRepositoryImpl) bind TopicRepository::class
     singleOf(::UserRepositoryImpl) bind UserRepository::class
+    singleOf(::ChatRepositoryImpl) bind ChatRepository::class
 }

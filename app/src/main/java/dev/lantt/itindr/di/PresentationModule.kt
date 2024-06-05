@@ -6,6 +6,9 @@ import dev.lantt.itindr.auth.login.presentation.store.LoginViewModel
 import dev.lantt.itindr.auth.register.presentation.store.RegisterMiddleware
 import dev.lantt.itindr.auth.register.presentation.store.RegisterReducer
 import dev.lantt.itindr.auth.register.presentation.store.RegisterViewModel
+import dev.lantt.itindr.chats.chatspreview.presentation.store.ChatsPreviewMiddleware
+import dev.lantt.itindr.chats.chatspreview.presentation.store.ChatsPreviewReducer
+import dev.lantt.itindr.chats.chatspreview.presentation.store.ChatsPreviewViewModel
 import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.feed.presentation.store.FeedMiddleware
 import dev.lantt.itindr.feed.presentation.store.FeedReducer
@@ -73,5 +76,11 @@ fun presentationModule(): Module = module {
     factoryOf(::OtherProfileReducer)
     viewModel {
         OtherProfileViewModel(get(), get(), Dispatchers.IO)
+    }
+
+    factoryOf(::ChatsPreviewMiddleware)
+    factoryOf(::ChatsPreviewReducer)
+    viewModel {
+        ChatsPreviewViewModel(get(), get(), Dispatchers.IO)
     }
 }

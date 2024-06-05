@@ -21,6 +21,7 @@
     <color name="gray">#FFF3F3F3</color>
     <color name="darkGray">#FFA59EA3</color>
     <color name="galleryGray">#FFF0ECEF</color>
+    <color name="dividerGray">#FFF5F2F4</color>
 
     <color name="gradientStart">#99000000</color>
     <color name="gradientEnd">#00000000</color>
