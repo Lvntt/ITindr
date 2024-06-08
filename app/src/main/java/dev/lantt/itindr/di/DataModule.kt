@@ -3,10 +3,12 @@ package dev.lantt.itindr.di
 import android.content.ContentResolver
 import android.content.Context
 import androidx.room.Room
+import dev.lantt.itindr.chats.common.data.mapper.MessageMapper
 import dev.lantt.itindr.chats.common.data.repository.ChatRepositoryImpl
 import dev.lantt.itindr.chats.common.domain.repository.ChatRepository
 import dev.lantt.itindr.core.data.repository.AuthRepositoryImpl
 import dev.lantt.itindr.core.domain.repository.AuthRepository
+import dev.lantt.itindr.feed.data.dao.UserDao
 import dev.lantt.itindr.feed.data.db.UserDatabase
 import dev.lantt.itindr.feed.data.mapper.UserMapper
 import dev.lantt.itindr.feed.data.repository.UserRepositoryImpl
@@ -26,9 +28,10 @@ import org.koin.dsl.module
 private fun provideProfileRepository(
     profileApiService: ProfileApiService,
     profileMapper: ProfileMapper,
+    userDao: UserDao,
     contentResolver: ContentResolver
 ): ProfileRepository =
-    ProfileRepositoryImpl(profileApiService, profileMapper, contentResolver)
+    ProfileRepositoryImpl(profileApiService, profileMapper, userDao, contentResolver)
 
 private fun provideUserDatabase(context: Context): UserDatabase =
     Room.databaseBuilder(
@@ -43,6 +46,7 @@ private fun provideUserDao(userDatabase: UserDatabase) =
 fun dataModule(): Module = module {
     singleOf(::ProfileMapper)
     singleOf(::UserMapper)
+    singleOf(::MessageMapper)
 
     singleOf(::provideUserDatabase)
     singleOf(::provideUserDao)
@@ -50,7 +54,7 @@ fun dataModule(): Module = module {
     singleOf(::AuthRepositoryImpl) bind AuthRepository::class
     singleOf(::ProfileRepositoryImpl) bind ProfileRepository::class
     single {
-        provideProfileRepository(get(), get(), androidContext().contentResolver)
+        provideProfileRepository(get(), get(), get(), androidContext().contentResolver)
     }
     singleOf(::TopicRepositoryImpl) bind TopicRepository::class
     singleOf(::UserRepositoryImpl) bind UserRepository::class

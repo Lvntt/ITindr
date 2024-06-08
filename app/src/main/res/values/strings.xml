@@ -63,4 +63,9 @@
 
     // Chat Previews Screen
     <string name="emptyChatPlaceholder">Напишите первое сообщение!</string>
+
+    // Chat Screen
+    <string name="chatDateTime">%1$s • %2$s</string>
+    <string name="cameraButtonDescription">Прикрепить фотографию</string>
+    <string name="messageHint">Сообщение...</string>
 </resources>

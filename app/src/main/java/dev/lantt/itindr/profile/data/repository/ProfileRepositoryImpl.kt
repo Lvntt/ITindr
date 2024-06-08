@@ -4,6 +4,7 @@ import android.content.ContentResolver
 import android.net.Uri
 import dev.lantt.itindr.core.constants.Constants.UNAUTHORIZED_CODE
 import dev.lantt.itindr.core.domain.exception.UnauthorizedException
+import dev.lantt.itindr.feed.data.dao.UserDao
 import dev.lantt.itindr.profile.data.api.ProfileApiService
 import dev.lantt.itindr.profile.data.mapper.ProfileMapper
 import dev.lantt.itindr.profile.domain.entity.Profile
@@ -19,11 +20,19 @@ import java.io.IOException
 class ProfileRepositoryImpl(
     private val profileApiService: ProfileApiService,
     private val profileMapper: ProfileMapper,
+    private val userDao: UserDao,
     private val contentResolver: ContentResolver
 ) : ProfileRepository {
-    override suspend fun getProfile(): Profile {
-        return try {
-            profileApiService.getProfile()
+    override suspend fun getAndSaveProfile(): Profile {
+        val localProfile = userDao.getMyProfile()
+        if (localProfile != null) {
+            return profileMapper.toProfile(localProfile)
+        }
+
+        try {
+            val profile = profileApiService.getProfile()
+            userDao.upsertMyProfile(profileMapper.toMyProfileEntity(profile))
+            return profile
         } catch (e: HttpException) {
             if (e.code() == UNAUTHORIZED_CODE) {
                 throw UnauthorizedException()
@@ -35,7 +44,7 @@ class ProfileRepositoryImpl(
         }
     }
 
-    override suspend fun saveProfile(profile: UpdateProfileBody) = withContext(Dispatchers.IO) {
+    override suspend fun updateProfile(profile: UpdateProfileBody) = withContext(Dispatchers.IO) {
         profileApiService.updateProfile(profileMapper.toRemoteProfile(profile))
 
         if (profile.avatarUri == null) {
@@ -47,13 +56,11 @@ class ProfileRepositoryImpl(
         val fileStream = contentResolver.openInputStream(avatarUri)
         val fileBytes = fileStream?.readBytes() ?: throw IOException("could not read avatar file")
         fileStream.close()
-
         val multipartBody = MultipartBody.Part.createFormData(
             "avatar",
             getAvatarFileName(avatarUri),
             fileBytes.toRequestBody()
         )
-
         profileApiService.uploadAvatar(multipartBody)
     }
 

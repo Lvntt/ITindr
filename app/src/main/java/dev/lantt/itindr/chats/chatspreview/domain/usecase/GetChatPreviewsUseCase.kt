@@ -1,4 +1,4 @@
-package dev.lantt.itindr.chats.common.domain.usecase
+package dev.lantt.itindr.chats.chatspreview.domain.usecase
 
 import dev.lantt.itindr.chats.common.domain.repository.ChatRepository
 

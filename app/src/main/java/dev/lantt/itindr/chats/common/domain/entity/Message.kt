@@ -5,5 +5,6 @@ data class Message(
     val text: String,
     val createdAt: Long,
     val user: UserShort,
-    val attachments: List<String>
+    val attachment: String?,
+    val isMine: Boolean
 )

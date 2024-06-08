@@ -2,7 +2,7 @@ package dev.lantt.itindr.chats.chatspreview.presentation.store
 
 import dev.lantt.itindr.chats.chatspreview.presentation.state.ChatsPreviewMviIntent
 import dev.lantt.itindr.chats.chatspreview.presentation.state.ChatsPreviewMviState
-import dev.lantt.itindr.chats.common.domain.usecase.GetChatPreviewsUseCase
+import dev.lantt.itindr.chats.chatspreview.domain.usecase.GetChatPreviewsUseCase
 import dev.lantt.itindr.core.presentation.mvi.Middleware
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -30,7 +30,6 @@ class LaunchViewModel(
         when (throwable) {
             is UnauthorizedException -> effectsFlow.tryEmit(LaunchEffect.RedirectToStartRequired)
         }
-//         TODO effectsFlow.tryEmit(LaunchEffect.RedirectToStartRequired) on Unauthorized
     }
 
     init {

@@ -17,4 +17,6 @@ object Constants {
 
     const val PEOPLE_PAGE_LIMIT = 20
     const val INITIAL_PAGE_SIZE = 80
+
+    const val MESSAGES_PAGE_LIMIT = 20
 }

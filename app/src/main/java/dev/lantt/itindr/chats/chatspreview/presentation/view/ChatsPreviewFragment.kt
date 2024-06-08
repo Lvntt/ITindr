@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.terrakok.cicerone.Router
 import dev.lantt.itindr.R
+import dev.lantt.itindr.chats.chat.presentation.state.UiChat
 import dev.lantt.itindr.chats.chatspreview.presentation.state.ChatsPreviewMviEffect
 import dev.lantt.itindr.chats.chatspreview.presentation.state.ChatsPreviewMviIntent
 import dev.lantt.itindr.chats.chatspreview.presentation.state.ChatsPreviewMviState
 import dev.lantt.itindr.chats.chatspreview.presentation.store.ChatsPreviewViewModel
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
+import dev.lantt.itindr.core.presentation.navigation.Screens.Chat
 import dev.lantt.itindr.core.presentation.utils.ToastManager
 import dev.lantt.itindr.databinding.FragmentChatsPreviewBinding
 import org.koin.android.ext.android.inject
@@ -36,7 +38,14 @@ class ChatsPreviewFragment : MviFragment<ChatsPreviewMviState, ChatsPreviewMviIn
 
         chatsPreviewAdapter = ChatsPreviewAdapter(
             onPreviewClick = {
-                // TODO
+                // TODO map data so adapter uses UiChatPreview with UiChat
+
+                val uiChat = UiChat(
+                    id = it.chat.id,
+                    title = it.chat.title,
+                    avatar = it.chat.avatar
+                )
+                router.navigateTo(Chat(uiChat))
             }
         )
 

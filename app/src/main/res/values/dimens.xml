@@ -11,4 +11,10 @@
 
     <dimen name="button_height">56dp</dimen>
     <dimen name="bottom_bar_height">56dp</dimen>
+
+    <dimen name="avatar_small_size">32dp</dimen>
+    <dimen name="message_round_corner_size">8dp</dimen>
+    <dimen name="camera_button_round_corner_size">8dp</dimen>
+    <dimen name="image_round_corner_size">4dp</dimen>
+    <dimen name="message_input_round_corner_size">4dp</dimen>
 </resources>

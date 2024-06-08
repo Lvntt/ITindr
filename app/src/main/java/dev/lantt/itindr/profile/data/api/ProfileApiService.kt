@@ -23,6 +23,6 @@ interface ProfileApiService {
     suspend fun getProfile(): Profile
 
     @PATCH(PROFILE_URL)
-    suspend fun updateProfile(@Body profile: UpdateProfileModel)
+    suspend fun updateProfile(@Body profile: UpdateProfileModel): Profile
 
 }

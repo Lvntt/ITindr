@@ -8,6 +8,6 @@ class SaveProfileUseCase(
 ) {
 
     suspend operator fun invoke(profile: UpdateProfileBody) =
-        profileRepository.saveProfile(profile)
+        profileRepository.updateProfile(profile)
 
 }
