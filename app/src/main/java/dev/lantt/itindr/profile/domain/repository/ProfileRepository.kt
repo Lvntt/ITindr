@@ -4,6 +4,7 @@ import dev.lantt.itindr.profile.domain.entity.Profile
 import dev.lantt.itindr.profile.domain.entity.UpdateProfileBody
 
 interface ProfileRepository {
-    suspend fun getAndSaveProfile(): Profile
+    suspend fun getProfile(): Profile
+    suspend fun saveProfileLocally()
     suspend fun updateProfile(profile: UpdateProfileBody)
 }

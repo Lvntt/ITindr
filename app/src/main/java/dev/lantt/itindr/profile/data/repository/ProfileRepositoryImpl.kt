@@ -2,6 +2,7 @@ package dev.lantt.itindr.profile.data.repository
 
 import android.content.ContentResolver
 import android.net.Uri
+import android.util.Log
 import dev.lantt.itindr.core.constants.Constants.UNAUTHORIZED_CODE
 import dev.lantt.itindr.core.domain.exception.UnauthorizedException
 import dev.lantt.itindr.feed.data.dao.UserDao
@@ -23,16 +24,19 @@ class ProfileRepositoryImpl(
     private val userDao: UserDao,
     private val contentResolver: ContentResolver
 ) : ProfileRepository {
-    override suspend fun getAndSaveProfile(): Profile {
+
+    private companion object {
+        const val TAG = "ProfileRepositoryImpl"
+    }
+
+    override suspend fun getProfile(): Profile {
         val localProfile = userDao.getMyProfile()
         if (localProfile != null) {
             return profileMapper.toProfile(localProfile)
         }
 
         try {
-            val profile = profileApiService.getProfile()
-            userDao.upsertMyProfile(profileMapper.toMyProfileEntity(profile))
-            return profile
+            return profileApiService.getProfile()
         } catch (e: HttpException) {
             if (e.code() == UNAUTHORIZED_CODE) {
                 throw UnauthorizedException()
@@ -44,11 +48,34 @@ class ProfileRepositoryImpl(
         }
     }
 
+    override suspend fun saveProfileLocally() {
+        val profile = profileApiService.getProfile()
+
+        userDao.upsertMyProfile(profileMapper.toMyProfileEntity(profile))
+
+        profile.topics.forEach {
+            val topicEntity = profileMapper.toTopicEntity(it)
+            userDao.upsertTopic(topicEntity)
+        }
+
+        userDao.deleteProfileTopics(profile.userId)
+        userDao.upsertProfileTopics(profileMapper.toCrossRefs(profile))
+    }
+
     override suspend fun updateProfile(profile: UpdateProfileBody) = withContext(Dispatchers.IO) {
         profileApiService.updateProfile(profileMapper.toRemoteProfile(profile))
 
-        if (profile.avatarUri == null) {
+        if (!profile.shouldUpdateAvatar) {
             return@withContext
+        }
+
+        if (profile.avatarUri == null) {
+            try {
+                profileApiService.deleteAvatar()
+                return@withContext
+            } catch (e: Exception) {
+                Log.d(TAG, "could not delete avatar. maybe the user did not have it at all")
+            }
         }
 
         val avatarUri = Uri.parse(profileMapper.toAvatarUri(profile))

@@ -2,6 +2,8 @@ package dev.lantt.itindr.chats.common.data.repository
 
 import dev.lantt.itindr.chats.common.data.api.ChatApiService
 import dev.lantt.itindr.chats.common.data.mapper.MessageMapper
+import dev.lantt.itindr.chats.common.data.model.ChatCreateBody
+import dev.lantt.itindr.chats.common.domain.entity.Chat
 import dev.lantt.itindr.chats.common.domain.entity.ChatPreview
 import dev.lantt.itindr.chats.common.domain.entity.Message
 import dev.lantt.itindr.chats.common.domain.repository.ChatRepository
@@ -14,6 +16,8 @@ class ChatRepositoryImpl(
 ) : ChatRepository {
 
     override suspend fun getChatPreviews(): List<ChatPreview> = chatApiService.getChatPreviews()
+
+    override suspend fun createChat(userId: String): Chat = chatApiService.createChat(ChatCreateBody(userId))
 
     override suspend fun getChatMessages(chatId: String, limit: Int, offset: Int): List<Message> {
         val myUserId = userDao.getMyProfile()?.profile?.userId ?: throw IllegalStateException("user cannot have null id")

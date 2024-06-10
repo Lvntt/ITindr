@@ -14,7 +14,7 @@ import dev.lantt.itindr.core.presentation.navigation.BottomNavigator
 import dev.lantt.itindr.core.presentation.navigation.Screens.Chats
 import dev.lantt.itindr.core.presentation.navigation.Screens.Feed
 import dev.lantt.itindr.core.presentation.navigation.Screens.People
-import dev.lantt.itindr.core.presentation.navigation.Screens.Setup
+import dev.lantt.itindr.core.presentation.navigation.Screens.Profile
 import dev.lantt.itindr.databinding.FragmentBottomNavigationHostBinding
 
 class BottomNavigationHostFragment : Fragment() {
@@ -47,7 +47,7 @@ class BottomNavigationHostFragment : Fragment() {
                 R.id.navFeed -> router.changeTab(Feed())
                 R.id.navPeople -> router.changeTab(People())
                 R.id.navChats -> router.changeTab(Chats())
-                R.id.navProfile -> router.changeTab(Setup())
+                R.id.navProfile -> router.changeTab(Profile())
                 else -> return@setOnItemSelectedListener false
             }
             return@setOnItemSelectedListener true

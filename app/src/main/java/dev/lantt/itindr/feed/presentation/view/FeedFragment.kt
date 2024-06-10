@@ -53,8 +53,6 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
         when (effect) {
             FeedMviEffect.ShowError -> toastManager.showToast(context, R.string.networkError)
             is FeedMviEffect.Match -> {
-                // TODO test
-                router.exit()
                 router.forwardAbove(MatchScreen(effect.userId))
             }
             is FeedMviEffect.GoToAboutUser -> router.navigateTo(AboutUser(effect.profile))
@@ -90,7 +88,7 @@ class FeedFragment : MviFragment<FeedMviState, FeedMviIntent, FeedMviEffect>() {
         state.currentProfile.avatarUrl?.let {
             binding.userAvatarImage.clipToOutline = true
             binding.userAvatarImage.scaleType = ImageView.ScaleType.CENTER_CROP
-            binding.userAvatarImage.loadImageWithShimmer(state.currentProfile.avatarUrl)
+            binding.userAvatarImage.loadImageWithShimmer(it)
         }
 
         binding.userNameText.text = state.currentProfile.name

@@ -5,7 +5,7 @@
     android:background="@color/gradientStart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".match.MatchFragment">
+    tools:context=".match.presentation.view.MatchFragment">
 
     <ImageView
         android:id="@+id/matchImage"

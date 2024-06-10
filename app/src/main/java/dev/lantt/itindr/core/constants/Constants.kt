@@ -6,6 +6,11 @@ object Constants {
     const val ARG_PROFILE = "arg_profile"
     const val ARG_PROFILE_ID = "arg_profile_id"
     const val PERSON_REQUEST_KEY = "person_request_key"
+    const val PROFILE_CHANGED = "profile_changed"
+    const val CHAT_ADDED_REQUEST_KEY = "chat_added_request_key"
+    const val CHAT_ADDED = "chat_added"
+    const val PROFILE_CHANGED_REQUEST_KEY = "profile_changed_request_key"
+    const val ARG_MATCHED_USER_ID = "matched_user_id"
 
     const val CONNECT_TIMEOUT_SEC = 20L
     const val WRITE_TIMEOUT_SEC = 20L

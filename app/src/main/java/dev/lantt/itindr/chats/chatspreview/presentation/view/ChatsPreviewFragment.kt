@@ -12,6 +12,7 @@ import dev.lantt.itindr.chats.chatspreview.presentation.state.ChatsPreviewMviEff
 import dev.lantt.itindr.chats.chatspreview.presentation.state.ChatsPreviewMviIntent
 import dev.lantt.itindr.chats.chatspreview.presentation.state.ChatsPreviewMviState
 import dev.lantt.itindr.chats.chatspreview.presentation.store.ChatsPreviewViewModel
+import dev.lantt.itindr.core.constants.Constants.CHAT_ADDED_REQUEST_KEY
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
 import dev.lantt.itindr.core.presentation.navigation.Screens.Chat
 import dev.lantt.itindr.core.presentation.utils.ToastManager
@@ -35,6 +36,10 @@ class ChatsPreviewFragment : MviFragment<ChatsPreviewMviState, ChatsPreviewMviIn
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChatsPreviewBinding.inflate(inflater, container, false)
+
+        parentFragment?.parentFragmentManager?.setFragmentResultListener(CHAT_ADDED_REQUEST_KEY, viewLifecycleOwner) { _, _ ->
+            store.dispatch(ChatsPreviewMviIntent.LoadChatsPreview)
+        }
 
         chatsPreviewAdapter = ChatsPreviewAdapter(
             onPreviewClick = {

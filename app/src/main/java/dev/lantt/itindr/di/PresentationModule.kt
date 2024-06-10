@@ -17,14 +17,23 @@ import dev.lantt.itindr.feed.presentation.store.FeedMiddleware
 import dev.lantt.itindr.feed.presentation.store.FeedReducer
 import dev.lantt.itindr.feed.presentation.store.FeedViewModel
 import dev.lantt.itindr.launch.presentation.LaunchViewModel
+import dev.lantt.itindr.match.presentation.store.MatchMiddleware
+import dev.lantt.itindr.match.presentation.store.MatchReducer
+import dev.lantt.itindr.match.presentation.store.MatchViewModel
 import dev.lantt.itindr.people.presentation.store.PeopleMiddleware
 import dev.lantt.itindr.people.presentation.store.PeopleReducer
 import dev.lantt.itindr.people.presentation.store.PeopleViewModel
 import dev.lantt.itindr.profile.presentation.mapper.ProfileMapper
 import dev.lantt.itindr.profile.presentation.mapper.TopicMapper
+import dev.lantt.itindr.profile.presentation.store.edit.EditProfileMiddleware
+import dev.lantt.itindr.profile.presentation.store.edit.EditProfileReducer
+import dev.lantt.itindr.profile.presentation.store.edit.EditProfileViewModel
 import dev.lantt.itindr.profile.presentation.store.otherprofile.OtherProfileMiddleware
 import dev.lantt.itindr.profile.presentation.store.otherprofile.OtherProfileReducer
 import dev.lantt.itindr.profile.presentation.store.otherprofile.OtherProfileViewModel
+import dev.lantt.itindr.profile.presentation.store.profile.ProfileMiddleware
+import dev.lantt.itindr.profile.presentation.store.profile.ProfileReducer
+import dev.lantt.itindr.profile.presentation.store.profile.ProfileViewModel
 import dev.lantt.itindr.profile.presentation.store.setup.SetupMiddleware
 import dev.lantt.itindr.profile.presentation.store.setup.SetupReducer
 import dev.lantt.itindr.profile.presentation.store.setup.SetupViewModel
@@ -91,5 +100,23 @@ fun presentationModule(): Module = module {
     factoryOf(::ChatReducer)
     viewModel { parameters ->
         ChatViewModel(parameters.get(), get(), get(), Dispatchers.IO)
+    }
+
+    factoryOf(::ProfileMiddleware)
+    factoryOf(::ProfileReducer)
+    viewModel {
+        ProfileViewModel(get(), get(), Dispatchers.IO)
+    }
+
+    factoryOf(::EditProfileMiddleware)
+    factoryOf(::EditProfileReducer)
+    viewModel {
+        EditProfileViewModel(get(), get(), Dispatchers.IO)
+    }
+
+    factoryOf(::MatchMiddleware)
+    factoryOf(::MatchReducer)
+    viewModel {
+        MatchViewModel(get(), get(), Dispatchers.IO)
     }
 }

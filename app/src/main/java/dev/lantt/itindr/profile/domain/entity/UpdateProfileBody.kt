@@ -6,5 +6,6 @@ data class UpdateProfileBody(
     val avatarUri: String?,
     val name: String,
     val aboutMyself: String?,
-    val chosenTopics: List<TopicId>
+    val chosenTopics: List<TopicId>,
+    val shouldUpdateAvatar: Boolean
 )

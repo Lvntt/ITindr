@@ -68,4 +68,9 @@
     <string name="chatDateTime">%1$s • %2$s</string>
     <string name="cameraButtonDescription">Прикрепить фотографию</string>
     <string name="messageHint">Сообщение...</string>
+
+    // Profile Screen
+    <string name="edit">Редактировать</string>
+    <string name="editing">Редактирование</string>
+    <string name="interests">Интересы</string>
 </resources>

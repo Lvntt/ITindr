@@ -96,8 +96,6 @@ class OtherProfileFragment : MviFragment<OtherProfileMviState, OtherProfileMviIn
     override fun handleEffect(effect: OtherProfileMviEffect) {
         when (effect) {
             is OtherProfileMviEffect.Match -> {
-                // TODO test
-                router.exit()
                 router.forwardAbove(MatchScreen(effect.userId))
             }
             is OtherProfileMviEffect.GoBack -> {

@@ -4,6 +4,7 @@ import dev.lantt.itindr.profile.data.model.UpdateProfileModel
 import dev.lantt.itindr.profile.domain.entity.Profile
 import okhttp3.MultipartBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
@@ -18,6 +19,9 @@ interface ProfileApiService {
     @Multipart
     @POST(AVATAR_URL)
     suspend fun uploadAvatar(@Part avatar: MultipartBody.Part)
+
+    @DELETE(AVATAR_URL)
+    suspend fun deleteAvatar()
 
     @GET(PROFILE_URL)
     suspend fun getProfile(): Profile

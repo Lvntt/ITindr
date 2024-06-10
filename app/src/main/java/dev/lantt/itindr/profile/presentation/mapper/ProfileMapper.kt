@@ -5,6 +5,7 @@ import dev.lantt.itindr.feed.presentation.state.UiTopic
 import dev.lantt.itindr.profile.domain.entity.Profile
 import dev.lantt.itindr.profile.domain.entity.Topic
 import dev.lantt.itindr.profile.domain.entity.UpdateProfileBody
+import dev.lantt.itindr.profile.presentation.state.edit.EditProfileMviState
 import dev.lantt.itindr.profile.presentation.state.setup.SetupMviState
 
 class ProfileMapper {
@@ -16,7 +17,20 @@ class ProfileMapper {
             aboutMyself = aboutMyself,
             chosenTopics = topics
                 .filter { it.isSelected }
-                .map { it.id }
+                .map { it.id },
+            shouldUpdateAvatar = true
+        )
+    }
+
+    fun toUpdateProfileBody(state: EditProfileMviState) = with(state) {
+        UpdateProfileBody(
+            avatarUri = newAvatarUri?.toString(),
+            name = newName,
+            aboutMyself = newAboutMyself,
+            chosenTopics = newTopics
+                .filter { it.isSelected }
+                .map { it.id },
+            shouldUpdateAvatar = wasAvatarChanged
         )
     }
 
@@ -33,7 +47,8 @@ class ProfileMapper {
     private fun toUiTopic(topic: Topic): UiTopic = with(topic) {
         UiTopic(
             id = id,
-            title = title
+            title = title,
+            isSelected = true
         )
     }
 

@@ -1,8 +1,12 @@
 package dev.lantt.itindr.chats.common.data.api
 
+import dev.lantt.itindr.chats.common.data.model.ChatCreateBody
 import dev.lantt.itindr.chats.common.data.model.MessageModel
+import dev.lantt.itindr.chats.common.domain.entity.Chat
 import dev.lantt.itindr.chats.common.domain.entity.ChatPreview
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -10,6 +14,9 @@ interface ChatApiService {
 
     @GET(CHAT_URL)
     suspend fun getChatPreviews(): List<ChatPreview>
+
+    @POST(CHAT_URL)
+    suspend fun createChat(@Body chatCreateBody: ChatCreateBody): Chat
 
     @GET(CHAT_MESSAGE_URL)
     suspend fun getChatMessages(

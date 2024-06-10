@@ -7,6 +7,7 @@ import androidx.room.Upsert
 import dev.lantt.itindr.feed.data.model.MyProfileEntity
 import dev.lantt.itindr.feed.data.model.MyProfileWithTopics
 import dev.lantt.itindr.feed.data.model.ProfileEntity
+import dev.lantt.itindr.feed.data.model.ProfileTopicCrossRef
 import dev.lantt.itindr.feed.data.model.ProfileWithTopics
 import dev.lantt.itindr.feed.data.model.TopicEntity
 
@@ -28,5 +29,11 @@ interface UserDao {
 
     @Query("SELECT * FROM myProfile LIMIT 1")
     suspend fun getMyProfile(): MyProfileWithTopics?
+
+    @Query("DELETE FROM ProfileTopicCrossRef WHERE userId = :userId")
+    suspend fun deleteProfileTopics(userId: String)
+
+    @Upsert
+    suspend fun upsertProfileTopics(crossRefs: List<ProfileTopicCrossRef>)
 
 }

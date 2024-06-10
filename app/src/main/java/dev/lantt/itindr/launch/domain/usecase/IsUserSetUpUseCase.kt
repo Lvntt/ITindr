@@ -10,7 +10,7 @@ class IsUserSetUpUseCase(
 
     suspend operator fun invoke(): Boolean {
         try {
-            val profile = profileRepository.getAndSaveProfile()
+            val profile = profileRepository.getProfile()
             return profile.name.isNotBlank()
         } catch (e: Exception) {
             return authRepository.isUserSetUp()

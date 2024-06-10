@@ -2,36 +2,47 @@ package dev.lantt.itindr.profile.presentation.view
 
 import android.app.AlertDialog
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.github.terrakok.cicerone.Router
 import dev.lantt.itindr.R
+import dev.lantt.itindr.core.constants.Constants.PROFILE_CHANGED
+import dev.lantt.itindr.core.constants.Constants.PROFILE_CHANGED_REQUEST_KEY
 import dev.lantt.itindr.core.presentation.mvi.MviFragment
-import dev.lantt.itindr.core.presentation.navigation.Screens.RootBottomNavigation
 import dev.lantt.itindr.core.presentation.utils.ToastManager
-import dev.lantt.itindr.databinding.FragmentSetupBinding
-import dev.lantt.itindr.profile.presentation.state.setup.SetupMviEffect
-import dev.lantt.itindr.profile.presentation.state.setup.SetupMviIntent
-import dev.lantt.itindr.profile.presentation.state.setup.SetupMviState
-import dev.lantt.itindr.profile.presentation.store.setup.SetupViewModel
+import dev.lantt.itindr.core.presentation.utils.Utils.loadImageWithShimmer
+import dev.lantt.itindr.databinding.FragmentEditProfileBinding
+import dev.lantt.itindr.feed.presentation.state.UiProfile
+import dev.lantt.itindr.profile.presentation.model.Topic
+import dev.lantt.itindr.profile.presentation.state.edit.EditProfileMviEffect
+import dev.lantt.itindr.profile.presentation.state.edit.EditProfileMviIntent
+import dev.lantt.itindr.profile.presentation.state.edit.EditProfileMviState
+import dev.lantt.itindr.profile.presentation.store.edit.EditProfileViewModel
 import org.koin.android.ext.android.inject
 import java.io.File
 
-class SetupFragment : MviFragment<SetupMviState, SetupMviIntent, SetupMviEffect>() {
+private const val ARG_UI_PROFILE = "arg_ui_profile"
 
-    private var _binding: FragmentSetupBinding? = null
+class EditProfileFragment : MviFragment<EditProfileMviState, EditProfileMviIntent, EditProfileMviEffect>() {
+
+    private var profile: UiProfile? = null
+
+    private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
 
-    override val store: SetupViewModel by inject()
+    override val store: EditProfileViewModel by inject()
     private val toastManager: ToastManager by inject()
     private val router: Router by inject()
 
@@ -40,13 +51,13 @@ class SetupFragment : MviFragment<SetupMviState, SetupMviIntent, SetupMviEffect>
     private var loadingDialog: AlertDialog? = null
     private val pickAvatarLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         uri?.let {
-            store.dispatch(SetupMviIntent.AvatarPicked(it))
+            store.dispatch(EditProfileMviIntent.AvatarPicked(it))
         }
     }
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
         if (isSuccess) {
             takenPictureUri?.let {
-                store.dispatch(SetupMviIntent.AvatarPicked(it))
+                store.dispatch(EditProfileMviIntent.AvatarPicked(it))
             }
         } else {
             takenPictureUri = null
@@ -56,40 +67,75 @@ class SetupFragment : MviFragment<SetupMviState, SetupMviIntent, SetupMviEffect>
 
     private var topicsListAdapter: TopicsListAdapter? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            profile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                it.getParcelable(ARG_UI_PROFILE, UiProfile::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                it.getParcelable(ARG_UI_PROFILE)
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSetupBinding.inflate(inflater, container, false)
+        _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
+
+        profile?.let {
+            store.dispatch(EditProfileMviIntent.InitProfile(it))
+        }
 
         val topicsRecyclerView = binding.topicsRecyclerView
         topicsListAdapter = TopicsListAdapter(
             onTopicClick = {
-                store.dispatch(SetupMviIntent.TopicChosen(it))
+                store.dispatch(EditProfileMviIntent.TopicChosen(it))
             }
         )
-        topicsListAdapter?.submitList(store.state.value.topics)
+        topicsListAdapter?.submitList(
+            store.state.value.newTopics.map {
+                Topic(
+                    id = it.id,
+                    title = it.title,
+                    isSelected = it.isSelected
+                )
+            }
+            // TODO remove mapping
+        )
 
         topicsRecyclerView.adapter = topicsListAdapter
 
+        binding.nameTextInput.editText?.setText(store.state.value.newName, TextView.BufferType.EDITABLE)
+        binding.aboutMyselfTextInput.editText?.setText(store.state.value.newAboutMyself, TextView.BufferType.EDITABLE)
+
         binding.nameTextInput.editText?.doOnTextChanged { text, _, _, _ ->
-            store.dispatch(SetupMviIntent.NameChanged(text.toString()))
+            store.dispatch(EditProfileMviIntent.NameChanged(text.toString()))
         }
         binding.aboutMyselfTextInput.editText?.doOnTextChanged { text, _, _, _ ->
-            store.dispatch(SetupMviIntent.AboutMyselfChanged(text.toString()))
+            store.dispatch(EditProfileMviIntent.AboutMyselfChanged(text.toString()))
         }
 
         binding.saveButton.setOnClickListener {
-            store.dispatch(SetupMviIntent.SaveRequested)
+            store.dispatch(EditProfileMviIntent.SaveRequested)
+        }
+
+        binding.toolbar.setNavigationOnClickListener {
+            router.exit()
         }
 
         return binding.root
     }
 
-    override fun handleEffect(effect: SetupMviEffect) {
+    override fun handleEffect(effect: EditProfileMviEffect) {
         when (effect) {
-            SetupMviEffect.HandleSuccess -> router.newRootScreen(RootBottomNavigation())
-            SetupMviEffect.ShowAvatarChoice -> showAvatarChoiceDialog(
+            EditProfileMviEffect.HandleSuccess -> {
+                parentFragmentManager.setFragmentResult(PROFILE_CHANGED_REQUEST_KEY, bundleOf(PROFILE_CHANGED to true))
+                router.exit()
+            }
+            EditProfileMviEffect.ShowAvatarChoice -> showAvatarChoiceDialog(
                 onMakePhoto = {
                     val tempFile = File.createTempFile("temp", ".jpg", context?.applicationContext?.filesDir).apply {
                         createNewFile()
@@ -103,33 +149,51 @@ class SetupFragment : MviFragment<SetupMviState, SetupMviIntent, SetupMviEffect>
                     pickAvatarLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType("image/jpeg")))
                 }
             )
-            SetupMviEffect.ShowTopicsError -> toastManager.showToast(context, R.string.topicsError)
-            SetupMviEffect.ShowSaveError -> toastManager.showToast(context, R.string.saveError)
+            EditProfileMviEffect.ShowSaveError -> toastManager.showToast(context, R.string.saveError)
+            EditProfileMviEffect.ShowTopicsError -> toastManager.showToast(context, R.string.topicsError)
         }
     }
 
-    override fun render(state: SetupMviState) {
-        topicsListAdapter?.submitList(store.state.value.topics)
+    override fun render(state: EditProfileMviState) {
+        topicsListAdapter?.submitList(
+            store.state.value.newTopics.map {
+                Topic(
+                    id = it.id,
+                    title = it.title,
+                    isSelected = it.isSelected
+                )
+            }
+            // TODO remove mapping
+        )
 
         binding.loadingProgressBar.isVisible = state.areTopicsLoading
 
-        if (state.avatarUri != null) {
+        if (state.newAvatarUri != null) {
             binding.userAvatarImage.clipToOutline = true
             binding.userAvatarImage.scaleType = ImageView.ScaleType.CENTER_CROP
-            binding.userAvatarImage.setImageURI(state.avatarUri)
+            binding.userAvatarImage.setImageURI(state.newAvatarUri)
             binding.choosePhotoTextView.text = getString(R.string.removePhoto)
             binding.choosePhotoTextView.setOnClickListener {
-                store.dispatch(SetupMviIntent.AvatarRemoved)
+                store.dispatch(EditProfileMviIntent.AvatarRemoved)
+            }
+        } else if (state.unchangedProfile.avatarUrl != null && !state.wasAvatarChanged) {
+            binding.userAvatarImage.clipToOutline = true
+            binding.userAvatarImage.scaleType = ImageView.ScaleType.CENTER_CROP
+            binding.userAvatarImage.loadImageWithShimmer(state.unchangedProfile.avatarUrl)
+            binding.choosePhotoTextView.text = getString(R.string.removePhoto)
+            binding.choosePhotoTextView.setOnClickListener {
+                store.dispatch(EditProfileMviIntent.AvatarRemoved)
             }
         } else {
             binding.userAvatarImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_user))
             binding.choosePhotoTextView.text = getString(R.string.choosePhoto)
             binding.choosePhotoTextView.setOnClickListener {
-                store.dispatch(SetupMviIntent.AvatarChoiceRequested)
+                store.dispatch(EditProfileMviIntent.AvatarChoiceRequested)
             }
         }
 
-        binding.nameError.isVisible = !state.isNameValid
+        // TODO add logic
+        // binding.nameError.isVisible = !state.isNameValid
 
         if (state.isLoading) {
             showLoadingDialog()
@@ -176,4 +240,13 @@ class SetupFragment : MviFragment<SetupMviState, SetupMviIntent, SetupMviEffect>
         loadingDialog?.dismiss()
     }
 
+    companion object {
+        @JvmStatic
+        fun newInstance(uiProfile: UiProfile) =
+            EditProfileFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_UI_PROFILE, uiProfile)
+                }
+            }
+    }
 }

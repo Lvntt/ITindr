@@ -2,6 +2,7 @@ package dev.lantt.itindr.profile.data.mapper
 
 import dev.lantt.itindr.feed.data.model.MyProfileEntity
 import dev.lantt.itindr.feed.data.model.MyProfileWithTopics
+import dev.lantt.itindr.feed.data.model.ProfileTopicCrossRef
 import dev.lantt.itindr.feed.data.model.TopicEntity
 import dev.lantt.itindr.profile.data.model.UpdateProfileModel
 import dev.lantt.itindr.profile.domain.entity.Profile
@@ -44,5 +45,21 @@ class ProfileMapper {
             id = topicId,
             title = title
         )
+    }
+
+    fun toTopicEntity(topic: Topic) = with(topic) {
+        TopicEntity(
+            topicId = id,
+            title = title
+        )
+    }
+
+    fun toCrossRefs(profile: Profile) = with(profile) {
+        profile.topics.map {
+            ProfileTopicCrossRef(
+                userId = profile.userId,
+                topicId = it.id
+            )
+        }
     }
 }

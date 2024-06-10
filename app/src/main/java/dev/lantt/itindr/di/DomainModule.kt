@@ -12,11 +12,13 @@ import dev.lantt.itindr.feed.domain.usecase.GetFeedUseCase
 import dev.lantt.itindr.feed.domain.usecase.LikeUserUseCase
 import dev.lantt.itindr.launch.domain.usecase.IsUserLoggedInUseCase
 import dev.lantt.itindr.launch.domain.usecase.IsUserSetUpUseCase
+import dev.lantt.itindr.match.domain.CreateChatUseCase
 import dev.lantt.itindr.people.presentation.domain.usecase.GetInitialUsersUseCase
 import dev.lantt.itindr.people.presentation.domain.usecase.GetUserListUseCase
-import dev.lantt.itindr.profile.domain.usecase.GetAndSaveProfileUseCase
+import dev.lantt.itindr.profile.domain.usecase.GetProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.GetTopicsUseCase
 import dev.lantt.itindr.profile.domain.usecase.SaveIsSetUpUseCase
+import dev.lantt.itindr.profile.domain.usecase.SaveProfileLocallyUseCase
 import dev.lantt.itindr.profile.domain.usecase.SaveProfileUseCase
 import dev.lantt.itindr.profile.domain.usecase.ValidateNameUseCase
 import org.koin.core.module.Module
@@ -30,7 +32,7 @@ fun domainModule(): Module = module {
     factoryOf(::ValidatePasswordUseCase)
     factoryOf(::ValidateRepeatedPasswordUseCase)
     factoryOf(::GetTopicsUseCase)
-    factoryOf(::GetAndSaveProfileUseCase)
+    factoryOf(::GetProfileUseCase)
     factoryOf(::SaveProfileUseCase)
     factoryOf(::ValidateNameUseCase)
     factoryOf(::IsUserSetUpUseCase)
@@ -43,4 +45,6 @@ fun domainModule(): Module = module {
     factoryOf(::GetInitialUsersUseCase)
     factoryOf(::GetChatPreviewsUseCase)
     factoryOf(::GetChatMessagesUseCase)
+    factoryOf(::SaveProfileLocallyUseCase)
+    factoryOf(::CreateChatUseCase)
 }
